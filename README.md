@@ -10,7 +10,7 @@
 ###You must use 32-bit version of dynamically linked libraries. 
 
 ### NEW : January 2016
-Camera problems with windows are solved! You'll find in /libs/cvapture/src/ a C++ code for a library allowing access to camera with C++ functions. Code must be compiled by yourself. Exported functions are declared in /libs/videoio/videoio.reds. 
+Camera problems with windows are solved! You'll find in /libs/capture/src/ a C++ code for a library allowing access to camera with C++ functions. Code must be compiled by yourself. Exported functions are declared in /libs/videoio/videoio.reds. 
 
 Libs and samples are now compatible with Opencv 3.0.1. For versions < 3.0.0 you have to adapt the code according to OpenCV directories and C implementation.
 
