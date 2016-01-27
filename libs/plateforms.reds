@@ -31,7 +31,7 @@ Red/System [
         #define photo "c:\opencv310\build\x86\mingw\libopencv_world310.dll" 
         #define video "c:\opencv310\build\x86\mingw\libopencv_world310.dll" 
         #define videoio "c:\opencv310\build\x86\mingw\libopencv_world310.dll" 
-        #define videocapture ""
+        #define videocapture "c:\opencv310\build\x86\mingw\cameraLib.dll"
     ]
     Linux   [
         #define highgui "/usr/local/lib/libopencv_world.so.3.0.0" 

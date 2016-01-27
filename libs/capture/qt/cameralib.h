@@ -18,15 +18,17 @@ public:
 extern "C"
 {
     VideoCapture cam;
+    Mat frame;
+    IplImage image;
     bool openCamera(int index);
     void releaseCamera();
     double getCameraProperty(int propId);
     bool setCameraProperty(int propId, double value);
-    bool readCamera(OutputArray image);
+    IplImage* readCamera();
     bool grabFrame();
-    bool retrieveFrame(OutputArray image,int flag);
+    IplImage* retrieveFrame(int flag);
     bool openFile(String fileName);
-    bool openFileApi(String fileName, int apiPreference);
+    //bool openFileApi(String fileName, int apiPreference);
 }
 
 

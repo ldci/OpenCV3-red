@@ -25,9 +25,11 @@ CAMERALIBSHARED_EXPORT double getCameraProperty(int propId)
     return cam.get(propId);
 }
 
-CAMERALIBSHARED_EXPORT bool readCamera(OutputArray image)
+CAMERALIBSHARED_EXPORT IplImage* readCamera()
 {
-    return cam.read(image);
+    cam.read(frame);
+    image=frame;
+    return &image;
 }
 
 CAMERALIBSHARED_EXPORT bool grabFrame()
@@ -35,9 +37,11 @@ CAMERALIBSHARED_EXPORT bool grabFrame()
     return cam.grab();
 }
 
-CAMERALIBSHARED_EXPORT bool retrieveFrame(OutputArray image,int flag)
+CAMERALIBSHARED_EXPORT IplImage* retrieveFrame(int flag)
 {
-    return cam.retrieve(image,flag);
+    cam.retrieve(frame,flag);
+    image=frame;
+    return &image;
 }
 
 CAMERALIBSHARED_EXPORT bool openFile(String fileName)
@@ -45,8 +49,8 @@ CAMERALIBSHARED_EXPORT bool openFile(String fileName)
     return cam.open(fileName);
 }
 
-CAMERALIBSHARED_EXPORT bool openFileApi(String fileName, int apiPreference)
-{
-    return cam.open(fileName,apiPreference);
-}
+//CAMERALIBSHARED_EXPORT bool openFileApi(String fileName, int apiPreference)
+//{
+//    return cam.open(fileName,apiPreference);
+//}
 
