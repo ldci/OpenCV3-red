@@ -52,7 +52,7 @@ print ["heigh: " getCameraProperty CV_CAP_PROP_FRAME_HEIGHT lf]
 print ["fps: " getCameraProperty CV_CAP_PROP_FPS lf]
 
 img: readCamera
-cvShowImage "Default Camera" as byte-ptr! img
+cvShowImage "Default Camera" as int-ptr! img
 
 key:  27
 foo: 0
@@ -60,7 +60,7 @@ foo: 0
 ; repeat until esc keypress
 while [foo <> key] [
     img: readCamera
-    cvShowImage "Default Camera" as byte-ptr! img
+    cvShowImage "Default Camera" as int-ptr! img
     foo: cvWaitKey 40
 ]
 

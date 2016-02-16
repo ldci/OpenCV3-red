@@ -16,7 +16,9 @@ Red/System [
 ; accoding to OS 
 #switch OS [
     MacOSX  [image: "/Users/fjouen/Pictures/baboon.jpg"]
-    Windows [image: "c:\Users\palm\Pictures\lena.tiff"]
+    Windows [image: "c:\Users\palm\Pictures\baboon.jpg"]
+    Linux   [image: "/home/fjouen/Images/baboon.jpg"]
+    
 ]
 
 
@@ -25,16 +27,16 @@ windowsName: image;  ; filename as title
 cvNamedWindow windowsName CV_WND_PROP_AUTOSIZE OR CV_WND_PROP_ASPECTRATIO
 ;load and show color image
 tmp: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
-src: as byte-ptr! tmp
-dst: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 3
-r: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
-g: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
-b: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+src: as int-ptr! tmp
+dst: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 4
+r: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+g: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+b: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
 
 cvSplit src r g b null
-dst1: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
-dst2: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
-dst3: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+dst1: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+dst2: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+dst3: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
 cvSort  r dst1 null 1
 cvSort  g dst2 null 1
 cvSort  b dst3 null 1

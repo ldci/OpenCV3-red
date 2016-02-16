@@ -25,7 +25,7 @@ createCam: routine [device [integer!]] [
 ; read webcam frames
 render: routine [return: [integer!]] [
 	img: readCamera
-	cvShowImage "OpenCV Camera Test with Red and C++ Functions" as byte-ptr! img
+	cvShowImage "OpenCV Camera Test with Red and C++ Functions" as int-ptr! img
 	return cvWaitKey 40
 ]
 

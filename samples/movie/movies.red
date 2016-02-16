@@ -24,7 +24,7 @@ Red [
 		;MacOSX  [movie: "/Users/fjouen/Movies/test.mov"]
 		MacOSX  [movie: "/Users/fjouen/Movies/skate.mp4"]
 		Windows [movie: "c:\Users\palm\Videos\skate.mp4"]
-		Linux  	[movie: "/home/fjouen/Movies/skate.mp4"]
+		;Linux  [movie: "/home/fjouen/Vidéos/skate.mp4"]
 	]
 ]
 
@@ -45,7 +45,7 @@ render: routine [] [
 	while [cpt < nbFrames] [
 		iplimage: cvQueryFrame capture ; get frame
 		print ["Frame: " cpt lf]
-		cvShowImage movie  as byte-ptr! iplimage ; show frame
+		cvShowImage movie  as int-ptr! iplimage ; show frame
 		foo: cvWaitKey 42 ; wait for 42 ms  (1/FPS * 1000)
 		cpt: cpt + 1.0
 	]
@@ -53,7 +53,7 @@ render: routine [] [
 	print ["Done. Please wait" lf]
 	cvWaitKey 2000
 	cvDestroyAllWindows
-	releaseImage as byte-ptr! iplimage
+	releaseImage as int-ptr! iplimage
 	releaseCapture capture
 ]	
 

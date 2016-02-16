@@ -7,7 +7,17 @@
 ### This binding allows access about 600 basic OpenCV functions.
 ### This binding can used with 3.0 and higher version of opencv library.
 
-###You must use 32-bit version of dynamically linked libraries. 
+###You must use 32-bit version of dynamically linked libraries.
+
+### NEW : FEBRUARY 2016
+CvArr! opaque structure is now defined as int-ptr! for a better access to structures values. See getImageValues.reds for detail.
+
+All samples are updated to be compatible with this new version.
+
+You'll also find pre-compiled libs (in /openCV3) for OSX, Linux and Windows for OpenCV3.0 and OPenCV3.1
+
+Enjoy:)
+ 
 
 ### NEW : January 2016
 Camera problems with windows are solved! You'll find in /libs/capture/src/ a C++ code for a library allowing access to camera with C++ functions. Code must be compiled by yourself. Exported functions are declared in /libs/videoio/videoio.reds. 

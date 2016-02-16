@@ -34,14 +34,14 @@ windowsName: image;  ; filename as title
 ; sort each rgg channel by column
 sort: routine [] [
 	tmp: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
-	src: as byte-ptr! tmp
-	dst: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 3
-	r: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
-	g: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
-	b: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
-	dst1: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
-	dst2: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
-	dst3: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+	src: as int-ptr! tmp
+	dst: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 3
+	r: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+	g: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+	b: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+	dst1: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+	dst2: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
+	dst3: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1
 	cvSplit src r g b null
 	cvSort  r dst1 null CV_SORT_EVERY_COLUMN
 	cvSort  g dst2 null CV_SORT_EVERY_COLUMN

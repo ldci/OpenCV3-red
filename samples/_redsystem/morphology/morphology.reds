@@ -17,12 +17,14 @@ Red/System [
 #switch OS [
     MacOSX  [image: "/Users/fjouen/Pictures/baboon.jpg"]
     Windows [image: "c:\Users\palm\Pictures\baboon.jpg"]
+    Linux   [image: "/home/fjouen/Images/baboon.jpg"]
 ]
 
 element_shape: CV_SHAPE_RECT
 max_iters: 10;
 open_close_pos: max_iters + 1
 erode_dilate_pos: max_iters + 1
+
     
 ;the address of variable which receives trackbar position update
 &open_close_pos: declare pointer![integer!] &open_close_pos: :open_close_pos
@@ -30,29 +32,29 @@ erode_dilate_pos: max_iters + 1
 
 
 ;callback functions for open/close trackbar
-OpenClose: func [[importMode] pos [integer!] /local n an][
+OpenClose: func [[importMode] pos [integer!] /local n an element &element &&element][
         n: &open_close_pos/value - max_iters
         either n > 0 [an: n] [an: 0 - n]
         element: cvCreateStructuringElementEx (an * 2) + 1 (an * 2) + 1 an an element_shape null ; 0
-        &element: as byte-ptr! element
-        &&element: declare double-byte-ptr!
+        &element: as int-ptr! element
+        &&element: declare double-int-ptr!
         &&element/ptr: &element 
-        either n < 0 [cvErode as byte-ptr! src as byte-ptr! dst element 1 cvDilate as byte-ptr!  dst as byte-ptr! dst element 1]
-                     [cvDilate as byte-ptr! src as byte-ptr! dst element 1 cvErode as byte-ptr! dst  as byte-ptr! dst element 1]
+        either n < 0 [cvErode as int-ptr! src as int-ptr! dst element 1 cvDilate as int-ptr!  dst as int-ptr! dst element 1]
+                     [cvDilate as int-ptr! src as int-ptr! dst element 1 cvErode as int-ptr! dst  as int-ptr! dst element 1]
         cvReleaseStructuringElement  &&element
-        cvShowImage "Open/Close"  as byte-ptr! dst
+        cvShowImage "Open/Close"  as int-ptr! dst
 ]
 
-ErodeDilate: func [[importMode] pos [integer! ] /local n an][
+ErodeDilate: func [[importMode] pos [integer! ] /local n an element &element &&element][
         n: &erode_dilate_pos/value - max_iters
 	either n > 0 [an: n] [an: 0 - n]
         element: cvCreateStructuringElementEx (an * 2) + 1 (an * 2) + 1 an an element_shape null ; 0
-        &element: as byte-ptr! element
-        &&element: declare double-byte-ptr!
+        &element: as int-ptr! element
+        &&element: declare double-int-ptr!
         &&element/ptr: &element
-        either n < 0 [cvErode  as byte-ptr!  src  as byte-ptr! dst element 1] [cvDilate  as byte-ptr! src  as byte-ptr! dst element 1 ]
+        either n < 0 [cvErode  as int-ptr!  src  as int-ptr! dst element 1] [cvDilate  as int-ptr! src  as int-ptr! dst element 1 ]
         cvReleaseStructuringElement  &&element
-        cvShowImage "Erode/Dilate"  as byte-ptr! dst
+        cvShowImage "Erode/Dilate"  as int-ptr! dst
 ]
 
 
@@ -69,16 +71,12 @@ cvCreateTrackbar  "Iterations" "Open/Close" &open_close_pos max_iters * 2 + 1 :O
 cvCreateTrackbar "Iterations" "Erode/Dilate" &erode_dilate_pos max_iters * 2 + 1 :ErodeDilate
 
 
-cvShowImage "Open/Close" as byte-ptr! dst
-cvShowImage "Erode/Dilate" as byte-ptr! dst    
+cvShowImage "Open/Close" as int-ptr! dst
+cvShowImage "Erode/Dilate" as int-ptr! dst    
 
 cvWaitKey 0 ; until a key is pressed
 
 ; release window and images
-&src: declare double-byte-ptr!
-&src/ptr: as byte-ptr! src
-&dst: declare double-byte-ptr!
-&dst/ptr:  as byte-ptr! dst
-cvReleaseImage  &src
-cvReleaseImage  &dst
+releaseImage as int-ptr! src
+releaseImage as int-ptr! dst
 cvDestroyAllWindows

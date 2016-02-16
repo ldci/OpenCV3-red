@@ -16,6 +16,7 @@ Red/System [
 #switch OS [
     MacOSX  [image: "/Users/fjouen/Pictures/lena.tiff"]
     Windows [image: "c:\Users\palm\Pictures\lena.tiff"]
+    Linux   [image: "/home/fjouen/Images/lena.tiff"]
 ]
 
 
@@ -40,7 +41,7 @@ cvSetMouseCallBack windowsName :mouseEvent null
 ;load and show color image
 img: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
 print ["image is " img/width "x" img/height newline]
-cvShowImage windowsName as byte-ptr! img
+cvShowImage windowsName as int-ptr! img
 cvMoveWindow windowsName 200 200
 cvWaitKey 0
 cvDestroyAllWindows

@@ -52,20 +52,20 @@ ymin: 0
 
 image: cvCreateImage width height IPL_DEPTH_32F 3
 cvNamedWindow wndname CV_WINDOW_AUTOSIZE
-cvZero as byte-ptr! image
+cvZero as int-ptr! image
 
 cvGetTextSize "Any key to start" font text_size as int-ptr! ymin
 pt1/x: (width - text_size/width) / 2
 pt1/y: (height + text_size/height) / 2
 
-cvPutText as byte-ptr! image "Any key to start" pt1/x pt1/y font 0.0 56.0 -56.0 0.0
-cvShowImage wndname as byte-ptr! image
+cvPutText as int-ptr! image "Any key to start" pt1/x pt1/y font 0.0 56.0 -56.0 0.0
+cvShowImage wndname as int-ptr! image
 cvwaitKey 0
 
-cvZero as byte-ptr! image
+cvZero as int-ptr! image
 
 cvGetTextSize "Drawing Lines" font text_size as int-ptr! ymin
-cvPutText as byte-ptr! image "Drawing Lines" pt1/x pt1/y font 0.0 56.0 -56.0 0.0
+cvPutText as int-ptr! image "Drawing Lines" pt1/x pt1/y font 0.0 56.0 -56.0 0.0
 
 random-seed 310952
 
@@ -84,8 +84,8 @@ until [
     color/v3: 0.0
     thickness: random / 65536000
     print [ (random / 3276800) newline]
-    cvLine as byte-ptr! image pt1/x pt1/y pt2/x pt2/y color/v0 color/v1 color/v2 color/v3 thickness lineType 0
-    cvShowImage wndname as byte-ptr! image
+    cvLine as int-ptr! image pt1/x pt1/y pt2/x pt2/y color/v0 color/v1 color/v2 color/v3 thickness lineType 0
+    cvShowImage wndname as int-ptr! image
     cvwaitKey delay
     i: i + 1
     i = (number + 1)

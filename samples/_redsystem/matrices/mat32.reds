@@ -14,7 +14,7 @@ Red/System [
 
 print ["32-bit 1 channel image" lf]
 
-image: as byte-ptr! cvCreateImage 640 480 IPL_DEPTH_32F 1
+image: as int-ptr! cvCreateImage 640 480 IPL_DEPTH_32F 1
 cvZero image
 
 

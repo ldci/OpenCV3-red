@@ -103,12 +103,12 @@ createImage: routine [ name [string!]
 	cvInitFont font CV_FONT_HERSHEY_SIMPLEX 2.0 2.0 0.0 1 CV_AA
 	iplimage: cvCreateImage width height IPL_DEPTH_32F 3
 	cvNamedWindow as c-string! string/rs-head name CV_WINDOW_AUTOSIZE
-	cvZero as byte-ptr! iplimage
+	cvZero as int-ptr! iplimage
 	cvGetTextSize "Any key to start" font text_size as int-ptr! ymin
 	pt1/x: (width - text_size/width) / 2
 	pt1/y: (height + text_size/height) / 2
-	cvPutText as byte-ptr! iplimage "Any key to start" pt1/x pt1/y font 0.0 56.0 -56.0 0.0
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvPutText as int-ptr! iplimage "Any key to start" pt1/x pt1/y font 0.0 56.0 -56.0 0.0
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvwaitKey 0
 ]
 
@@ -118,15 +118,15 @@ makeTitle: routine [name [string!] txt [string!]][
 	cvGetTextSize as c-string! string/rs-head txt font text_size as int-ptr! ymin
 	pt1/x: (width - text_size/width) / 2
 	pt1/y: (height + text_size/height) / 2
-	cvZero as byte-ptr! iplimage
-	cvPutText as byte-ptr! iplimage as c-string! string/rs-head txt pt1/x pt1/y font 0.0 56.0 -56.0 0.0
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvZero as int-ptr! iplimage
+	cvPutText as int-ptr! iplimage as c-string! string/rs-head txt pt1/x pt1/y font 0.0 56.0 -56.0 0.0
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 ]
 
 ; clear main image
 clearImage: routine [name [string!]][
-	cvZero as byte-ptr! iplimage
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvZero as int-ptr! iplimage
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 ]
 
 waitFor: routine [delay [integer!]][cvwaitKey delay]
@@ -148,10 +148,10 @@ drawSubstract: routine [
 	/local allS
 	] [
 	allS: cvScalarAll ii
-	cvSubS as byte-ptr! image2 allS/v0 allS/v1 allS/v2 allS/v3 as byte-ptr! iplimage null
+	cvSubS as int-ptr! image2 allS/v0 allS/v1 allS/v2 allS/v3 as int-ptr! iplimage null
 	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
-	cvPutText as byte-ptr! iplimage "www.red-lang.org" pt1/x pt1/y font color/v0 color/v1 color/v2 color/v3
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvPutText as int-ptr! iplimage "www.red-lang.org" pt1/x pt1/y font color/v0 color/v1 color/v2 color/v3
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	ii: ii + 1.0
 	cvWaitKey 1
 ]
@@ -172,8 +172,8 @@ drawText: routine [
 	[
 	cvInitFont font f int-to-float h int-to-float v 0.0 t CV_AA
 	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
-	cvPutText as byte-ptr! iplimage "Red is fantastic!" p1/x p1/y font color/v0 color/v1 color/v2 color/v3
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvPutText as int-ptr! iplimage "Red is fantastic!" p1/x p1/y font color/v0 color/v1 color/v2 color/v3
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvWaitKey 1
 ]
 
@@ -189,8 +189,8 @@ drawLines: routine [
 	t  		[integer!]
 	][
 	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
-	cvLine as byte-ptr! iplimage p1/x p1/y p2/x p2/y color/v0 color/v1 color/v2 color/v3 t CV_AA 0
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvLine as int-ptr! iplimage p1/x p1/y p2/x p2/y color/v0 color/v1 color/v2 color/v3 t CV_AA 0
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvWaitKey 1
 ]
 
@@ -205,8 +205,8 @@ drawRectangles: routine [
 	t  		[integer!]
 	][
 	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
-	cvRectangle as byte-ptr! iplimage p1/x p1/y p2/x p2/y color/v0 color/v1 color/v2 color/v3 t CV_AA 0
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvRectangle as int-ptr! iplimage p1/x p1/y p2/x p2/y color/v0 color/v1 color/v2 color/v3 t CV_AA 0
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvWaitKey 1
 ]
 
@@ -221,8 +221,8 @@ drawCircles: routine [
 	t  		[integer!]
 	][
 	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
-	cvCircle as byte-ptr! iplimage p1/x p1/y rad color/v0 color/v1 color/v2 color/v3 t CV_AA 0
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvCircle as int-ptr! iplimage p1/x p1/y rad color/v0 color/v1 color/v2 color/v3 t CV_AA 0
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvWaitKey 1
 ]
 
@@ -244,8 +244,8 @@ drawEllipses: routine [
 	anglea: angle
 	starta:  angle + 100.0 
 	enda: angle + 200.0
-	cvEllipse as byte-ptr! iplimage p1/x p1/y p2/x p2/y anglea starta enda color/v0 color/v1 color/v2 color/v3 t CV_AA 0
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvEllipse as int-ptr! iplimage p1/x p1/y p2/x p2/y anglea starta enda color/v0 color/v1 color/v2 color/v3 t CV_AA 0
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvWaitKey 1
 ]
 
@@ -285,13 +285,13 @@ drawPolygons: routine [
 	ppoints/11: p6/x
 	ppoints/12: p6/y
 	
-	dppoints: declare diptr! ; double int pointer to CvPoints array
+	dppoints: declare double-int-ptr! ; double int pointer to CvPoints array
 	dppoints/ptr: ppoints
 	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
 	contours: 2
 	isClosed: 1 
-	cvPolyLine as byte-ptr! iplimage dppoints parray contours isClosed color/v0 color/v1 color/v2 color/v3 t CV_AA 0
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvPolyLine as int-ptr! iplimage dppoints parray contours isClosed color/v0 color/v1 color/v2 color/v3 t CV_AA 0
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	free mem1
 	free mem2
 	cvWaitKey 1
@@ -325,8 +325,8 @@ drawConvexPoly: routine [
 	ppoints/11: p6/x
 	ppoints/12: p6/x
 	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
-	cvFillConvexPoly as byte-ptr! iplimage ppoints 6 color/v0 color/v1 color/v2 color/v3 CV_AA 0
-	cvShowImage as c-string! string/rs-head name as byte-ptr! iplimage
+	cvFillConvexPoly as int-ptr! iplimage ppoints 6 color/v0 color/v1 color/v2 color/v3 CV_AA 0
+	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	free mem2
 	cvWaitKey 1
 ]
@@ -336,8 +336,8 @@ drawConvexPoly: routine [
 
 freeOpenCV: routine [] [
 	cvDestroyAllWindows
-	releaseImage as byte-ptr! iplimage
-	releaseImage as byte-ptr! image2
+	releaseImage as int-ptr! iplimage
+	releaseImage as int-ptr! image2
 ]
 
 

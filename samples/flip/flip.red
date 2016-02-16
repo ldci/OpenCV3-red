@@ -18,6 +18,7 @@ Red [
 	#switch OS [
 		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
 		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
+		Linux  	[picture: "/home/fjouen/Images/baboon.jpg"]
 	]
 	; global variables
 	
@@ -29,7 +30,7 @@ Red [
 
 flipImage: routine [][
     print ["Please wait for..." newline]
-    img: as byte-ptr! cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR 
+    img: as int-ptr! cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR 
     cvShowImage wName img
     cvMoveWindow wName  100 100
     cvWaitKey delay

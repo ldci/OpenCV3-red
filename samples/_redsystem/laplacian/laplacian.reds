@@ -13,36 +13,34 @@ Red/System [
 #include %../../../libs/imgproc/imgproc.reds       ; OpenCV image  processing
 #include %../../../libs/core/core.reds             ; OpenCV core functions
 
-; accoding to OS 
+; according to OS 
 #switch OS [
     MacOSX  [image: "/Users/fjouen/Pictures/baboon.jpg"]
     Windows [image: "c:\Users\palm\Pictures\baboon.jpg"]
+    Linux   [image: "/home/fjouen/Images/baboon.jpg"]
 ]
 
 srcWnd: "Source"
 dstWnd: "Laplacian"
-kernel: 11 ; up to 31 but always ODD !!!
+kernel: 3 ; up to 31 but always ODD !!!
 src: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
 
-dst: cvCreateImage src/width src/height IPL_DEPTH_32F 3
+dst: cvCloneImage src
 
 cvNamedWindow srcWnd CV_WINDOW_AUTOSIZE 
 cvNamedWindow dstWnd CV_WINDOW_AUTOSIZE
 
 cvMoveWindow dstWnd 620 100
+; OK for OSX and Windows but not for Linux!!!
+cvLaplace as int-ptr! src  as int-ptr! dst kernel
 
-cvLaplace as byte-ptr! src  as byte-ptr! dst kernel 
-
-cvShowImage srcWnd as byte-ptr! src
-cvShowImage dstWnd as byte-ptr! dst
+cvShowImage srcWnd  as int-ptr! src
+cvShowImage  dstWnd  as int-ptr! dst
 
 cvWaitKey 0 ; until a key is pressed
     
 ; release window and images
-&src: declare double-byte-ptr!
-&src/ptr: as byte-ptr! src
-&dst: declare double-byte-ptr!
-&dst/ptr:  as byte-ptr! dst
-cvReleaseImage  &src
-cvReleaseImage  &dst
+
+releaseImage  as int-ptr! src
+releaseImage  as int-ptr! dst
 cvDestroyAllWindows 

@@ -19,7 +19,7 @@ Red [
 	#switch OS [
 		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
 		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
-		Linux  [picture: "/Users/chart/Pictures/baboon.jpg"]
+		Linux  [picture: "/home/fjouen/Images/baboon.jpg"]
 	]
 	; glabla variables
 	delay: 1000
@@ -40,10 +40,10 @@ print [tpicture lf]
 loadImage: routine [/local tmp] [
 	print ["Please wait for..." newline]
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR ; to get structure values
-	gray: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1; for grayscale
-	dst: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_32F 3; to transform to 32-bit image
-	dst2: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 3; to go back 8-bit image
-	src: as byte-ptr! tmp
+	gray: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1; for grayscale
+	dst: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_32F 3; to transform to 32-bit image
+	dst2: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 3; to go back 8-bit image
+	src: as int-ptr! tmp
 	tmp: null
 	cvNamedWindow wName1 CV_WINDOW_AUTOSIZE 
 	cvNamedWindow wName2 CV_WINDOW_AUTOSIZE

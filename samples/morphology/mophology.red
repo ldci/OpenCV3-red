@@ -19,7 +19,7 @@ Red [
 	#switch OS [
 		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
 		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
-		Linux   [picture: "/Users/fjouen/Pictures/baboon.jpg"]
+		Linux   [picture: "/home/fjouen/Images/baboon.jpg"]
 	]
 	
 	element_shape: CV_SHAPE_RECT
@@ -38,8 +38,8 @@ Red [
 		n: &open_close_pos/value - max_iters
 		either n > 0 [an: n] [an: 0 - n]
 		element: cvCreateStructuringElementEx (an * 2) + 1 (an * 2) + 1 an an element_shape null ; 0
-		&element: declare double-byte-ptr!
-		&element/ptr: as byte-ptr! element 
+		&element: declare double-int-ptr!
+		&element/ptr: as int-ptr! element 
 		either n < 0 [cvErode src dst element 1 cvDilate dst dst element 1]
                      [cvDilate src dst element 1 cvErode dst dst element 1]
 		cvReleaseStructuringElement  &element
@@ -50,8 +50,8 @@ Red [
 		n: &erode_dilate_pos/value - max_iters
 		either n > 0 [an: n] [an: 0 - n]
 		element: cvCreateStructuringElementEx (an * 2) + 1 (an * 2) + 1 an an element_shape null ; 0
-		&element: declare double-byte-ptr!
-		&element/ptr: as byte-ptr! element
+		&element: declare double-int-ptr!
+		&element/ptr: as int-ptr! element
 		either n < 0 [cvErode  src dst element 1] [cvDilate src dst element 1 ]
 		cvReleaseStructuringElement &element
 		cvShowImage "Erode/Dilate" dst
@@ -64,8 +64,8 @@ Red [
 morphology: routine [/local tmp tmp2][
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
 	tmp2: cvCloneImage tmp ; cvCloneImage wants IplImage and not CvArr pointer
-	src: as byte-ptr! tmp
-	dst: as byte-ptr! tmp2
+	src: as int-ptr! tmp
+	dst: as int-ptr! tmp2
 	tmp: null
 	tmp2: null
 	

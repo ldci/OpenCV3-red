@@ -819,6 +819,8 @@ CvScalar!: alias struct! [
     v3        [float!]
 ]
 
+
+
 cvScalar: func [
     v0          [float!]
     v1          [float!]
@@ -840,7 +842,7 @@ cvRealScalar: func [
     return:     [CvScalar!]
     /local      c
     ][
-    c: declare cvScalar!
+    c: declare CvScalar!
     c/v0: v0
     c/v1: 0.0
     c/v2: 0.0
@@ -853,7 +855,7 @@ cvScalarAll: func [
     return:         [CvScalar!]
     /local          c
     ][
-    c: declare cvScalar!
+    c: declare CvScalar!
     c/v0: val0123
     c/v1: val0123
     c/v2: val0123

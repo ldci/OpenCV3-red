@@ -16,7 +16,7 @@ windowsName: "OpenCV Window [Any Key to close Window]"
 cvNamedWindow windowsName CV_WND_PROP_AUTOSIZE OR CV_WND_PROP_ASPECTRATIO
 cvMoveWindow windowsName 300 300
 print ["64-bit 3 channels image" lf]; use Float!
-image: as byte-ptr! cvCreateImage 640 480 IPL_DEPTH_64F 3
+image: as int-ptr! cvCreateImage 640 480 IPL_DEPTH_64F 3
 
 
 cvSet image 0.0 1.0 0.0 0.0 null ;green image

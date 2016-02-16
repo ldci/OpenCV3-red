@@ -19,7 +19,7 @@ Red [
 	#switch OS [
 		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
 		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
-		Linux	[picture: "/Users/fjouen/Pictures/baboon.jpg"]
+		Linux	[picture: "/home/fjouen/Images/baboon.jpg"]
 	]
 	
 	src: declare CvArr!
@@ -39,8 +39,8 @@ Red [
 
 gaussian: routine [/local tmp] [
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
-	dst: as byte-ptr! cvCloneImage tmp
-	src: as byte-ptr! tmp
+	dst: as int-ptr! cvCloneImage tmp
+	src: as int-ptr! tmp
 	tmp: null
 	;create windows for output images
 	cvNamedWindow srcWnd CV_WINDOW_AUTOSIZE

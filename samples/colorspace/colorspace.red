@@ -34,10 +34,10 @@ Red [
 loadImages: routine [/local tmp] [
 	print ["Playing with cvCvtColor" lf]
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR ; to get structure values
-	src: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_32F 3
-	dst: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth tmp/nChannels 
-	cvConvertScale as byte-ptr! tmp src scale 0.0
-	if bit8 [src: as byte-ptr! tmp] 
+	src: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_32F 3
+	dst: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth tmp/nChannels 
+	cvConvertScale as int-ptr! tmp src scale 0.0
+	if bit8 [src: as int-ptr! tmp] 
 	tmp: null
 	cvNamedWindow wName1 CV_WINDOW_AUTOSIZE
 	cvNamedWindow wName2 CV_WINDOW_AUTOSIZE

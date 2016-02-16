@@ -17,11 +17,10 @@ Red [
 	#include %../../libs/videoio/videoio.reds       ; to play with camera
 	; global variables
 	capture: declare CvArr!
-	&capture: declare dbptr!
+	&capture: declare double-int-ptr!
 	iplmage: declare IplImage!
-	&iplmage: declare dbptr! ; we need a double pointer
 	laplace: declare IplImage!
-	&laplace: declare dbptr! ;
+	&laplace: declare double-int-ptr!
 	neighbourhoodSize: 0
 	p: declare pointer! [integer!]
 	windowName: "Edge Detection: ESC for quit"
@@ -32,8 +31,8 @@ Red [
 		v: (pos // 2) ; param must be odd !!!
 		iplmage: cvQueryFrame capture     ; get the frame
 		if v = 1  [either pos <= 7 [neighbourhoodSize: pos] [neighbourhoodSize: 7]] ; odd and <= 7
-		cvLaplace as byte-ptr! iplmage as byte-ptr! laplace neighbourhoodSize
-		cvShowImage windowName as byte-ptr! laplace   ; show frame   
+		cvLaplace as int-ptr! iplmage as int-ptr! laplace neighbourhoodSize
+		cvShowImage windowName as int-ptr! laplace   ; show frame   
 	]
 	; for image depth
 	depth: IPL_DEPTH_32F; for laplacian
@@ -72,9 +71,7 @@ render: routine [return: [integer!]] [
 ; free memory used by OpenCV
 freeOpenCV: routine [return: [integer!]] [
 	cvDestroyAllWindows
-	&iplmage: declare dbptr! ; we need a double pointer
-	&iplmage/ptr: as byte-ptr! iplmage
-	cvReleaseImage &iplmage
+	releaseImage  as int-ptr! iplmage
 	cvReleaseCapture &capture
 	return 0
 ]

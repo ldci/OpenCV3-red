@@ -17,6 +17,7 @@ Red/System [
 #switch OS [
     MacOSX  [image: "/Users/fjouen/Pictures/baboon.jpg"]
     Windows [image: "c:\Users\palm\Pictures\baboon.jpg"]
+    Linux   [image: "/home/fjouen/Images/baboon.jpg"]
 ]
 
 srcWnd: "Using cvTrackbar: ESC to close"
@@ -27,8 +28,8 @@ p: declare pointer! [integer!]  ; for trackbar position
 ; apply a gaussian blur according to the position of the trackbar (gaussian kernel= param1 * 3.0)
 trackEvent: func [[importMode] pos [integer!] /local v param1] [ 
     v: (pos // 2) ; param1 must be odd !!!
-    if v = 1  [param1: pos cvSmooth as byte-ptr! src  as byte-ptr! dst CV_GAUSSIAN param1 3 0.0 0.0 ]
-    cvShowImage dstWnd as byte-ptr! dst
+    if v = 1  [param1: pos cvSmooth as int-ptr! src  as int-ptr! dst CV_GAUSSIAN param1 3 0.0 0.0 ]
+    cvShowImage dstWnd as int-ptr! dst
 ]
 
 src: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
@@ -44,18 +45,14 @@ cvMoveWindow dstWnd 630 100
 cvCreateTrackbar tBar srcWnd p 100 :trackEvent 
 
 ;show images
-cvShowImage srcWnd as byte-ptr! src
-cvShowImage dstWnd as byte-ptr! dst
+cvShowImage srcWnd as int-ptr! src
+cvShowImage dstWnd as int-ptr! dst
 
 cvWaitKey 0 ; until a key is pressed
 
 ; release window and images
-&src: declare double-byte-ptr!
-&src/ptr: as byte-ptr! src
-&dst: declare double-byte-ptr!
-&dst/ptr:  as byte-ptr! dst
-cvReleaseImage  &src
-cvReleaseImage  &dst
+releaseImage  as int-ptr! src
+releaseImage as int-ptr! dst
 cvDestroyAllWindows
 
     

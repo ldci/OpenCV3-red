@@ -18,7 +18,7 @@ Red [
 	#switch OS [
 		MacOSX  [picture: "/Users/fjouen/Pictures/lena.tiff"]
 		Windows [picture: "c:\Users\palm\Pictures\lena.tiff"]
-		Linux   [picture: "/Users/fjouen/Pictures/lena.tiff"]
+		Linux   [picture: "/home/fjouen/Images/lena.tiff"]
 	]
 	; global variables
 	windowsName: "OpenCV Window [Any Key to close Window]"
@@ -53,7 +53,7 @@ makeWindow: routine [] [
 	; set callback for mouse events
 	cvSetMouseCallBack windowsName :mouseEvent null
 	;load and show color image
-	img: as byte-ptr! cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
+	img: as int-ptr! cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
 	cvShowImage windowsName img
 	cvMoveWindow windowsName 200 200
 	cvWaitKey 0

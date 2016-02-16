@@ -346,7 +346,7 @@ CvFont!: alias struct! [
         
         cvReleaseStructuringElement: "cvReleaseStructuringElement" [
         "releases structuring element"
-            **element		[double-byte-ptr!] ; double pointer IplConvKernel
+            **element		[double-int-ptr!] ; double pointer IplConvKernel
         ]
         
         cvErode: "cvErode" [

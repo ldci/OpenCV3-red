@@ -44,7 +44,7 @@ print ["heigh: " cvGetCaptureProperty cam CV_CAP_PROP_FRAME_HEIGHT lf]
 ;get first image
 
 image: cvRetrieveFrame cam ; get the first image
-pimage: as byte-ptr! image
+pimage: as int-ptr! image
 
 key:  27
 foo: 0
@@ -54,7 +54,7 @@ while [foo <> key] [
     image: cvQueryFrame cam
     ;cvGrabFrame cam
     ;image: cvRetrieveFrame cam
-    pimage: as byte-ptr! image
+    pimage: as int-ptr! image
     cvShowImage windowsName pimage
     foo: cvWaitKey 40
 ]

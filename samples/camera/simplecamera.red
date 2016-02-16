@@ -15,9 +15,8 @@ Red [
 	#include %../../libs/highgui/highgui.reds       ; highgui functions
 	#include %../../libs/videoio/videoio.reds       ; to play with camera
 	capture: declare CvCapture!
-	&capture: declare dbptr!
+	&capture: declare double-int-ptr!
 	iplimage: declare IplImage!
-	&iplimage: declare dbptr! ; we need a double pointer
 ]
 
 ; create red routines calling Red/System code
@@ -49,15 +48,14 @@ createMovie: routine [device [string!] return: [integer!]] [
 render: routine [return: [integer!]] [
 	iplimage: cvQueryFrame capture
 	if iplimage = null [print "error" lf]
-	cvShowImage "Playing with Camera with Red" as byte-ptr! iplimage
+	cvShowImage "Playing with Camera with Red" as int-ptr! iplimage
 	return cvWaitKey 1
 ]
 
 ; free memory used by OpenCV
 freeOpenCV: routine [return: [integer!]] [
 	cvDestroyAllWindows
-	&iplimage/ptr: as byte-ptr! iplimage
-	cvReleaseImage &iplimage
+	releaseImage as int-ptr! iplimage
 	&capture/ptr: null
 	cvReleaseCapture &capture
 	return 0

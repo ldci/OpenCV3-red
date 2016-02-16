@@ -40,23 +40,23 @@ createCam: routine [device [integer!] return: [integer!]] [
 		cvSetCaptureProperty capture CV_CAP_PROP_FPS 25.00
 		cvNamedWindow wName CV_WND_PROP_AUTOSIZE OR CV_WND_PROP_ASPECTRATIO
 		cvMoveWindow wName  300 300
-		d1: as byte-ptr! cvCreateImage 640 480 8 1
-		d2: as byte-ptr! cvCreateImage 640 480 8 1
-		r1: as byte-ptr! cvCreateImage 640 480 8 1
+		d1: as int-ptr! cvCreateImage 640 480 8 1
+		d2: as int-ptr! cvCreateImage 640 480 8 1
+		r1: as int-ptr! cvCreateImage 640 480 8 1
 		prevImage: cvCreateImage 640 480 8 1
 		currImage: cvCreateImage 640 480 8 1
 		nextImage: cvCreateImage 640 480 8 1
 		iplimage: cvQueryFrame capture
-		cvCvtColor as byte-ptr! iplimage as byte-ptr! prevImage CV_RGB2GRAY
-		cvCvtColor as byte-ptr! iplimage as byte-ptr! currImage CV_RGB2GRAY
-		cvCvtColor as byte-ptr! iplimage as byte-ptr! nextImage CV_RGB2GRAY
+		cvCvtColor as int-ptr! iplimage as int-ptr! prevImage CV_RGB2GRAY
+		cvCvtColor as int-ptr! iplimage as int-ptr! currImage CV_RGB2GRAY
+		cvCvtColor as int-ptr! iplimage as int-ptr! nextImage CV_RGB2GRAY
 	return 0]
 	[return 1]
 ]
 
 motion: routine [return: [integer!]] [
-	cvAbsdiff as byte-ptr! prevImage as byte-ptr! currImage d1
-	cvAbsdiff as byte-ptr! currImage as byte-ptr! nextImage d2
+	cvAbsdiff as int-ptr! prevImage as int-ptr! currImage d1
+	cvAbsdiff as int-ptr! currImage as int-ptr! nextImage d2
 	cvAnd d1 d2 r1 null
 	cvThreshold r1 r1 35.0 255.0 CV_THRESH_BINARY
 	cvShowImage wName r1
@@ -65,7 +65,7 @@ motion: routine [return: [integer!]] [
 	prevImage: cvcloneImage currImage
         currImage: cvcloneImage nextImage
 	iplimage: cvQueryFrame capture
-	cvCvtColor as byte-ptr! iplimage as byte-ptr! nextImage CV_RGB2GRAY
+	cvCvtColor as int-ptr! iplimage as int-ptr! nextImage CV_RGB2GRAY
 	return cvWaitKey 1
 ]
 
@@ -75,10 +75,10 @@ freeOpenCV: routine [] [
 	releaseImage d1
 	releaseImage d2
 	releaseImage r1
-	releaseImage as byte-ptr! prevImage
-	releaseImage as byte-ptr! currImage
-	releaseImage as byte-ptr! nextImage
-	releaseImage as byte-ptr! iplimage
+	releaseImage as int-ptr! prevImage
+	releaseImage as int-ptr! currImage
+	releaseImage as int-ptr! nextImage
+	releaseImage as int-ptr! iplimage
 	releaseCapture capture
 ]
 

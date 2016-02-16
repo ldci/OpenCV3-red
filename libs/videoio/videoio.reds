@@ -23,8 +23,8 @@ Red/System [
 
 ;The  opencv structure CvCapture! does not have public interface
 ;and is used only as a parameter for video capturing functions.
-#define CvCapture! byte-ptr!
-#define CvVideoWriter! [double-byte-ptr!]
+#define CvCapture! int-ptr!
+#define CvVideoWriter! [double-int-ptr!]
 
 
 #enum videocap [
@@ -313,7 +313,7 @@ CV_FOURCC_DEFAULT:       -1  ;CV_FOURCC('I' 'Y' 'U' 'V') ; Use default codec for
 		]
         
         cvReleaseCapture: "cvReleaseCapture" [
-			capture		[double-byte-ptr!]
+			capture		[double-int-ptr!]
 			return:         [integer!]
 		]
         
@@ -440,7 +440,7 @@ CV_FOURCC_DEFAULT:       -1  ;CV_FOURCC('I' 'Y' 'U' 'V') ; Use default codec for
 ; a shortcut for capture release if using CvCapture! black box.
 
 releaseCapture: func [capture [CvCapture!] /local &capture] [
-	&capture: declare double-byte-ptr!;  C function needs a double pointer
+	&capture: declare double-int-ptr!;  C function needs a double pointer
 	&capture/ptr: capture
 	cvReleaseCapture &capture
 ]

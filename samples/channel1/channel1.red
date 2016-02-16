@@ -34,11 +34,11 @@ loadImage: routine [/local tmp] [
 	print ["Please wait for..." newline]
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR ; to get structure values
 	; creates 3 images for RGB planes
-	s0: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
-	s1: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
-	s2: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
-	dst: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
-	img: as byte-ptr! tmp
+	s0: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
+	s1: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
+	s2: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
+	dst: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
+	img: as int-ptr! tmp
 	tmp: null
 	cvSplit img s0 s1 s2 null
 	cvNamedWindow windowsName CV_WINDOW_AUTOSIZE ; create window 

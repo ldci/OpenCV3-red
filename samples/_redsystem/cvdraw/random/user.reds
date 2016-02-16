@@ -29,7 +29,7 @@ fabs: func [
 float-to-int: func [
 	number 	[float!]
 	return:	[integer!]
-	/local magic-number data ptr
+	/local magic-number data ptr val1 val2 val3 val4
 ][
 	magic-number: 68719476736.0 * 1.5
 	data: declare struct! [
@@ -140,7 +140,7 @@ find: func[
 	string	[c-string!]
 	match	[c-string!]
 	return:	[c-string!]	; return index 
-	/local substring match?
+	/local substring match? out
 ][
 	out: string
 	substring: string

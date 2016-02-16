@@ -17,7 +17,7 @@ Red [
 	#switch OS [
 		MacOSX  [picture: "/Users/fjouen/Pictures/lena.tiff"]
 		Windows [picture: "c:\Users\palm\Pictures\lena.tiff"]
-		Linux   [picture: "/Users/fjouen/Pictures/lena.tiff"]
+		Linux   [picture: "/home/fjouen/Images/lena.tiff"]
 	]
 	
 	;global variables
@@ -36,9 +36,9 @@ Red [
 
 loadImages: routine [/local tmp] [
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR ; to get structure values
-	clone: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth tmp/nChannels 
-	sum:  as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth tmp/nChannels
-	src: as byte-ptr! tmp
+	clone: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth tmp/nChannels 
+	sum:  as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth tmp/nChannels
+	src: as int-ptr! tmp
 	tmp: null
 	cvCopy src clone null
 	cvNamedWindow wName1 CV_WINDOW_AUTOSIZE 

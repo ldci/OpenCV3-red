@@ -173,12 +173,12 @@ CV_GET_WHEEL_DELTA: func [flags [integer!] return: [integer!]][
         cvGetWindowHandle: "cvGetWindowHandle" [
         "get native window handle (HWND in case of Win32 and Widget in case of X Window)"
 			name 	[c-string!]
-			return:     [byte-ptr!] ; handle: void*  
+			return:     [int-ptr!] ; handle: void*  
 		]
         
         cvGetWindowName: "cvGetWindowName" [
         "get name of highgui window given its native handle"
-			window_handle 	[byte-ptr!]; void*
+			window_handle 	[int-ptr!]; void*
 			return: 	        [c-string!]
 		]
         

@@ -18,6 +18,7 @@ Red/System [
 #switch OS [
     MacOSX  [image: "/Users/fjouen/Pictures/baboon.jpg"]
     Windows [image: "c:\Users\palm\Pictures\lena.tiff"]
+    Linux   [image: "/home/fjouen/Images/baboon.jpg"]
 ]
 
 
@@ -27,14 +28,14 @@ windowsName: image;  ; filename as title
 cvNamedWindow windowsName CV_WND_PROP_AUTOSIZE OR CV_WND_PROP_ASPECTRATIO
 ;load and show color image
 tmp: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
-src: as byte-ptr! tmp
+src: as int-ptr! tmp
 cvShowImage windowsName src
 
 ; we need grayscale images
-gray: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
-img32: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_32F 1
+gray: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
+img32: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_32F 1
 ; we need a matrix for Direct Fourier Transform
-dst: as byte-ptr! cvCreateMat tmp/width tmp/height CV_32FC1 
+dst: as int-ptr! cvCreateMat tmp/width tmp/height CV_32FC1 
 
 ; src -> grayscale
 cvCvtColor src gray CV_BGR2GRAY

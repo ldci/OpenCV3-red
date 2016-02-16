@@ -34,15 +34,15 @@ Red/System [
         #define videocapture "c:\opencv310\build\x86\mingw\cameraLib.dll"
     ]
     Linux   [
-        #define highgui "/usr/local/lib/libopencv_world.so.3.0.0" 
-        #define calib3d "/usr/local/lib/libopencv_world.so.3.0.0" 
-        define core "/usr/local/lib/libopencv_world.so.3.0.0" 
-        #define imgcodecs "/usr/local/lib/libopencv_world.so.3.0.0" 
-        #define imgproc "/usr/local/lib/libopencv_world.so.3.0.0" 
-        #define objdetect "/usr/local/lib/libopencv_world.so.3.0.0" 
-        #define photo "/usr/local/lib/libopencv_world.so.3.0.0" 
-        #define video "/usr/local/lib/libopencv_world.so.3.0.0" 
-        #define videoio "/usr/local/lib/libopencv_world.so.3.0.0" 
+        #define highgui "/usr/local/lib/libopencv_world.so.3.1.0" 
+        #define calib3d "/usr/local/lib/libopencv_world.so.3.1.0" 
+        #define core "/usr/local/lib/libopencv_world.so.3.1.0" 
+        #define imgcodecs "/usr/local/lib/libopencv_world.so.3.1.0" 
+        #define imgproc "/usr/local/lib/libopencv_world.so.3.1.0" 
+        #define objdetect "/usr/local/lib/libopencv_world.so.3.1.0" 
+        #define photo "/usr/local/lib/libopencv_world.so.3.1.0" 
+        #define video "/usr/local/lib/libopencv_world.so.3.1.0" 
+        #define videoio "/usr/local/lib/libopencv_world.so.3.1.0" 
         #define videocapture ""
     ]
 ]

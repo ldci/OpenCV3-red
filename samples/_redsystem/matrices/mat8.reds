@@ -13,7 +13,7 @@ Red/System [
 
 
 print ["8-bit 1 channel image" lf]
-image: as byte-ptr! cvCreateImage 640 480 IPL_DEPTH_8U 1
+image: as int-ptr! cvCreateImage 640 480 IPL_DEPTH_8U 1
 cvZero image
 
 

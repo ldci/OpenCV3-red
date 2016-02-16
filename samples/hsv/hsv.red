@@ -19,7 +19,7 @@ Red [
 	#switch OS [
 		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
 		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
-		Linux  [picture: "/Users/chart/Pictures/lbaboon.jpg"]
+		Linux  [picture: "/home/fjouen/Images/baboon.jpg"]
 	]
 	delay: 1000
 	wName1: "Original Image"
@@ -32,14 +32,14 @@ Red [
 
 loadImage: routine [/local v tmp] [
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR ; to get structure values
-	src: as byte-ptr! tmp
+	src: as int-ptr! tmp
 	; creates HSV image
-	hsv: as byte-ptr!  cvCloneImage tmp
+	hsv: as int-ptr!  cvCloneImage tmp
 	
 	; conversion BGR to HSV 
 	cvCvtColor src hsv CV_BGR2HSV
 	; creates mask: same size as original but with  only 1 channel
-	mask: as byte-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1;
+	mask: as int-ptr! cvCreateImage tmp/width tmp/height tmp/depth 1;
 	tmp: null
 	cvZero mask
 	v: cvScalar 255.0 255.0 255.0 0.0

@@ -19,6 +19,7 @@ Red [
 	#switch OS [
 	    MacOSX  [image: "/Users/fjouen/Pictures/lena.tiff"]
 	    Windows [image: "c:\Users\palm\Pictures\lena.tiff"]
+	    MacOSX  [image: "/home/fjouen/Images/lena.tiff"]
 	]
 	windowsName: image;  ; filename as title
 	tmp: declare IplImage!
@@ -32,9 +33,9 @@ Red [
 ; sort  by column
 sort: routine [] [
 	tmp: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
-	src: as byte-ptr! tmp
-	dst: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
-	gray: as byte-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
+	src: as int-ptr! tmp
+	dst: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
+	gray: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
 	cvCvtColor src gray CV_BGR2GRAY
 	cvSort gray dst null CV_SORT_EVERY_COLUMN
 	cvShowImage windowsName src

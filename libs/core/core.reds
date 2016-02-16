@@ -192,11 +192,11 @@ CvTreeNodeIterator!: alias struct! [
         
         cvReleaseImageHeader: "cvReleaseImageHeader" [
         "Releases (i.e. deallocates) IPL image header"
-            image		[double-byte-ptr!]
+            image		[double-int-ptr!]
         ]
         cvReleaseImage: "cvReleaseImage" [
         "Releases IPL image header and data"
-            image	[double-byte-ptr!] ;IplImage** image (use as byte-ptr! IplImage since IplImage is still a pointer ( a struct))
+            image	[double-int-ptr!] ;IplImage** image (use as byte-ptr! IplImage since IplImage is still a pointer ( a struct))
         ]
         
         cvCloneImage: "cvCloneImage" [
@@ -261,7 +261,7 @@ CvTreeNodeIterator!: alias struct! [
         
         cvReleaseMat: "cvReleaseMat" [
         "Releases CvMat header and deallocates matrix data (reference counting is used for data)"
-            **mat	[double-byte-ptr!] ;use a byte-ptr CVmat! double pointer
+            **mat	[double-int-ptr!] ;use a byte-ptr CVmat! double pointer
         ]
         
         cvCloneMat: "cvCloneMat" [
@@ -404,18 +404,23 @@ CvTreeNodeIterator!: alias struct! [
         cvGetDims: "cvGetDims" [
         "Retrieves number of an array dimensions and optionally sizes of the dimensions"
             arr			[CvArr!]
-            sizes		[int-ptr!] ;CV_DEFAULT(NULL) 
+            sizes		[int-ptr!] ;CV_DEFAULT(NULL)  int [CV_MAX_DIM]
             return:		[integer!]   
         ]
         
         cvGetDimSize: "cvGetDimSize" [
         {Retrieves size of a particular array dimension.
-        For 2d arrays cvGetDimSize(arr,0) returns number of rows (image height) and cvGetDimSize(arr,1) returns number}
+        For 2d arrays cvGetDimSize(arr,0) returns number of rows (image height) 
+        and cvGetDimSize(arr,1) returns number of cols}
             arr			[CvArr!]
-            index		[int-ptr!]; CV_DEFAULT(NULL)
+            index		[integer!]; CV_DEFAULT(NULL)
             return:		[integer!]
         ]
-        
+        ; note use pointer according to matrix or image depth
+        ;8-bit Mat  -> integer!;
+        ;16-bit Mat -> integer!;
+        ;32-bit Mat -> float32!;
+        ;64-bit Mat -> float!;
         cvPtr1D: "cvPtr1D" [
             arr			[CvArr!]
             idx0		[integer!]; 
@@ -457,7 +462,7 @@ CvTreeNodeIterator!: alias struct! [
             arr		        [CvArr!]
             idx0		[integer!]
             ;return:		[CvScalar!] ; not a pointer
-			return:		[byte-ptr!]
+			return:		[CvScalar!]
         ]
         cvGet2D: "cvGet2D" [
             arr		        [CvArr!]
@@ -1998,14 +2003,14 @@ tocvRGB: func [vr [float!] vg [float!] vb [float!] va  [float!] return: [CvScala
   cvScalar b g r a
 ]
 ; a shortcut for image release
-releaseImage: func [image [byte-ptr!] /local &image] [
-	&image: declare double-byte-ptr!;  C function needs a double pointer
+releaseImage: func [image [int-ptr!] /local &image] [
+	&image: declare double-int-ptr!;  C function needs a double pointer
 	&image/ptr: image
 	cvReleaseImage &image
 ]
 
-releaseMat: func [mat [byte-ptr!] /local &mat] [
-	&mat: declare double-byte-ptr!;  C function needs a double pointer
+releaseMat: func [mat [int-ptr!] /local &mat] [
+	&mat: declare double-int-ptr!;  C function needs a double pointer
 	&mat/ptr: mat
 	cvReleaseMat &mat
 ]
@@ -2035,9 +2040,54 @@ getSize: func [arr [CvArr!] return: [CvSize!] /local sz][
 ]
    
    
-;idem for scalar!
-get1D: func [arr [CvArr!] idx0 [integer!] return: [integer!]][
-	cvGet1D arr idx0
-	system/cpu/eax
+;pbs  for scalar!
+get1D: func [arr [CvArr!] idx0 [integer!] return: [CvScalar!] /local sc [CvScalar!]][
+	sc: cvGet1D arr idx0
+	sc
 ]
+
+; some tools
+;Only for 1, 3 or 4 depth images
+getImageValues: function [
+    image [int-ptr!]
+    return: [IplImage!]
+    /local iplImage b
+    ][
+    iplImage: declare IplImage!
+    iplImage/nSize: image/1 ; must equal 112 bytes
+    iplImage/ID: image/2
+    iplImage/nChannels: image/3
+    iplImage/alphaChannel: image/4
+    iplImage/depth: image/5
+    b: as byte! image/6
+    if (b = #"R") [iplImage/colorModel: "RGBA"]
+    if (b = #"G") [iplImage/colorModel: "GRAY"]
+    b: as byte! image/7
+    if (b = #"B") [iplImage/channelSeq: "BGRA"]
+    if (b = #"R") [iplImage/channelSeq: "RGBA"] 
+    if (b = #"G") [iplImage/channelSeq: "GRAY"]
+    iplImage/dataOrder: image/8
+    iplImage/origin: image/9
+    iplImage/align: image/10
+    iplImage/width: image/11
+    iplImage/height: image/12
+    iplImage/*roi: as IplRoi! image/13
+    iplImage/*maskROI: as byte-ptr! image/14
+    iplImage/*imageId: as byte-ptr! image/15
+    iplImage/*tileInfo: as byte-ptr! image/16
+    iplImage/imageSize: image/17
+    iplImage/*imageData: image/18
+    iplImage/widthStep: image/19
+    iplImage/bm0: image/20
+    iplImage/bm1: image/21
+    iplImage/bm2: image/22
+    iplImage/bm3: image/23
+    iplImage/bc0: image/24
+    iplImage/bc1: image/25
+    iplImage/bc2: image/26
+    iplImage/bc3: image/27
+    iplImage/*imageDataOrigin: as byte-ptr! image/28
+    iplImage
+]
+
  

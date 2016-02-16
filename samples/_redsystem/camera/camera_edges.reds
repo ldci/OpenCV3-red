@@ -21,8 +21,8 @@ trackEvent: func [[cdecl] pos [integer!] /local v param1] [
         v: (pos // 2) ; param must be odd !!!
         image: cvQueryFrame capture     ; get the frame
         if v = 1  [either pos <= 7 [neighbourhoodSize: pos] [neighbourhoodSize: 7]] ; odd and <= 7
-        cvLaplace as byte-ptr! image as byte-ptr! laplace neighbourhoodSize
-       	cvShowImage windowName as byte-ptr! laplace   ; show frame   
+        cvLaplace as int-ptr! image as int-ptr! laplace neighbourhoodSize
+       	cvShowImage windowName as int-ptr! laplace   ; show frame   
 ]
 
 cvStartWindowThread ; separate window thread
