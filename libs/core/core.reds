@@ -7,6 +7,7 @@ Red/System [
 
 #include %../../libs/plateforms.reds            ; lib path according to os
 #include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
+#include %../../libs/red/user.reds           	; for float and int conversions  
 #include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
 #include %../../libs/imgproc/types_c.reds       ; image processing types and structures
 
@@ -1312,8 +1313,8 @@ CvTreeNodeIterator!: alias struct! [
         cvAvgSdv: "cvAvgSdv" [
         "Calculates mean and standard deviation of pixel values"
             arr		[CvArr!]
-            mean	[CvScalar!]
-            std_dev     [CvScalar!]
+            mean	[CvScalar!] ; pointer
+            std_dev     [CvScalar!] ; pointer
             mask	[CvArr!];CV_DEFAULT(NULL)
         ]
         
@@ -2018,17 +2019,20 @@ releaseMat: func [mat [int-ptr!] /local &mat] [
         
    
 ; temporary functions waiting for struct improvments
-; e.g. cvGetSize
+; e.g. cvGetSize	 
 ; WARNING ONLY FOR target = 'IA32
+
 getSizeW: func [arr [CvArr!] return: [integer!]][
 	cvGetSize arr
 	system/cpu/eax
 ]
+; WARNING ONLY FOR target = 'IA32
 
 getSizeH: func [arr [CvArr!] return: [integer!]][
 	cvGetSize arr
 	system/cpu/edx
 ]
+; WARNING ONLY FOR target = 'IA32
 
 getSize: func [arr [CvArr!] return: [CvSize!] /local sz][
 	sz: declare CvSize!
@@ -2048,6 +2052,26 @@ get1D: func [arr [CvArr!] idx0 [integer!] return: [CvScalar!] /local sc [CvScala
 
 ; some tools
 ;Only for 1, 3 or 4 depth images
+
+
+getSum: func [arr [CvArr!] 
+		return: [CvScalar!] 
+		/local mean std sum h w sz][
+	sum: declare CvScalar!
+	mean: declare CvScalar!
+	std: declare CvScalar!
+	cvAvgSdv arr mean std null
+	h: cvGetDimSize arr 0
+	w: cvGetDimSize arr 1
+	sz: int-to-float (h * w)
+	sum/v0:  mean/v0 *  sz
+	sum/v1:  mean/v1 *  sz
+	sum/v2:  mean/v2 *  sz
+	sum/v3:  mean/v3 *  sz
+	sum	
+]
+
+
 getImageValues: function [
     image [int-ptr!]
     return: [IplImage!]
