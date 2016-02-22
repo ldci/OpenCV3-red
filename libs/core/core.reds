@@ -480,7 +480,7 @@ CvTreeNodeIterator!: alias struct! [
         ]
         cvGetND: "cvGetND" [
             arr		        [CvArr!]
-            idx 		[pointer! [integer!]] 
+            idx 		[pointer! [integer!]] ; array of index 
             return:		[CvScalar!] ; not a pointer	
         ]
         
@@ -2045,8 +2045,36 @@ getSize: func [arr [CvArr!] return: [CvSize!] /local sz][
    
    
 ;pbs  for scalar!
-get1D: func [arr [CvArr!] idx0 [integer!] return: [CvScalar!] /local sc [CvScalar!]][
-	sc: cvGet1D arr idx0
+get1D: func [arr [CvArr!] idx0 [integer!] return: [CvScalar!] /local sc [CvScalar!] ptr address ][
+	address: cvPtr1D arr idx0 null
+	sc: declare CvScalar!
+	ptr: as float-ptr! address
+	sc/v0: ptr/1
+	sc/v1: ptr/2
+	sc/v2: ptr/3
+	sc/v3: 0.0
+	sc
+]
+
+get2D: func [arr [CvArr!] idx0 [integer!] idx1 [integer!]  return: [CvScalar!] /local sc [CvScalar!] ptr address ][
+	address: cvPtr2D arr idx0 idx1 null
+	sc: declare CvScalar!
+	ptr: as float-ptr! address
+	sc/v0: ptr/1
+	sc/v1: ptr/2
+	sc/v2: ptr/3
+	sc/v3: 0.0
+	sc
+]
+
+get3D: func [arr [CvArr!] idx0 [integer!] idx1 [integer!] idx2 [integer!] return: [CvScalar!] /local sc [CvScalar!] ptr address ][
+	address: cvPtr3D arr idx0 idx1 idx2 null
+	sc: declare CvScalar!
+	ptr: as float-ptr! address
+	sc/v0: ptr/1
+	sc/v1: ptr/2
+	sc/v2: ptr/3
+	sc/v3: 0.0
 	sc
 ]
 

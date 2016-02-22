@@ -10,11 +10,16 @@
 ###You must use 32-bit version of dynamically linked libraries.
 
 ### NEW : FEBRUARY 2016
-CvArr! opaque structure is now defined as int-ptr! for a better access to structures values. See getImageValues.reds for detail.
+
+New samples added: Hough transform in red and Red/System.
+
+CvArr! opaque structure is now defined as int-ptr! for a better access to structures values. 
+
+See getImageValues.reds for detail.
 
 All samples are updated to be compatible with this new version.
 
-You'll also find pre-compiled libs (in /openCV3) for OSX, Linux and Windows for OpenCV3.0 and OPenCV3.1
+You'll also find pre-compiled libs (in /openCV3) for OSX, Linux and Windows for OpenCV3.0 and OpenCV3.1
 
 Enjoy:)
  
