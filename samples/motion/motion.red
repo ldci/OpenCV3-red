@@ -14,11 +14,11 @@ rep., Carnegie Mellon University, Pittsburg, PA (2000)}
 	; OpenCV functions we need
 	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
 	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures`
-	#include %../../libs/core/core.reds             ; OpenCV core functions
-	#include %../../libs/highgui/highgui.reds       ; highgui functions
-	#include %../../libs/videoio/videoio.reds       ; to play with camera
-	#include %../../libs/imgcodecs/imgcodecs.reds   ; basic image functions
-	#include %../../libs/imgproc/imgproc.reds	; image processing functions
+	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
+	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
+	#include %../../libs/videoio/cvVideoio.reds       ; to play with camera
+	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
+	#include %../../libs/imgproc/cvImgproc.reds	; image processing functions
 	
 	capture: declare CvArr!
 	iplimage: declare IplImage!

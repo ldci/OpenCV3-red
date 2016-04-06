@@ -9,13 +9,13 @@ Red [
 #system [
 	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
 	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/highgui/highgui.reds       ; highgui functions
-	#include %../../libs/imgcodecs/imgcodecs.reds   ; basic image functions
-	#include %../../libs/core/core.reds             ; OpenCV core functions
+	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
+	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
+	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
 
 	; according to OS 
 	#switch OS [
-		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
+		MacOSX  [picture: "/Users/francoisjouen/Pictures/baboon.jpg"]
 		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
 		Linux  	[picture: "/home/fjouen/Images/baboon.jpg"]
 	]

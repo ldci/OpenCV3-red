@@ -83,7 +83,7 @@ CVStatus: 0
  IPL_DEPTH_16U:           16
  IPL_DEPTH_32F:           32
 
- IPL_DEPTH_8S:            10; (IPL_DEPTH_SIGN OR 8)
+ IPL_DEPTH_8S:            (IPL_DEPTH_SIGN OR 8)
  IPL_DEPTH_16S:           (IPL_DEPTH_SIGN or 16)
  IPL_DEPTH_32S:           (IPL_DEPTH_SIGN or 32)
 
@@ -115,21 +115,21 @@ IplROI!: alias struct!  [
     width                       [integer!]
     height                      [integer!]
 ] 
-
+; 112 bytes
 IplImage!: alias struct! [
     nSize                       [integer!]; sizeof(IplImage)
     ID                          [integer!]; version (=0)
     nChannels                   [integer!]; Most of OpenCV functions support 1,2,3 or 4 channels
     alphaChannel                [integer!]; Ignored by OpenCV */
     depth                       [integer!]; Pixel depth in bits: 
-    colorModel                  [c-string!];Ignored by OpenCV char [4]
+    colorModel                  [c-string!];Ignored by OpenCV  * char [4]
     channelSeq                  [c-string!];ditto * char [4]
     dataOrder                   [integer!];0 - interleaved color channels, 1 - separate color channels.
     origin                      [integer!];0 - top-left origin, 1 - bottom-left origin (Windows bitmaps style). 
     align                       [integer!];Alignment of image rows (4 or 8).OpenCV ignores it and uses widthStep instead.
     width                       [integer!];Image width in pixels
     height                      [integer!];Image height in pixels. `
-    *roi                        [IplROI!];Image ROI. If NULL, the whole image is selected                          	
+    *roi                        [IplROI!];IplROI! Image ROI. If NULL, the whole image is selected                          	
     *maskROI                    [byte-ptr!];Must be NULL.
     *imageId                    [byte-ptr!];"           " 
     *tileInfo                   [byte-ptr!];"           "

@@ -9,6 +9,16 @@
 
 ###You must use 32-bit version of dynamically linked libraries.
 
+
+### NEW : APRIL 2016
+
+All code is compatible with Red 0.60!
+
+Access to dynamic libs is more convenient. Just edit /libs/plateforms.red and adapt according to your configuration.
+ 
+New samples for Red Gui are included. Only for windows users (see /red-gui directory) but code can be compiled under OSX or Linux.
+
+
 ### NEW : FEBRUARY 2016
 
 New samples added: Hough transform in red and Red/System.

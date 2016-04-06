@@ -10,10 +10,10 @@ Red [
 	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
 	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
 	#include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-	#include %../../libs/highgui/highgui.reds       ; highgui functions
-	#include %../../libs/imgcodecs/imgcodecs.reds   ; basic image functions
-	#include %../../libs/imgproc/imgproc.reds       ; OpenCV image  processing
-	#include %../../libs/core/core.reds             ; OpenCV core functions
+	#include %../../libs/highgui/cvhighgui.reds       ; highgui functions
+	#include %../../libs/imgcodecs/cvimgcodecs.reds   ; basic image functions
+	#include %../../libs/imgproc/cvimgproc.reds       ; OpenCV image  processing
+	#include %../../libs/core/cvcore.reds             ; OpenCV core functions
 
 	; according to OS 
 	#switch OS [

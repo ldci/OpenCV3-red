@@ -13,10 +13,10 @@ random/seed 65536
     #include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
     #include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
     #include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-    #include %../../libs/core/core.reds             ; OpenCV core functions
-    #include %../../libs/highgui/highgui.reds       ; highgui functions
-    #include %../../libs/imgcodecs/imgcodecs.reds   ; basic image functions
-    #include %../../libs/imgproc/imgproc.reds       ; OpenCV image  processing
+    #include %../../libs/core/cvCore.reds             ; OpenCV core functions
+    #include %../../libs/highgui/cvHighgui.reds       ; highgui functions
+    #include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
+    #include %../../libs/imgproc/cvImgproc.reds       ; OpenCV image  processing
     windowsName: "Random Tests"
     image: declare CvArr!
     rng: declare byte-ptr! ; just a pointer for random generator 
@@ -51,7 +51,7 @@ render: routine [
 	c24 [float!]
 
 ] [
-    image: as byte-ptr! cvCreateImage 512 512 IPL_DEPTH_32F 3
+    image: as int-ptr! cvCreateImage 512 512 IPL_DEPTH_32F 3
     cvNamedWindow windowsName CV_WND_PROP_AUTOSIZE OR CV_WND_PROP_ASPECTRATIO
     rng/value: as byte! 255
     cvRandArr rng image CV_RAND_NORMAL c11 c12 c13 c14 c21 c22 c23 c24

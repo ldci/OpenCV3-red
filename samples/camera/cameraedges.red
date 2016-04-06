@@ -9,12 +9,12 @@ Red [
 #system [
 	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
 	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/core/core.reds             ; OpenCV core functions
+	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
 	#include %../../libs/imgproc/types_c.reds       ; image processing types 	and structures
-	#include %../../libs/imgproc/imgproc.reds       ; OpenCV image  processing
-	#include %../../libs/highgui/highgui.reds       ; highgui functions	
-	#include %../../libs/imgcodecs/imgcodecs.reds   ; basic image functions
-	#include %../../libs/videoio/videoio.reds       ; to play with camera
+	#include %../../libs/imgproc/cvImgproc.reds       ; OpenCV image  processing
+	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions	
+	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
+	#include %../../libs/videoio/cvVideoio.reds       ; to play with camera
 	; global variables
 	capture: declare CvArr!
 	&capture: declare double-int-ptr!
