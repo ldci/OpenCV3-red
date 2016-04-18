@@ -2138,4 +2138,24 @@ getImageValues: function [
     iplImage
 ]
 
+; temporary 
+getByteValue: func [address [integer!] return: [byte!] /local p][
+    p: as [pointer! [byte!]] address
+    p/value
+]
+
+getIntegerValue: func [address [integer!] return: [integer!] /local p][
+    p: as [pointer! [integer!]] address
+    p/value
+]
+
+getFloat32Value: func [address [integer!] return: [float32!] /local p][
+    p: as [pointer! [float32!]] address
+    p/value
+]
+
+getFloatValue: func [address [integer!] return: [float!] /local p][
+    p: as [pointer! [float!]] address
+    p/value
+]
  

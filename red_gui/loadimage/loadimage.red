@@ -20,19 +20,55 @@ Red [
 	; variables for routines
 	img: declare CvArr!
 	imgStruct: declare IplImage!
-	iWidth: 0
 	wName: "OpenCV Source"
 ]
 
-live?: system/view/auto-sync?: no
+;live?: system/view/auto-sync?: no
 
 ; global red variables to be passed as parameters to routines or red functions
 fileName: ""
+iByteSize: 0
+iID: 0
+iNchannels: 0
+iAlpha: 0
+iDepth: 0
+iColorModel: ""
+iChannelSequence: ""
+iDataOrder: 0
+iDataOrigin: 0
+IDataAlign: 0
+iWidth:  0
+iHeight: 0
+iRoi: 0
+iMaskRoi: 0
+iIdPtr: 0
+iInfoPtr: 0
+iSize: 0
+iData: 0
+iWstep: 0
+iBM0: 0
+iBM1: 0
+iBM2: 0
+iBM3: 0
+iBMC0: 0
+iBMC1: 0
+IBMC2: 0
+IBMC3: 0
+iDataOrigin: 0
+
+isFile: false
 
 
-cvLoad: routine [ name [string!]] [
-	img: as int-ptr! cvLoadImage as c-string! string/rs-head name CV_LOAD_IMAGE_ANYCOLOR 
-	cvShowImage wName img
+cvLoad: routine [ name [string!] return: [logic!] /local fName isLoaded] [
+	isLoaded: false
+          fName: as c-string! string/rs-head name;
+	img: as int-ptr! cvLoadImage fName CV_LOAD_IMAGE_ANYCOLOR ;  force a 8-bit color conversion 
+	if img <> null [
+		isLoaded: true  
+		;cvShowImage wName img
+		cvFlip img img -1
+	]
+	isLoaded
 ]
 
 ; to get each ipl structure value
@@ -80,117 +116,167 @@ getValue: routine [index [integer!] return: [integer!] /local v s] [
 ]
 
 
+getImageValues: does [
+	iByteSize: getValue 1
+	iID: getValue 2
+	iNchannels: getValue 3
+	iAlpha: getValue 4
+	iDepth: getValue 5
+	v: getValue 6
+	either v = 1 [iColorModel: "RGBA"] [iColorModel: "GRAY"]
+	v: getValue 7
+	if v = 1 [iChannelSequence: "RGBA"]
+	if v = 2 [iChannelSequence: "BGRA"]
+	if v = 3 [iChannelSequence: "GRAY"]
+	iDataOrder: getValue 8
+	iDataOrigin: getValue 9
+	IDataAlign: getValue 10
+	iWidth:  getValue 11
+	iHeight: getValue 12
+	iRoi: getValue 13
+	iMaskRoi: getValue 14
+	iIdPtr: getValue 15
+	iInfoPtr: getValue 16
+	iSize: getValue 17
+	iData: getValue 18
+	iWstep: getValue 19
+	iBM0: getValue 20
+	iBM1: getValue 21
+	iBM2: getValue 22
+	iBM3: getValue 23
+	iBMC0: getValue 24
+	iBMC1: getValue 25
+	iBMC2: getValue 26
+	iBMC3: getValue 27
+	iDataOrigin: getValue 28
+]
+
+
+updateList: does [
+		clear list/data
+		clear list/text
+		s: copy  "Image Size in byte: "	
+		append s to string! iByteSize	
+		append list/data s
+		s: copy "Image ID: "
+		append s to string! iID
+		append list/data s
+		s: copy "Number of Channels: "
+		append s to string! iNchannels
+		append list/data s
+		s: copy "Image Alpha: "
+		append s to string! iAlpha
+		append list/data s
+		s: copy  "Image Depth: "
+		append s to string! iDepth
+		append list/data s
+		s: copy "Color Model: "
+		append s to string! iColorModel
+		append list/data s
+		s: copy "Channels Sequence: "
+		append s to string! iChannelSequence
+		append list/data s
+		s: copy "Data Order: "
+		append s to string! iDataOrder
+		append list/data s
+		s: copy "Data Origin: "
+		append s to string! iDataOrigin
+		append list/data s
+		s: copy "Data Align: "
+		append s to string! IDataAlign
+		append list/data s
+		s: copy "Image Width: "
+		append s to string! iWidth
+		append list/data s
+		s: copy "Image Height: "
+		append s to string! iHeight
+		append list/data s
+		s: copy "Image ROI: "
+		append s to string! iRoi
+		append list/data s
+		s: copy "Image Mask ROI: "
+		append s to string! iMaskRoi
+		append list/data s
+		s: copy "Image Pointer ID: "
+		append s to string! iIdPtr
+		append list/data s
+		s: copy "Image info: "
+		append s to string! iInfoPtr
+		append list/data s
+		s: copy "Image Size: "
+		append s to string! iSize
+		append list/data s
+		s: copy "Image Data: "
+		append s to string! iData
+		append list/data s
+		s: copy "Image Width Step: "
+		append s to string! iWstep
+		append list/data s
+		s: copy "Image Border Mode: "
+		append s to string! iBM0
+		append s to string! iBM1
+		append s to string! iBM2
+		append s to string! iBM3 
+		append list/data s
+		s: copy "Image Border color : "
+		append s to string! iBMC0
+		append s to string! iBMC1
+		append s to string! iBMC2
+		append s to string! iBMC3
+		append list/data s		
+		s: copy "Image Data Origin: "
+		append s to string! iDataOrigin
+		append list/data s
+
+]
+
+makeRGB: routine[ address [integer!] return: [integer!]] [
+	as integer! getByteValue address 
+]
+
+
 loadImage: does [
 	
 	tmp: request-file
-	if not none? tmp [
-		clear list/data
-		clear list/text
-		s: copy ""
+	if not none? tmp [		
 		fileName: to string! to-local-file tmp	
-		activeFile/text: to string!  to-local-file tmp	
-		rimg/image: load tmp
-		cvLoad fileName
-		s: "Image Size in byte: "	
-		append s to string! getValue 1	
-		append list/data s
-		s: "Image ID: "
-		append s to string! getValue 2
-		append list/data s
-		s: "Number of Channels: "
-		append s to string! getValue 3
-		append list/data s
-		s: "Image Alpha: "
-		append s to string! getValue 4
-		append list/data s
-		s: "Image Depth: "
-		append s to string! getValue 5
-		append list/data s
-		s: "Color Model: "
-		v: getValue 6
-		either v = 1 [append s "RGBA"] [append s "GRAY"]
-		append list/data s
-		s: "Channels Sequence: "
-		v: getValue 6
-		if v = 1 [append s "RGBA"]
-		if v = 2 [append s "BGRA"]
-		if v = 3 [append s "GRAY"]
-		append list/data s
-		s: "Data Order: "
-		append s to string! getValue 8
-		append list/data s
-		s: "Data Origin: "
-		append s to string! getValue 9
-		append list/data s
-		s: "Data Align: "
-		append s to string! getValue 10
-		append list/data s
-		s: "Image Width: "
-		append s to string! getValue 11
-		append list/data s
-		s: "Image Height: "
-		append s to string! getValue 12
-		append list/data s
-		s: "Image ROI: "
-		append s to string! getValue 13
-		append list/data s
-		s: "Image Mask ROI: "
-		append s to string! getValue 14
-		append list/data s
-		s: "Image Pointer ID: "
-		append s to string! getValue 15
-		append list/data s
-		s: "Image info: "
-		append s to string! getValue 16
-		append list/data s
-		s: "Image Size: "
-		append s to string! getValue 17
-		append list/data s
-		s: "Image Data: "
-		append s to string! getValue 18
-		append list/data s
-		s: "Image Width Step: "
-		append s to string! getValue 19
-		append list/data s
-		s: "Image Border Mode 1: "
-		append s to string! getValue 20
-		append list/data s
-		s: "Image Border Mode 2: "
-		append s to string! getValue 21
-		append list/data s
-		s: "Image Border Mode 3: "
-		append s to string! getValue 22
-		append list/data s
-		s: "Image Border Mode 4: "
-		append s to string! getValue 23
-		append list/data s
-		s: "Image Border 1 color : "
-		append s to string! getValue 24
-		append list/data s
-		s: "Image Border 2 color: "
-		append s to string! getValue 25
-		append list/data s
-		s: "Image Border 3 color: "
-		append s to string! getValue 26
-		append list/data s
-		s: "Image Border 4 color: "
-		append s to string! getValue 27
-		append list/data s
-		s: "Image Data Origin: "
-		append s to string! getValue 28
-		append list/data s
+                    ;rimg/image: load tmp
+		isFile: cvLoad fileName
+		if isFile [ 
+			activeFile/text: fileName	
+			getImageValues		
+			updateList
+			;rimg/size/1: iWidth
+			;rimg/size/2: iHeight
+			;MainWin/size/1: MainWin/size/1 + iWidth
+			;MainWin/size/2: MainWin/size/2 + iHeight	
+			; now we make a red image
+			rgb: copy #{}		 
+			y: 0
+			istep: iWidth * iNchannels  
+			until [
+				index: iWstep * y
+				line: copy #{}
+				lineAddress: iData + index
+				loop istep  [append line makeRGB lineAddress  lineAddress: lineAddress + 1]
+				append tail rgb line
+				y: y + 1
+				y = iHeight
+			]				 
+			rimg/image: make image! reduce [as-pair iWidth iHeight  reverse rgb]
+		]
 	]
 ]
 
 
 MainWin: [
-        title "Load Image"
-        button 205 "Load Image" [loadImage]
-        activeFile: field 400 ""
-        button 100 "Quit" [Quit] 
-        return
-        list: text-list 205x512 data []
-        rimg: image 512x512 black
+      	title "Load Image with OpenCV"
+        	button 205 "Load Image" [loadImage]
+        	activeFile: field 400x28 ""
+        	button 100 "Quit" [Quit] 
+        	return
+        	list: text-list 205x512 data []
+        	rimg: image 512x512 black
 ]
 
 view MainWin
