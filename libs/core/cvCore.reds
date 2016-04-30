@@ -2033,7 +2033,7 @@ getSizeH: func [arr [CvArr!] return: [integer!]][
 
 getSize: func [arr [CvArr!] return: [CvSize!] /local sz][
 	sz: declare CvSize!
-        cvGetSize arr
+    cvGetSize arr
 	sz/width: system/cpu/eax
 	cvGetSize arr
 	sz/height: system/cpu/edx
@@ -2041,7 +2041,7 @@ getSize: func [arr [CvArr!] return: [CvSize!] /local sz][
 ]
    
    
-;pbs  for scalar!
+
 ;pbs  for scalar!
 get1D: func [arr [CvArr!] idx0 [integer!] return: [CvScalar!] /local sc [CvScalar!] ptr address ][
 	address: cvPtr1D arr idx0 null
@@ -2095,67 +2095,47 @@ getSum: func [arr [CvArr!]
 	sum	
 ]
 
+; temporary to be moved in tools
 
 getImageValues: function [
-    image [int-ptr!]
+    cvImage [int-ptr!]
     return: [IplImage!]
     /local iplImage b
-    ][
+    ][ 
     iplImage: declare IplImage!
-    iplImage/nSize: image/1 ; must equal 112 bytes
-    iplImage/ID: image/2
-    iplImage/nChannels: image/3
-    iplImage/alphaChannel: image/4
-    iplImage/depth: image/5
-    b: as byte! image/6
+    iplImage/nSize: cvImage/1 ; must equal 112 bytes
+    iplImage/ID: cvImage/2
+    iplImage/nChannels: cvImage/3
+    iplImage/alphaChannel: cvImage/4
+    iplImage/depth: cvImage/5
+    b: as byte! cvImage/6
     if (b = #"R") [iplImage/colorModel: "RGBA"]
     if (b = #"G") [iplImage/colorModel: "GRAY"]
-    b: as byte! image/7
+    b: as byte! cvImage/7
     if (b = #"B") [iplImage/channelSeq: "BGRA"]
     if (b = #"R") [iplImage/channelSeq: "RGBA"] 
     if (b = #"G") [iplImage/channelSeq: "GRAY"]
-    iplImage/dataOrder: image/8
-    iplImage/origin: image/9
-    iplImage/align: image/10
-    iplImage/width: image/11
-    iplImage/height: image/12
-    iplImage/*roi: as IplRoi! image/13
-    iplImage/*maskROI: as byte-ptr! image/14
-    iplImage/*imageId: as byte-ptr! image/15
-    iplImage/*tileInfo: as byte-ptr! image/16
-    iplImage/imageSize: image/17
-    iplImage/*imageData: image/18
-    iplImage/widthStep: image/19
-    iplImage/bm0: image/20
-    iplImage/bm1: image/21
-    iplImage/bm2: image/22
-    iplImage/bm3: image/23
-    iplImage/bc0: image/24
-    iplImage/bc1: image/25
-    iplImage/bc2: image/26
-    iplImage/bc3: image/27
-    iplImage/*imageDataOrigin: as byte-ptr! image/28
+    iplImage/dataOrder: cvImage/8
+    iplImage/origin: cvImage/9
+    iplImage/align: cvImage/10
+    iplImage/width: cvImage/11
+    iplImage/height: cvImage/12
+    iplImage/*roi: as IplRoi! cvImage/13
+    iplImage/*maskROI: as byte-ptr! cvImage/14
+    iplImage/*imageId: as byte-ptr! cvImage/15
+    iplImage/*tileInfo: as byte-ptr! cvImage/16
+    iplImage/imageSize: cvImage/17
+    iplImage/*imageData: cvImage/18
+    iplImage/widthStep: cvImage/19
+    iplImage/bm0: cvImage/20
+    iplImage/bm1: cvImage/21
+    iplImage/bm2: cvImage/22
+    iplImage/bm3: cvImage/23
+    iplImage/bc0: cvImage/24
+    iplImage/bc1: cvImage/25
+    iplImage/bc2: cvImage/26
+    iplImage/bc3: cvImage/27
+    iplImage/*imageDataOrigin: as byte-ptr! cvImage/28
     iplImage
 ]
 
-; temporary 
-getByteValue: func [address [integer!] return: [byte!] /local p][
-    p: as [pointer! [byte!]] address
-    p/value
-]
-
-getIntegerValue: func [address [integer!] return: [integer!] /local p][
-    p: as [pointer! [integer!]] address
-    p/value
-]
-
-getFloat32Value: func [address [integer!] return: [float32!] /local p][
-    p: as [pointer! [float32!]] address
-    p/value
-]
-
-getFloatValue: func [address [integer!] return: [float!] /local p][
-    p: as [pointer! [float!]] address
-    p/value
-]
- 

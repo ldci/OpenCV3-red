@@ -9,6 +9,15 @@
 
 ###You must use 32-bit version of dynamically linked libraries.
 
+### NEW: MAY 2016
+New samples to test with Red GUI are added and are fully functional
+
+New Red Routines (/libs/Red/cvroutines.red) are included for a better image loading when moving from OpenCV to Red image (see getBinaryValue for details). 
+
+These routines use Red/S copy-memory function for a quicker image rendering.
+
+New samples to come :)
+
 
 ### NEW : APRIL 2016
 
