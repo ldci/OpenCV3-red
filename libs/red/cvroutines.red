@@ -32,16 +32,26 @@ getFloatValue: routine [address [integer!] return: [float!] /local p][
 
 
 
-; get memory as binary! string
-getBinaryValue: routine [dataAddress [integer!] dataSize [integer!] return: [binary!] /local src p] [
+;old version
+_getBinaryValue: routine [dataAddress [integer!] dataSize [integer!] return: [binary!] /local src p] [
 "Get RBG values from OpenCV Image"
 	src: as byte-ptr! dataAddress
 	p:  allocate dataSize
 	copy-memory p src dataSize
 	stack/set-last as red-value! binary/load p dataSize
 	binary/load p dataSize
+	
 ]
 
+; get memory as binary! string
+; Thanks to Qtxie for the optimization!
+getBinaryValue: routine [dataAddress [integer!] dataSize [integer!] return: [binary!]] [
+	as red-binary! stack/set-last as red-value! binary/load as byte-ptr! dataAddress dataSize
+]
+
+
+
+;
 
 ; for image calculation when a line offset is required
 getStep: routine [img [integer!] return: [integer!] /local tmp] [

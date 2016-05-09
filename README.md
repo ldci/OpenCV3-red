@@ -8,6 +8,10 @@
 ### This binding can used with 3.0 and higher version of opencv library.
 
 ###You must use 32-bit version of dynamically linked libraries.
+### NEW: MAY 9 2016
+
+New sample for using basic image operators with Red Gui
+
 
 ### NEW: MAY 2016
 New samples to test with Red GUI are added and are fully functional

@@ -46,7 +46,8 @@ isFile: false
 
 makeCanny: routine [ t [integer!] /local tt][
 	either t > 0 [tt: int-to-float t] [tt: 0.0]
-	cvSmooth src dst CV_BLUR 3 3 0.0 0.0;cvNot gray edges
+	cvSmooth src dst CV_BLUR 3 3 0.0 0.0
+	cvNot gray edges
 	cvCanny gray edges tt tt * 3.0 3
 	cvZero dst
 	cvCopy src dst edges
