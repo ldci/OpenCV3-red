@@ -5,7 +5,7 @@ Red/System [
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-#include %../../libs/plateforms.reds            ; lib path according to os
+#include %../../libs/platforms.reds            ; lib path according to os
 #include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
 #include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
 #include %../../libs/imgproc/types_c.reds       ; image processing types and structures
@@ -13,7 +13,7 @@ Red/System [
 
 ; OpenCV ImgProc C Functions
 
-#define CvContourScanner! byte-ptr!
+#define CvContourScanner! [byte-ptr!]
 #define CV_RGB (r g b)  [(cvScalar  (b) (g) (r) 0.0 )]
 CV_FILLED: -1
 CV_AA: 16
@@ -52,31 +52,27 @@ CvFont!: alias struct! [
     line_type       [integer!]
 ]
 
-
 #import [
     cvImgproc importMode [
-        cvAcc: "cvAcc" [
+    	cvAcc: "cvAcc" [
         "Adds image to accumulator"
             image                   [cvArr!]
             sum                     [cvArr!]
             mask                    [cvArr!] ; CV_DEFAULT(NULL))
         ]
-        
         cvSquareAcc: "cvSquareAcc" [
         "Adds squared image to accumulator"
             image                   [cvArr!]
             sqsum                   [cvArr!]
             mask                    [cvArr!] ; CV_DEFAULT(NULL))
         ]
-        
-         cvMultiplyAcc: "cvMultiplyAcc" [
+        cvMultiplyAcc: "cvMultiplyAcc" [
         "Adds a product of two images to accumulator"
             image1                  [cvArr!]
             image2                  [cvArr!]
             acc                     [cvArr!]
             mask                    [cvArr!] ; CV_DEFAULT(NULL))
         ]
-        
         cvRunningAvg: "cvRunningAvg" [
         "Adds image to accumulator with weights: acc = acc*(1-alpha) + image*alpha "
             image                   [cvArr!]
@@ -84,7 +80,6 @@ CvFont!: alias struct! [
             alpha                   [float!]
             mask                    [cvArr!] ; CV_DEFAULT(NULL))
         ]
-        
         cvCopyMakeBorder: "cvCopyMakeBorder" [
         "Copies source 2D array inside of the larger destination array and makes a border of the specified type (IPL_BORDER_*) around the copied area."
             src 	                [CvArr!]
@@ -97,7 +92,6 @@ CvFont!: alias struct! [
             v2                          [float!]
             v3                          [float!]
         ]
-        
         cvSmooth: "cvSmooth" [
         "Smoothes array (removes noise)"
             src 		        [CvArr!]
@@ -108,7 +102,6 @@ CvFont!: alias struct! [
             param3		        [float!] ; CV_DEFAULT(0)
             param4		        [float!] ; CV_DEFAULT(0)	
         ]
-        
         cvFilter2D: "cvFilter2D" [
         "Convolves the image with the kernel"
             src 		        [CvArr!]
@@ -117,7 +110,6 @@ CvFont!: alias struct! [
             x  			        [integer!] ; in fact CvPoint 
             y			        [integer!] ;CV_DEFAULT(cvPoint(-1,-1))
         ]
-        
         cvIntegral: "cvIntegral" [
         "Finds integral image: SUM(X,Y) = sum(x<X,y<Y)I(x,y)"
             image 		        [CvArr!]
@@ -125,8 +117,6 @@ CvFont!: alias struct! [
             sqsum		        [CvArr!] ;CV_DEFAULT(NULL) none
             tilted_sum	                [CvArr!] ;CV_DEFAULT(NULL) none	
         ]
-        
-        ;dst_width = floor(src_width/2)[+1], dst_height = floor(src_height/2)[+1]   
         cvPyrDown: "cvPyrDown" [
         "Smoothes the input image with gaussian kernel and then down-samples it."
             src 		        [CvArr!]
@@ -134,7 +124,6 @@ CvFont!: alias struct! [
             filter		        [integer!]; CV_DEFAULT(CV_GAUSSIAN_5x5)
         ]
         
-         ;dst_width = src_width*2, dst_height = src_height*2
         cvPyrUp: "cvPyrUp" [
         "Up-samples image and smoothes the result with gaussian kernel."
             src 		        [CvArr!]
@@ -151,9 +140,8 @@ CvFont!: alias struct! [
             bufarr 			[integer!] ; CV_DEFAULT(0)
             calc			[integer!]; CV_DEFAULT(1)
             filter			[integer!]; CV_DEFAULT(CV_GAUSSIAN_5x5)
-            return 			[double-byte-ptr!] ;a double pointer CvMat**
+            return: 		[double-byte-ptr!] ;a double pointer CvMat**
         ]
-        
         cvReleasePyramid: "cvReleasePyramid" [
             ***pyramid	        [struct! [ptr [double-byte-ptr!]]] ; pointer CvMat***; triple pointer (to be tested )
             extra_layers	[integer!]
@@ -168,7 +156,6 @@ CvFont!: alias struct! [
             max_level	                [integer!] ;  CV_DEFAULT(1)
             termcrit	                [CvTermCriteria!] ; CV_DEFAULT(cvTermCriteria(CV_TERMCRIT_ITER+CV_TERMCRIT_EPS,5,1)))
         ]
-        
         cvWatershed: "cvWatershed" [
         "Segments image using seed markers"
             src 		        [CvArr!]
@@ -375,14 +362,7 @@ CvFont!: alias struct! [
             iterations		        [integer!] ;CV_DEFAULT(1)
         ]
         
-        cvMoments: "cvMoments" [
-        "Calculates all spatial and central moments up to the 3rd order"
-            arr 			[CvArr!]
-            moments 		        [CvMoments!]
-            binary			[integer!] ;CV_DEFAULT(0)
-        ]
-        
-         cvGetSpatialMoment: "cvGetSpatialMoment" [
+        cvGetSpatialMoment: "cvGetSpatialMoment" [
         "Retrieve particular spatial moments "
             moments 		        [CvMoments!]
             x_order			[integer!] 
@@ -411,7 +391,7 @@ CvFont!: alias struct! [
             hu_moments 		    [CvMoments!]
         ]
         
-        cvSampleLine: "cvSampleLine" [
+         cvSampleLine: "cvSampleLine" [
         "Fetches pixels that belong to the specified line segment and stores them to the buffer. Returns the number of retrieved points."
             image 			[CvArr!]
             pt1_x	 		[integer!];CvPoint
@@ -505,17 +485,6 @@ CvFont!: alias struct! [
 	    return:                     [CvSeq!]	
         ]
         
-        cvApproxChains: "cvApproxChains" [
-        "Approximates a single Freeman chain or a tree of chains to polygonal curves"
-            src_seq			[CvSeq!]
-            storage			[CvMemStorage!]
-            method			[integer!];CV_DEFAULT(0)
-            parameter			[float!];CV_DEFAULT(0)
-            minimal_perimeter	        [integer!];CV_DEFAULT(0)
-            recursive			[integer!];CV_DEFAULT(0)
-            return:                     [CvSeq!]	
-        ]
-        
         cvStartReadChainPoints: "cvStartReadChainPoints"  [
         {Initalizes Freeman chain reader.
         The reader is used to iteratively get coordinates of all the chain points.
@@ -527,7 +496,7 @@ CvFont!: alias struct! [
         cvReadChainPoint: "cvReadChainPoint" [
         "Retrieves the next chain point"
             reader		    [CvChainPtReader!]
-            return		    [CvPoint!]
+            return:		    [CvPoint!]
         ]
         
         cvApproxPoly: "cvApproxPoly" [
@@ -540,7 +509,8 @@ CvFont!: alias struct! [
             parameter2                  [integer!] ;CV_DEFAULT(0)
             return:                     [CvSeq!]
         ]
-       cvArcLength: "cvArcLength" [
+        
+        cvArcLength: "cvArcLength" [
         "Calculates perimeter of a contour or length of a part of contour"
             curve                       [byte-ptr!] ;void*
             slice_start_index           [integer!]; _CvSlice  ;CV_DEFAULT(CV_WHOLE_SEQ)
@@ -608,7 +578,7 @@ CvFont!: alias struct! [
             return:                       [CvSeq!]
         ]
         
-        cvFitEllipse2: "cvFitEllipse2" [
+         cvFitEllipse2: "cvFitEllipse2" [
         "Fits ellipse into a set of 2d points"
             points                       [CvArr!]
             return:                      [CvBox2D!] ; may be problematic
@@ -933,7 +903,7 @@ CvFont!: alias struct! [
             a				[float!]
             thickness		        [integer!] ;
             line_type		        [integer!] ;CV_DEFAULT(8)
-            shift			[integer!] ;CV_DEFAULT(0)
+            nshift			[integer!] ;CV_DEFAULT(0)
         ]
         
         cvRectangle: "cvRectangle" [
@@ -949,7 +919,7 @@ CvFont!: alias struct! [
             a				[float!]
             thickness		        [integer!]
             line_type		        [integer!];CV_DEFAULT(8)
-            shift			[integer!];CV_DEFAULT(0)
+            nshift			[integer!];CV_DEFAULT(0)
         ]
         
         cvRectangleR: "cvRectangleR" [
@@ -965,7 +935,7 @@ CvFont!: alias struct! [
             a				[float!]
             thickness		        [integer!]
             line_type		        [integer!];CV_DEFAULT(8)
-            shift			[integer!];CV_DEFAULT(0)
+            nshift			[integer!];CV_DEFAULT(0)
         ]
         
         cvCircle: "cvCircle" [
@@ -980,7 +950,7 @@ CvFont!: alias struct! [
             a				[float!]
             thickness		        [integer!];CV_DEFAULT(1)
             line_type		        [integer!];CV_DEFAULT(8)
-            shift			[integer!];CV_DEFAULT(0)
+            nshift			[integer!];CV_DEFAULT(0)
         ]
         
         cvEllipse: "cvEllipse" [
@@ -998,10 +968,10 @@ CvFont!: alias struct! [
             a				[float!]
             thickness		        [integer!];CV_DEFAULT(1)
             line_type		        [integer!];CV_DEFAULT(8)
-            shift			[integer!];CV_DEFAULT(0)
+            nshift			[integer!];CV_DEFAULT(0)
         ]
         
-        cvFillConvexPoly: "cvFillConvexPoly" [
+         cvFillConvexPoly: "cvFillConvexPoly" [
         "Fills convex or monotonous polygon"
 			img				[CvArr!]
 			pts				[int-ptr!]  ; * CvPoint! pointer to array of points
@@ -1011,143 +981,143 @@ CvFont!: alias struct! [
 			r				[float!]
 			a				[float!]
 			line_type		        [integer!];CV_DEFAULT(8)
-			shift			        [integer!];CV_DEFAULT(0)
-    ]
+			nshift			        [integer!];CV_DEFAULT(0)
+    	]
     
-    cvFillPoly: "cvFillPoly" [
-    ";Fills an area bounded by one or more arbitrary polygons"
-		img					[CvArr!]
-		pts					[double-int-ptr!];  ** CvPoints pointer to array of CvPoints
-		npts			    [int-ptr!] ;pointer nb of points by polygons
-		contours		    [integer!] ; nb of polygons to draw
-		b					[float!]
-		g					[float!]
-		r					[float!]
-		a					[float!]
-		line_type		    [integer!];CV_DEFAULT(8)
-		shift			    [integer!];CV_DEFAULT(0)
-    ]
+    	cvFillPoly: "cvFillPoly" [
+    	";Fills an area bounded by one or more arbitrary polygons"
+			img					[CvArr!]
+			pts					[double-int-ptr!];  ** CvPoints pointer to array of CvPoints
+			npts			    [int-ptr!] ;pointer nb of points by polygons
+			contours		    [integer!] ; nb of polygons to draw
+			b					[float!]
+			g					[float!]
+			r					[float!]
+			a					[float!]
+			line_type		    [integer!];CV_DEFAULT(8)
+			nshift			    [integer!];CV_DEFAULT(0)
+    	]
     
-    cvPolyLine: "cvPolyLine" [
-    "Draws one or more polygonal curves"
-        img             [CvArr!]
-        pts				[double-int-ptr!];  ** CvPoints pointer to array of CvPoints ;Array of pointers to polylines.
-        npts			[int-ptr!] ; pointer to int array ; Array of polyline vertex counters
-        contours		[integer!] ;  Array of polyline vertex counters
-        is_closed       [integer!] ; closed or not
-        b				[float!]
-        g				[float!]
-        r				[float!]
-        a				[float!]
-        thickness       [integer!];CV_DEFAULT(1)
-		line_type		[integer!];CV_DEFAULT(8)
-		shift			[integer!];CV_DEFAULT(0)
-    ]
+    	cvPolyLine: "cvPolyLine" [
+    	"Draws one or more polygonal curves"
+       	 	img             [CvArr!]
+        	pts				[double-int-ptr!];  ** CvPoints pointer to array of CvPoints ;Array of pointers to polylines.
+        	npts			[int-ptr!] ; pointer to int array ; Array of polyline vertex counters
+        	contours		[integer!] ;  Array of polyline vertex counters
+        	is_closed       [integer!] ; closed or not
+        	b				[float!]
+        	g				[float!]
+        	r				[float!]
+        	a				[float!]
+        	thickness       [integer!];CV_DEFAULT(1)
+			line_type		[integer!];CV_DEFAULT(8)
+			nshift			[integer!];CV_DEFAULT(0)
+    	]
+    	
+    	cvClipLine: "cvClipLine" [
+    	"Clips the line segment connecting *pt1 and *pt2 by the rectangular window (0<=x<img_size.width, 0<=y<img_size.height)."
+			width 		[integer!]; x CvSize
+			height 		[integer!]; y CvSize
+		*pt1		[CvPoint!]; pointer to cvPoint
+		*pt2		[CvPoint!] ; pointer to cvPoint
+		return:		[integer!]
+    	]
     
-    cvClipLine: "cvClipLine" [
-    "Clips the line segment connecting *pt1 and *pt2 by the rectangular window (0<=x<img_size.width, 0<=y<img_size.height)."
-	width 		[integer!]; x CvSize
-	height 		[integer!]; y CvSize
-	*pt1		[CvPoint!]; pointer to cvPoint
-	*pt2		[CvPoint!] ; pointer to cvPoint
-	return:		[integer!]
-    ]
+    	vInitLineIterator: "cvInitLineIterator" [
+    	{Initializes line iterator. Initially, line_iterator->ptr will point
+    	to pt1 (or pt2, see left_to_right description) location in the image.
+    	Returns the number of pixels on the line between the ending points}
+			img			[CvArr!]
+			pt1_x			[integer!]
+			pt1_y 			[integer!]
+			pt2_x 			[integer!]
+			pt2_y 			[integer!]
+			line_iterator           [CvLineIterator!] ; pointer 
+			connectivity	        [integer!] ;CV_DEFAULT(8)
+			left_to_right	        [integer!] ;CV_DEFAULT(0)
+			return:			[integer!]
+    	]
+    	
+    	cvInitFont: "cvInitFont" [
+    	"Initializes font structure used further in cvPutText"
+			font				[CvFont!] ; pointer to fonts CvFont!
+			font_face			[integer!]
+			hscale				[float!]
+			vscale				[float!]
+			shear				[float!]; CV_DEFAULT(0) ;italic
+			thickness			[integer!]; CV_DEFAULT(1)
+			line_type			[integer!];CV_DEFAULT(8))
+    	]
     
-    cvInitLineIterator: "cvInitLineIterator" [
-    {Initializes line iterator. Initially, line_iterator->ptr will point
-    to pt1 (or pt2, see left_to_right description) location in the image.
-    Returns the number of pixels on the line between the ending points}
-	img			[CvArr!]
-	pt1_x			[integer!]
-	pt1_y 			[integer!]
-	pt2_x 			[integer!]
-	pt2_y 			[integer!]
-	line_iterator           [CvLineIterator!] ; pointer 
-	connectivity	        [integer!] ;CV_DEFAULT(8)
-	left_to_right	        [integer!] ;CV_DEFAULT(0)
-	return:			[integer!]
-    ]
+   	 	cvPutText: "cvPutText" [
+    	"Renders text stroke with specified font and color at specified location. CvFont should be initialized with cvInitFont"
+			img				[CvArr!]
+			text			        [c-string!]
+			orgx			        [integer!]
+			orgy			        [integer!]
+			font			        [CvFont!]; & CvFont!font pointer 
+			b				[float!]
+			g				[float!]
+			r				[float!]
+			a				[float!]
+    	]
     
-    cvInitFont: "cvInitFont" [
-    "Initializes font structure used further in cvPutText"
-	font				[CvFont!] ; pointer to fonts CvFont!
-	font_face			[integer!]
-	hscale				[float!]
-	vscale				[float!]
-	shear				[float!]; CV_DEFAULT(0) ;italic
-	thickness			[integer!]; CV_DEFAULT(1)
-	line_type			[integer!];CV_DEFAULT(8))
-    ]
+    	cvGetTextSize: "cvGetTextSize" [
+    	"Calculates bounding box of text stroke (useful for alignment)"
+			text			[c-string!]
+			font			[CvFont!]               ; pointer to CvFont
+        	text_size               [CvSize!]               ; pointer to CvSize is updated by the routine ;
+			baseline		[int-ptr!]   ; pointer updated by the routine  (byte-ptr can be also used )
+    	]
+    	
+    	cvColorToScalar: "cvColorToScalar" [
+    	{ Unpacks color value, if arrtype is CV_8UC?, <color> is treated as
+     	packed color value, otherwise the first channels (depending on arrtype)
+    	of destination scalar are set to the same value = <color> }
+			packed_color	        [float!]
+			arrtype			[integer!]
+			return: 		[CvScalar!] ; not a pointer 		
+    	]
     
-    cvPutText: "cvPutText" [
-    "Renders text stroke with specified font and color at specified location. CvFont should be initialized with cvInitFont"
-	img				[CvArr!]
-	text			        [c-string!]
-	orgx			        [integer!]
-	orgy			        [integer!]
-	font			        [CvFont!]; & CvFont!font pointer 
-	b				[float!]
-	g				[float!]
-	r				[float!]
-	a				[float!]
-    ]
+    	cvEllipse2Poly: "cvEllipse2Poly" [
+    	{Returns the polygon points which make up the given ellipse.  The ellipse is define by
+    	the box of size 'axes' rotated 'angle' around the 'center'.  A partial sweep
+    	of the ellipse arc can be done by spcifying arc_start and arc_end to be something
+    	other than 0 and 360, respectively.  The input array 'pts' must be large enough to
+    	hold the result.  The total number of points stored into 'pts' is returned by this function.}
+			center_x			[integer!];_cvPoint
+			center_y			[integer!];cvPoint
+			axe_x				[integer!];cvSize
+			axe_y				[integer!];cvSize
+			angle				[integer!]
+			arc_start			[integer!]
+			arc_end				[integer!]
+        	*pts                            [int-ptr!] ; pointeur to array CvPoints
+			delta				[integer!]; 
+			return:				[integer!]
+    	]
     
-    cvGetTextSize: "cvGetTextSize" [
-    "Calculates bounding box of text stroke (useful for alignment)"
-	text			[c-string!]
-	font			[CvFont!]               ; pointer to CvFont
-        text_size               [CvSize!]               ; pointer to CvSize is updated by the routine ;
-	baseline		[int-ptr!]   ; pointer updated by the routine  (byte-ptr can be also used )
-    ]
-    
-    cvColorToScalar: "cvColorToScalar" [
-    { Unpacks color value, if arrtype is CV_8UC?, <color> is treated as
-     packed color value, otherwise the first channels (depending on arrtype)
-    of destination scalar are set to the same value = <color> }
-	packed_color	        [float!]
-	arrtype			[integer!]
-	return: 		[CvScalar!] ; not a pointer 		
-    ]
-    
-    cvEllipse2Poly: "cvEllipse2Poly" [
-    {Returns the polygon points which make up the given ellipse.  The ellipse is define by
-    the box of size 'axes' rotated 'angle' around the 'center'.  A partial sweep
-    of the ellipse arc can be done by spcifying arc_start and arc_end to be something
-    other than 0 and 360, respectively.  The input array 'pts' must be large enough to
-    hold the result.  The total number of points stored into 'pts' is returned by this function.}
-
-	center_x			[integer!];_cvPoint
-	center_y			[integer!];cvPoint
-	axe_x				[integer!];cvSize
-	axe_y				[integer!];cvSize
-	angle				[integer!]
-	arc_start			[integer!]
-	arc_end				[integer!]
-        *pts                            [int-ptr!] ; pointeur to array CvPoints
-	delta				[integer!]; 
-	return:				[integer!]
-    ]
-    
-    cvDrawContours: "cvDrawContours" [
-    "Draws contour outlines or filled interiors on the image"
-	img			        [CvArr!]
-	contour		                [CvSeq!]
-	eb				[float!]
-	eg				[float!]
-	er				[float!]
-	ea				[float!]
-	hb				[float!]
-	hg				[float!]
-	hr				[float!]
-	ha				[float!]
-	thickness 		        [integer!];CV_DEFAULT(1)
-	line_type		        [integer!];CV_DEFAULT(8)
-	offset_x		        [integer!];CV_DEFAULT(0)
-	offset_y		        [integer!];CV_DEFAULT(0)
-    ]
-        
+    	cvDrawContours: "cvDrawContours" [
+    	"Draws contour outlines or filled interiors on the image"
+			img			        [CvArr!]
+			contour		                [CvSeq!]
+			eb				[float!]
+			eg				[float!]
+			er				[float!]
+			ea				[float!]
+			hb				[float!]
+			hg				[float!]
+			hr				[float!]
+			ha				[float!]
+			thickness 		        [integer!];CV_DEFAULT(1)
+			line_type		        [integer!];CV_DEFAULT(8)
+			offset_x		        [integer!];CV_DEFAULT(0)
+			offset_y		        [integer!];CV_DEFAULT(0)
+    	]  
     ]; end imgproc
 ]; end import
+
+
 
 ;Inline macros and functions
 
@@ -1180,4 +1150,4 @@ cvFont: func [scale [float!] thickness [integer!] return: [CvFont!] /local font]
     cvInitFont font CV_FONT_HERSHEY_PLAIN scale scale 0.0 thickness CV_AA
     font
 ]
-        
+    

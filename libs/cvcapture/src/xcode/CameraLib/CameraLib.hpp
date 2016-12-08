@@ -40,4 +40,5 @@ extern "C"
     bool grabFrame();
     IplImage* retrieveFrame(int flag);
     bool openFile(String fileName);
+    bool openFileApi(String fileName, int apiPreference);
 }

@@ -70,4 +70,8 @@ bool openFile(String fileName)
     return cam.open(fileName);
 }
 
+bool openFileApi(String fileName, int apiPreference)
+{
+    return cam.open(fileName,apiPreference);
+}
 }

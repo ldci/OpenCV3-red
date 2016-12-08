@@ -6,10 +6,8 @@ Red/System [
 ]
 
 
-#include %../../../libs/red/types_r.reds          ; some specific structures for Red/S 
-#include %../../../libs/core/types_c.reds         ; basic OpenCV types and structures
-#include %../../../libs/imgproc/types_c.reds      ; image processing types and structures
-#include %../../../libs/highgui/cvHighgui.reds      ; highgui functions
+#include %../../../libs/include.reds ; all OpenCV  functions
+
 
 windowsName: "OpenCV Window [ESC to close Window]"
 cvNamedWindow windowsName CV_WND_PROP_AUTOSIZE OR CV_WND_PROP_ASPECTRATIO

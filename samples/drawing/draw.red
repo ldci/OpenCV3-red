@@ -1,22 +1,13 @@
 Red [
 	Title:		"OpenCV Tests: Draw functions"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2012-2105 F. Jouen. All rights reserved."
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
 	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-
-; import required OpenCV libraries
 #system [
-    #include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-    #include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-    #include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-    #include %../../libs/core/cvCore.reds             ; OpenCV core functions
-    #include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-    #include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-    #include %../../libs/imgproc/cvImgproc.reds       ; OpenCV image  processing
-    #include %../../libs/red/user.reds		    ; for conversion
-    
+    ; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions./dr	
     ; some variables that can be accessed ONLY by routines and NOT by RED code
     pt1: declare CvPoint!
     pt2: declare CvPoint!
@@ -149,7 +140,7 @@ drawSubstract: routine [
 	] [
 	allS: cvScalarAll ii
 	cvSubS as int-ptr! image2 allS/v0 allS/v1 allS/v2 allS/v3 as int-ptr! iplimage null
-	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
+	color: tocvRGB as float! r as float! g as float! b 0.0
 	cvPutText as int-ptr! iplimage "www.red-lang.org" pt1/x pt1/y font color/v0 color/v1 color/v2 color/v3
 	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	ii: ii + 1.0
@@ -170,8 +161,8 @@ drawText: routine [
 	b  		[integer!]
 	t  		[integer!]]
 	[
-	cvInitFont font f int-to-float h int-to-float v 0.0 t CV_AA
-	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
+	cvInitFont font f as float! h as float! v 0.0 t CV_AA
+	color: tocvRGB as float! r as float! g as float! b 0.0
 	cvPutText as int-ptr! iplimage "Red is fantastic!" p1/x p1/y font color/v0 color/v1 color/v2 color/v3
 	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvWaitKey 1
@@ -188,7 +179,7 @@ drawLines: routine [
 	b  		[integer!]
 	t  		[integer!]
 	][
-	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
+	color: tocvRGB as float! r as float! g as float! b 0.0
 	cvLine as int-ptr! iplimage p1/x p1/y p2/x p2/y color/v0 color/v1 color/v2 color/v3 t CV_AA 0
 	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvWaitKey 1
@@ -204,7 +195,7 @@ drawRectangles: routine [
 	b  		[integer!]
 	t  		[integer!]
 	][
-	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
+	color: tocvRGB as float! r as float! g as float! b 0.0
 	cvRectangle as int-ptr! iplimage p1/x p1/y p2/x p2/y color/v0 color/v1 color/v2 color/v3 t CV_AA 0
 	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvWaitKey 1
@@ -220,7 +211,7 @@ drawCircles: routine [
 	b  		[integer!]
 	t  		[integer!]
 	][
-	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
+	color: tocvRGB as float! r as float! g as float! b 0.0
 	cvCircle as int-ptr! iplimage p1/x p1/y rad color/v0 color/v1 color/v2 color/v3 t CV_AA 0
 	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	cvWaitKey 1
@@ -238,7 +229,7 @@ drawEllipses: routine [
 	t  		[integer!]
 	/local anglea starta enda 
 	][
-	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
+	color: tocvRGB as float! r as float! g as float! b 0.0
 	; until a new float! implementation by red 0.6.0
 	; float as conssdred as pointers!
 	anglea: angle
@@ -287,7 +278,7 @@ drawPolygons: routine [
 	
 	dppoints: declare double-int-ptr! ; double int pointer to CvPoints array
 	dppoints/ptr: ppoints
-	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
+	color: tocvRGB as float! r as float! g as float! b 0.0
 	contours: 2
 	isClosed: 1 
 	cvPolyLine as int-ptr! iplimage dppoints parray contours isClosed color/v0 color/v1 color/v2 color/v3 t CV_AA 0
@@ -324,7 +315,7 @@ drawConvexPoly: routine [
 	ppoints/10: p5/y
 	ppoints/11: p6/x
 	ppoints/12: p6/x
-	color: tocvRGB int-to-float r int-to-float g int-to-float b 0.0
+	color: tocvRGB as float! r as float! g as float! b 0.0
 	cvFillConvexPoly as int-ptr! iplimage ppoints 6 color/v0 color/v1 color/v2 color/v3 CV_AA 0
 	cvShowImage as c-string! string/rs-head name as int-ptr! iplimage
 	free mem2
@@ -345,7 +336,7 @@ freeOpenCV: routine [] [
 
 print ["Select graphical window" newline]
 createImage wndname
-makeTitle wndname "Drawing Lines"
+makeTitle wndname "Lines"
 waitFor 500
 clearImage wndname
 
@@ -360,7 +351,7 @@ until [
 ]
 waitFor 1000
 
-makeTitle wndname "Drawing Rectangles "
+makeTitle wndname "Rectangles"
 waitFor 500
 clearImage wndname
 i: 0
@@ -374,7 +365,7 @@ until [
 ]
 waitFor 1000
 
-makeTitle wndname "Drawing Circles "
+makeTitle wndname "Circles"
 waitFor 500
 clearImage wndname
 i: 0
@@ -388,7 +379,7 @@ until [
 	i = (number + 1)
 ]
 waitFor 1000
-makeTitle wndname "Drawing Ellipses "
+makeTitle wndname "Ellipses"
 waitFor 500
 clearImage wndname
 i: 0
@@ -405,7 +396,7 @@ until [
 ]
 waitFor 1000
 
-makeTitle wndname "Drawing Polygons "
+makeTitle wndname "Polygons"
 waitFor 500
 clearImage wndname
 i: 0
@@ -420,7 +411,7 @@ until [
 ]
 waitFor 1000
 
-makeTitle wndname "Fill Convex Polygons "
+makeTitle wndname "Fill Convex Polygons"
 waitFor 500
 clearImage wndname
 i: 0
@@ -434,7 +425,7 @@ until [
 ]
 waitFor 1000
 
-makeTitle wndname "Drawing Text "
+makeTitle wndname "Text"
 waitFor 500
 clearImage wndname
 i: 0
@@ -460,7 +451,7 @@ until [
 waitFor 1000
 
 clearImage wndname
-makeTitle wndname "Any Key to close "
+makeTitle wndname "Any Key"
 waitFor 0
 freeOpenCV
 quit

@@ -8,7 +8,11 @@ Red [
 
 ; for individual pixel or pointer reading
 
-getByteValue: routine [address [integer!] return: [integer!] /local p][
+getByteValue: routine [
+	address [integer!] 
+	return: [integer!] 
+	/local p
+][
     p: as [pointer! [byte!]] address
     as integer! p/value
 ]
@@ -96,8 +100,7 @@ getIColorModel: routine [img [integer!] return: [string!] /local b str tmp] [
 	b: as byte! tmp/6
 	if (b = #"R") [str: "RGBA"]
 	if (b = #"G") [str: "GRAY"]
-	stack/set-last as red-value! string/load str length? str UTF-8 
-	string/load str length? str UTF-8 ;
+	as red-string! stack/set-last as red-value! string/load str length? str UTF-8 
 ]
 
 getIChannelSequence: routine [img [integer!] return: [string!] /local b str tmp] [
@@ -106,8 +109,7 @@ getIChannelSequence: routine [img [integer!] return: [string!] /local b str tmp]
 	if (b = #"B") [str: "BGRA"]
 	if (b = #"R") [str: "RGBA"] 
 	if (b = #"G") [str: "GRAY"]
-	stack/set-last as red-value! string/load str length? str UTF-8
-	string/load str length? str UTF-8
+	as red-string! stack/set-last as red-value! string/load str length? str UTF-8
 ]
 
 getIdataOrder: routine [img [integer!] return: [string!] /local b str tmp] [
@@ -115,8 +117,7 @@ getIdataOrder: routine [img [integer!] return: [string!] /local b str tmp] [
 	b: tmp/8
 	if (b = 0) [str: "interleaved color channels"]
 	if (b = 1) [str: "separate color channels"]
-	stack/set-last as red-value! string/load str length? str UTF-8
-	string/load str length? str UTF-8
+	as red-string! stack/set-last as red-value! string/load str length? str UTF-8
 ]
 
 getIOrigin: routine [img [integer!] return: [string!] /local b str tmp] [
@@ -124,8 +125,7 @@ getIOrigin: routine [img [integer!] return: [string!] /local b str tmp] [
 	b: tmp/9
 	if (b = 0) [str: "top-left"]
 	if (b = 1) [str: "bottom-left"]
-	stack/set-last as red-value! string/load str length? str UTF-8
-	string/load str length? str UTF-8
+	as red-string! stack/set-last as red-value! string/load str length? str UTF-8
 ]
 
 getIRowAlign: routine [img [integer!] return: [integer!] /local tmp] [

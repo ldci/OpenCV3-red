@@ -5,20 +5,7 @@ Red/System [
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-#include %../../../libs/red/types_r.reds           ; some specific structures for Red/S 
-#include %../../../libs/core/types_c.reds          ; basic OpenCV types and structures
-#include %../../../libs/imgproc/types_c.reds       ; image processing types and structures
-#include %../../../libs/highgui/cvHighgui.reds       ; highgui functions
-#include %../../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-#include %../../../libs/imgproc/cvImgproc.reds       ; OpenCV image  processing
-#include %../../../libs/core/cvCore.reds             ; OpenCV core functions
-
-; accoding to OS 
-#switch OS [
-    MacOSX  [image: "/Users/francoisjouen/Pictures/baboon.jpg"]
-    Windows [image: "c:\Users\palm\Pictures\baboon.jpg"]
-    Linux   [image: "/home/fjouen/Images/baboon.jpg"]
-]
+#include %../../../libs/include.reds ; all OpenCV  functions
 
 srcWnd: "Using cvTrackbar: ESC to close"
 dstWnd: "Gauusian Blur"
@@ -32,7 +19,7 @@ trackEvent: func [[importMode] pos [integer!] /local v param1] [
     cvShowImage dstWnd as int-ptr! dst
 ]
 
-src: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
+src: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
 dst: cvCloneImage src
 
 ;create windows for output images

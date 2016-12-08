@@ -2,7 +2,7 @@ Red [
 	Title:		"OpenCV Camera Edges"
 	Author:		"F. Jouen"
 	Rights:		"Copyright (c) 2015 F. Jouen. All rights reserved."
-	License:     "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
+	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
 ; OpenCV Functions import

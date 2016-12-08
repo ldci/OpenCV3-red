@@ -1,7 +1,7 @@
 Red [
 	Title:		"OpenCV Tests: Random functions"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2016 F. Jouen. All rights reserved."
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
 	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
@@ -10,13 +10,9 @@ Red [
 random/seed 65536
 
 #system [
-    #include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-    #include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-    #include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-    #include %../../libs/core/cvCore.reds             ; OpenCV core functions
-    #include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-    #include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-    #include %../../libs/imgproc/cvImgproc.reds       ; OpenCV image  processing
+    ; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
+	; global variables that can be used by routines
     windowsName: "Random Tests"
     image: declare CvArr!
     rng: declare byte-ptr! ; just a pointer for random generator 

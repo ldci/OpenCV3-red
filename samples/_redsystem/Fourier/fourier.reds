@@ -1,33 +1,20 @@
 Red/System [
 	Title:		"OpenCV Tests: Fourier Test"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2012-2105 F. Jouen. All rights reserved."
-	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
+	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
 
-#include %../../../libs/red/types_r.reds          ; some specific structures for Red/S 
-#include %../../../libs/core/types_c.reds         ; basic OpenCV types and structures
-#include %../../../libs/core/cvCore.reds      	  ; core functions
-#include %../../../libs/imgproc/types_c.reds      ; image processing types and structures
-#include %../../../libs/highgui/cvHighgui.reds      ; highgui functions
-#include %../../../libs/imgproc/cvImgproc.reds      ; basic image functions
-#include %../../../libs/imgcodecs/cvImgcodecs.reds  ; basic image functions
-
-; according to OS 
-#switch OS [
-    MacOSX  [image: "/Users/francoisjouen/Pictures/baboon.jpg"]
-    Windows [image: "c:\Users\palm\Pictures\lena.tiff"]
-    Linux   [image: "/home/fjouen/Images/baboon.jpg"]
-]
+#include %../../../libs/include.reds ; all OpenCV  functions
 
 
 
-windowsName: image;  ; filename as title
+windowsName: picture;  ; filename as title
 ;create opencv window
 cvNamedWindow windowsName CV_WND_PROP_AUTOSIZE OR CV_WND_PROP_ASPECTRATIO
 ;load and show color image
-tmp: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
+tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
 src: as int-ptr! tmp
 cvShowImage windowsName src
 

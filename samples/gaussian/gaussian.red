@@ -1,27 +1,16 @@
 Red [
 	Title:		"OpenCV Tests: Gaussian"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2012-2105 F. Jouen. All rights reserved."
-	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
+	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
 ; import required OpenCV libraries
 #system [
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-	#include %../../libs/highgui/cvhighgui.reds       ; highgui functions
-	#include %../../libs/imgcodecs/cvimgcodecs.reds   ; basic image functions
-	#include %../../libs/imgproc/cvimgproc.reds       ; OpenCV image  processing
-	#include %../../libs/core/cvcore.reds             ; OpenCV core functions
-
-	; according to OS 
-	#switch OS [
-		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
-		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
-		Linux	[picture: "/home/fjouen/Images/baboon.jpg"]
-	]
+	; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
 	
+	; global variables that can be used by routines
 	src: declare CvArr!
 	dst: declare CvArr!
 	srcWnd: "Use cvTrackbar: ESC to close"
@@ -29,7 +18,7 @@ Red [
 	tBar: "Filter"
 	p: declare pointer! [integer!]  ; for trackbar position
         
-        ; function pointer called by TrackBar callback
+    ; function pointer called by TrackBar callback
 	trackEvent: func [[cdecl] pos [integer!] /local v param1][
 		v: (pos // 2) ; param1 must be odd !!!
 		if v = 1  [param1: pos cvSmooth src dst CV_GAUSSIAN param1 3 0.0 0.0 ]

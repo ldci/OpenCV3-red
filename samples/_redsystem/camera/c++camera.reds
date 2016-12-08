@@ -1,21 +1,15 @@
 Red/System [
 	Title:		"OpenCV Tests: Camera"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2012-2105 F. Jouen. All rights reserved."
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
 	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
 
 
 
-#include %../../../libs/red/types_r.reds           ; some specific structures for Red/S 
-#include %../../../libs/core/types_c.reds          ; basic OpenCV types and structures
-#include %../../../libs/imgproc/types_c.reds       ; image processing types and structures
-#include %../../../libs/highgui/cvHighgui.reds       ; highgui functions
-#include %../../../libs/core/cvCore.reds
-#include %../../../libs/videoio/cvVideoio.reds       ; to play with camera
+#include %../../../libs/include.reds ; all OpenCV  functions
 #include %../../../libs/cvcapture/cvCapture.reds       ; to play with camera
-
 
 
 

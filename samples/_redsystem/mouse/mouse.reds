@@ -6,18 +6,7 @@ Red/System [
 ]
 
 
-#include %../../../libs/red/types_r.reds          ; some specific structures for Red/S 
-#include %../../../libs/core/types_c.reds         ; basic OpenCV types and structures
-#include %../../../libs/imgproc/types_c.reds      ; image processing types and structures
-#include %../../../libs/highgui/cvHighgui.reds      ; highgui functions
-#include %../../../libs/imgcodecs/cvImgcodecs.reds  ; basic image functions
-
-; accoding to OS 
-#switch OS [
-    MacOSX  [image: "/Users/francoisjouen/Pictures/lena.tiff"]
-    Windows [image: "c:\Users\palm\Pictures\lena.tiff"]
-    Linux   [image: "/home/fjouen/Images/lena.tiff"]
-]
+#include %../../../libs/include.reds ; all OpenCV  functions
 
 
 ; this is pointer  to the function  called by mouse callback
@@ -33,13 +22,13 @@ mouseEvent: func [
 ]
 
 cvStartWindowThread  ; own's window thread 
-windowsName: image;  ; filename as title
+windowsName: picture;  ; filename as title
 ;create opencv window
 cvNamedWindow windowsName CV_WND_PROP_AUTOSIZE OR CV_WND_PROP_ASPECTRATIO
 ; set callback for mouse events
 cvSetMouseCallBack windowsName :mouseEvent null
 ;load and show color image
-img: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
+img: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
 print ["image is " img/width "x" img/height newline]
 cvShowImage windowsName as int-ptr! img
 cvMoveWindow windowsName 200 200

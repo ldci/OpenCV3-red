@@ -5,9 +5,8 @@ Red/System [
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-#include %../../libs/plateforms.reds            ; lib path according to os
+#include %../../libs/platforms.reds             ; lib path according to os
 #include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-#include %../../libs/red/user.reds           	; for float and int conversions 
 #include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
 #include %../../libs/imgproc/types_c.reds       ; image processing types and structures
 
@@ -2087,7 +2086,7 @@ getSum: func [arr [CvArr!]
 	cvAvgSdv arr mean std null
 	h: cvGetDimSize arr 0
 	w: cvGetDimSize arr 1
-	sz: int-to-float (h * w)
+	sz: as float! (h * w)
 	sum/v0:  mean/v0 *  sz
 	sum/v1:  mean/v1 *  sz
 	sum/v2:  mean/v2 *  sz

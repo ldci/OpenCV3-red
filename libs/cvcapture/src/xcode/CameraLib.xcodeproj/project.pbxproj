@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4542D4E61C96AC8E00A8DDD2 /* libopencv_world.3.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4542D4E51C96AC8E00A8DDD2 /* libopencv_world.3.1.0.dylib */; };
+		4CF470751DF95E190090BDA3 /* libopencv_world.3.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF470741DF95E190090BDA3 /* libopencv_world.3.1.0.dylib */; };
 		4CFD4F411C4AA02800CFF9EF /* CameraLib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4CFD4F401C4AA02800CFF9EF /* CameraLib.hpp */; };
 		4CFD4F431C4AA02800CFF9EF /* CameraLibPriv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4CFD4F421C4AA02800CFF9EF /* CameraLibPriv.hpp */; };
 		4CFD4F451C4AA02800CFF9EF /* CameraLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD4F441C4AA02800CFF9EF /* CameraLib.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4542D4E51C96AC8E00A8DDD2 /* libopencv_world.3.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_world.3.1.0.dylib; path = ../../../../../../../../../../usr/local/lib32/opencv3/libopencv_world.3.1.0.dylib; sourceTree = "<group>"; };
+		4CF470741DF95E190090BDA3 /* libopencv_world.3.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_world.3.1.0.dylib; path = ../../../../../../usr/local/lib32/opencv3/libopencv_world.3.1.0.dylib; sourceTree = "<group>"; };
 		4CFD4F3D1C4AA02800CFF9EF /* libCameraLib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libCameraLib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFD4F401C4AA02800CFF9EF /* CameraLib.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraLib.hpp; sourceTree = "<group>"; };
 		4CFD4F421C4AA02800CFF9EF /* CameraLibPriv.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraLibPriv.hpp; sourceTree = "<group>"; };
@@ -26,7 +26,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4542D4E61C96AC8E00A8DDD2 /* libopencv_world.3.1.0.dylib in Frameworks */,
+				4CF470751DF95E190090BDA3 /* libopencv_world.3.1.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +63,7 @@
 		4CFD4F4B1C4AA05F00CFF9EF /* Opencv */ = {
 			isa = PBXGroup;
 			children = (
-				4542D4E51C96AC8E00A8DDD2 /* libopencv_world.3.1.0.dylib */,
+				4CF470741DF95E190090BDA3 /* libopencv_world.3.1.0.dylib */,
 			);
 			name = Opencv;
 			sourceTree = "<group>";
@@ -238,6 +238,7 @@
 					/usr/local/lib32/opencv3,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = i386;
 			};
 			name = Debug;
 		};
@@ -257,6 +258,7 @@
 					/usr/local/lib32/opencv3,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = i386;
 			};
 			name = Release;
 		};

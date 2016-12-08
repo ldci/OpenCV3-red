@@ -8,24 +8,15 @@ Red [
 ; we use some Red/System code to access opencv as external lib
 
 #system [
-	; OpenCV functions we need
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures`
-	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
-	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-	#include %../../libs/videoio/cvVideoio.reds       ; to play with camera
+	; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
+	
+	; global variables that can be used by routines
 	capture: declare CvCapture!
 	iplimage: declare IplImage!
 	foo: 0
 	cpt: 0.0
 	nbFrames: 0.0
-	 ;according to OS 
-	#switch OS [
-		;MacOSX  [movie: "/Users/fjouen/Movies/test.mov"]
-		MacOSX  [movie: "/Users/francoisjouen/Movies/skate.mp4"]
-		Windows [movie: "c:\Users\palm\Videos\skate.mp4"]
-		;Linux  [movie: "/home/fjouen/Vidéos/skate.mp4"]
-	]
 ]
 
 ; very simple program
@@ -49,7 +40,6 @@ render: routine [] [
 		foo: cvWaitKey 42 ; wait for 42 ms  (1/FPS * 1000)
 		cpt: cpt + 1.0
 	]
-
 	print ["Done. Please wait" lf]
 	cvWaitKey 2000
 	cvDestroyAllWindows

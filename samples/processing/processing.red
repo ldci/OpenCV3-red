@@ -5,23 +5,11 @@ Red [
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-; import required OpenCV libraries
 #system [
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
+	; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
 
-	; according to OS 
-	#switch OS [
-		MacOSX  [picture: "/Users/fjouen/Pictures/lena.tiff"]
-		Windows [picture: "c:\Users\palm\Pictures\lena.tiff"]
-		Linux   [picture: "/home/fjouen/Images/lena.tiff"]
-	]
-	
-	;global variables
-	
+	; global variables that can be used by routines
 	delay: 1000
 	wName1: "Image 1 "
 	wName2: "Image 1 Clone "
@@ -180,9 +168,6 @@ notOperator: routine [][
 	cvShowImage wName3 sum
 	cvWaitKey delay
 ]
-
-
-
 
 dotProduct: routine [][
 	print ["cvDotProduct : "  cvDotProduct src clone  lf]

@@ -1,27 +1,16 @@
 Red [
 	Title:		"OpenCV Tests: Image Conversion"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2012-2105 F. Jouen. All rights reserved."
-	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
+	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-; import required OpenCV libraries
-#system [
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-	#include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-	#include %../../libs/imgproc/cvImgproc.reds	; image processing functions
-	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
 
-	; according to OS 
-	#switch OS [
-		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
-		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
-		Linux  [picture: "/home/fjouen/Images/baboon.jpg"]
-	]
-	; glabla variables
+#system [
+	; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
+	
+	; global variables that can be used by routines
 	delay: 1000
 	wName1: "Original 8-bit Image [ESC to Quit]"
 	wName2: "Color -> Grayscale Image"
@@ -34,9 +23,6 @@ Red [
 	dst2: declare CvArr!
 ]
 
-tpicture: %/../../Pictures/baboon.jpg
-
-print [tpicture lf]
 loadImage: routine [/local tmp] [
 	print ["Please wait for..." newline]
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR ; to get structure values

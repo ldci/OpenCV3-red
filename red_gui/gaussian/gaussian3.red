@@ -7,15 +7,8 @@ Red [
 
 ; import required OpenCV libraries
 #system [
-	#include %../../libs/red/types_r.reds           	; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          	; basic OpenCV types and structures
-	#include %../../libs/imgproc/types_c.reds       	; image processing types and structures
-	#include %../../libs/highgui/cvHighgui.reds       	; highgui functions
-	#include %../../libs/imgcodecs/cvImgcodecs.reds   	; basic image functions
-	#include %../../libs/imgproc/cvImgproc.reds       	; OpenCV image  processing
-	#include %../../libs/core/cvCore.reds             	; OpenCV core functions
-	
-	; define variables that can be used inside routines
+	#include %../../libs/include.reds ; all OpenCV  functions
+	; global variables that can be used by routines
 	src: declare CvArr!	; pointer to Source image
 	dst: declare CvArr!	; pointer to Destination image
 	&src: 0			; address of image as integer

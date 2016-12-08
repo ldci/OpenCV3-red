@@ -1,27 +1,14 @@
 Red [
 	Title:		"OpenCV Tests: Gaussian"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2012-2105 F. Jouen. All rights reserved."
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-; import required OpenCV libraries
 #system [
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-	#include %../../libs/imgproc/cvImgproc.reds       ; OpenCV image  processing
-	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
-
-	; according to OS 
-	#switch OS [
-		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
-		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
-		Linux   [picture: "/home/fjouen/Images/baboon.jpg"]
-	]
-	
+	; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
+	; global variables that can be used by routines
 	element_shape: CV_SHAPE_RECT
 	max_iters: 10;
 	open_close_pos: max_iters + 1
@@ -55,10 +42,7 @@ Red [
 		either n < 0 [cvErode  src dst element 1] [cvDilate src dst element 1 ]
 		cvReleaseStructuringElement &element
 		cvShowImage "Erode/Dilate" dst
-	]
-	
-	
-	
+	]./mo		
 ]
 
 morphology: routine [/local tmp tmp2][

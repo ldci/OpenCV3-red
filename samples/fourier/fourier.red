@@ -1,27 +1,16 @@
 Red [
 	Title:		"OpenCV Tests: Fast Fourier Transform"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2012-2105 F. Jouen. All rights reserved."
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-; import required OpenCV libraries
 #system [
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-	#include %../../libs/imgproc/cvImgproc.reds       ; OpenCV image  processing
-	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
+	; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
 
-; according to OS 
-	#switch OS [
-	    MacOSX  [image: "/Users/fjouen/Pictures/lena.tiff"]
-	    Windows [image: "c:\Users\palm\Pictures\lena.tiff"]
-	    MacOSX  [image: "/home/fjouen/Images/lena.tiff"]
-	]
-	windowsName: image;  ; filename as title
+	; global variables that can be used by routines
+	windowsName: picture;  ; filename as title
 	tmp: declare IplImage!
 	src: declare CvArr!
 	gray: declare CvArr!
@@ -33,7 +22,7 @@ fourier: routine [] [
 	;create opencv window
 	cvNamedWindow windowsName CV_WND_PROP_AUTOSIZE OR CV_WND_PROP_ASPECTRATIO
 	;load and show color image
-	tmp: cvLoadImage image CV_LOAD_IMAGE_ANYCOLOR
+	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
 	src: as int-ptr! tmp
 	cvShowImage windowsName src
 	; we need grayscale images

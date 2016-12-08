@@ -1,18 +1,19 @@
 dependencies: \
-  /Users/francoisjouen/Programmation/OpenCV/OpenCV300/Red/libs/cvcapture/src/xcode/CameraLib/CameraLib.cpp \
-  /Users/francoisjouen/Programmation/OpenCV/OpenCV300/Red/libs/cvcapture/src/xcode/CameraLib/CameraLib.hpp \
+  /Users/fjouen/Programmation/Code_FJ/xcode/CameraLib/CameraLib/CameraLib.cpp \
+  /Users/fjouen/Programmation/Code_FJ/xcode/CameraLib/CameraLib/CameraLib.hpp \
   /usr/local/include/opencv2/opencv.hpp \
   /usr/local/include/opencv2/core.hpp \
   /usr/local/include/opencv2/core/cvdef.h \
-  /usr/local/include/opencv2/hal/defs.h \
+  /usr/local/include/opencv2/core/hal/interface.h \
   /usr/local/include/opencv2/core/version.hpp \
   /usr/local/include/opencv2/core/base.hpp \
   /usr/local/include/opencv2/core/cvstd.hpp \
   /usr/local/include/opencv2/core/ptr.inl.hpp \
-  /usr/local/include/opencv2/hal.hpp \
-  /usr/local/include/opencv2/core/sse_utils.hpp \
+  /usr/local/include/opencv2/core/neon_utils.hpp \
   /usr/local/include/opencv2/core/traits.hpp \
   /usr/local/include/opencv2/core/matx.hpp \
+  /usr/local/include/opencv2/core/saturate.hpp \
+  /usr/local/include/opencv2/core/fast_math.hpp \
   /usr/local/include/opencv2/core/types.hpp \
   /usr/local/include/opencv2/core/mat.hpp \
   /usr/local/include/opencv2/core/bufferpool.hpp \
@@ -50,4 +51,4 @@ dependencies: \
   /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
   /usr/local/include/opencv2/videoio/videoio_c.h \
   /usr/local/include/opencv2/ml.hpp \
-  /Users/francoisjouen/Programmation/OpenCV/OpenCV300/Red/libs/cvcapture/src/xcode/CameraLib/CameraLibPriv.hpp
+  /Users/fjouen/Programmation/Code_FJ/xcode/CameraLib/CameraLib/CameraLibPriv.hpp

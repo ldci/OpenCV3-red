@@ -5,16 +5,9 @@ Red [
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-; import required OpenCV libraries
 #system [
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-	#include %../../libs/highgui/highgui.reds       ; highgui functions
-	#include %../../libs/imgcodecs/imgcodecs.reds   ; basic image functions
-	#include %../../libs/imgproc/imgproc.reds       ; OpenCV image  processing
-	#include %../../libs/core/core.reds             ; OpenCV core functions
-
+	; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
 	; according to OS 
 	#switch OS [
 		MacOSX  [picture: "/Users/fjouen/Pictures/hough.jpg"]
@@ -22,6 +15,7 @@ Red [
 		Linux	[picture: "/home/fjouen/Images/hough.jpg"]
 	]
 	
+	; global variables that can be used by routines
 	; you can play with these variables to modifiy image processing
 	rho: 1.0
 	theta: PI / 180.0
@@ -32,7 +26,6 @@ Red [
 	max_theta: PI
 	; end of variables you can play with
 
-	size: declare CvSize!
 	line: declare byte-ptr!
 	pt1: declare CvPoint!
 	pt2: declare CvPoint!
@@ -53,10 +46,8 @@ process: routine [/local tmp c][
 	src: as int-ptr! tmp
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
 	colorSrc: as int-ptr! tmp
-	size/width: tmp/width
-	size/height: tmp/height
-	dst: as int-ptr! cvCreateImage size/width size/height IPL_DEPTH_8U 1
-	colorDst: as int-ptr! cvCreateImage size/width size/height IPL_DEPTH_8U 3
+	dst: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 1
+	colorDst: as int-ptr! cvCreateImage tmp/width tmp/height IPL_DEPTH_8U 3
 	; create windows and show source
 	cvNamedWindow srcWnd CV_WINDOW_AUTOSIZE 
 	cvNamedWindow dstWnd CV_WINDOW_AUTOSIZE
@@ -70,7 +61,7 @@ process: routine [/local tmp c][
 	c: 0
 	until [
 		line: cvGetSeqElem lines c ; line is a byte-ptr!
-		 ptr: as int-ptr! line ; we cast to an int-ptr! since we have 4 integers to get here
+		ptr: as int-ptr! line ; we cast to an int-ptr! since we have 4 integers to get here
 		pt1/x: ptr/1
 		pt1/y: ptr/2
 		pt2/x: ptr/3

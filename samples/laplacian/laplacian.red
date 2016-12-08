@@ -1,27 +1,16 @@
 Red [
 	Title:		"OpenCV Tests: Laplacian"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2012-2105 F. Jouen. All rights reserved."
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-; import required OpenCV libraries
+
 #system [
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/imgproc/types_c.reds       ; image processing types and structures
-	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-	#include %../../libs/imgproc/cvImgproc.reds       ; OpenCV image  processing
-	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
+	; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
 	
-	; accoding to OS 
-	#switch OS [
-		MacOSX  [picture: "/Users/fjouen/Pictures/baboon.jpg"]
-		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
-		Linux	[picture: "/home/fjouen/Images/baboon.jpg"]
-	]
-	depth: IPL_DEPTH_32F
+	; global variables that can be used by routines
 	kernel: 11 ; up to 31 but always ODD !!!
 	srcWnd: "Source"
 	dstWnd: "Laplacian"
@@ -51,7 +40,7 @@ freeOpenCV: routine [] [
 	releaseImage dst
 ]
 
-;*********************************** Mein program ***********************
+;*********************************** Main program ***********************
 laplacian
 freeOpenCV
 quit

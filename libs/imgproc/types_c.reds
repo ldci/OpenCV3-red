@@ -7,7 +7,7 @@ Red/System [
 
 ;for standalone testing
 ;#include %../red/types_r.reds
-;#include %../core/core_types_c.reds 
+;#include %../core/types_c.reds 
 
 ;**************************** Connected Component  **************************************
 CvConnectedComp!: alias struct! 
@@ -15,7 +15,7 @@ CvConnectedComp!: alias struct!
     area		[float!]     ;area of the connected component
     value 		[cvScalar!]  ;average color of the connected component
     rect 		[CvRect!]    ;ROI of the component
-    contour 	        [byte-ptr!]     ; CvSeqoptional component boundary (the contour might have child contours corresponding to the holes)
+    contour 	[byte-ptr!]     ; CvSeqoptional component boundary (the contour might have child contours corresponding to the holes)
 ]
 
 

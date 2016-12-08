@@ -5,7 +5,7 @@ Red/System [
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-#include %../../libs/plateforms.reds            ; lib path according to os
+#include %../../libs/platforms.reds            ; lib path according to os
 #include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
 #include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
 #include %../../libs/imgproc/types_c.reds       ; image processing types and structures

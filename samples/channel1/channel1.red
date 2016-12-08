@@ -1,25 +1,13 @@
 Red [
 	Title:		"OpenCV Tests: 1 Channel image Core Image Processing"
 	Author:		"F. Jouen"
-	Rights:		"Copyright (c) 2012-2105 F. Jouen. All rights reserved."
-	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
+	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
+	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-; import required OpenCV libraries
 #system [
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
-	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
-
-	; according to OS 
-	#switch OS [
-		MacOSX  [picture: "/Users/francoisjouen/Pictures/baboon.jpg"]
-		Windows [picture: "c:\Users\palm\Pictures\baboon.jpg"]
-		Linux  	[picture: "/home/fjouen/Images/baboon.jpg"]
-	]
-	; global variables
+	#include %../../libs/include.reds ; all OpenCV  functions
+	; global variables that can be used by routines
 	img: declare CvArr!
 	s0: declare CvArr!
 	s1: declare CvArr!
@@ -27,7 +15,6 @@ Red [
 	dst: declare CvArr!
 	delay: 1000
 	windowsName: "Original Image"
-	
 ]
 
 loadImage: routine [/local tmp] [

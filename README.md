@@ -2,16 +2,25 @@
 ## see http://www.red-lang.org and http://opencv.org
 
 
-### This binding has been tested with Mac OSX 10.11.3 and Windows 10.
+### This binding has been tested with Mac OSX 10.12.1 and Windows 10.
 
 ### This binding allows access about 600 basic OpenCV functions.
 ### This binding can used with 3.0 and higher version of opencv library.
 
 ###You must use 32-bit version of dynamically linked libraries.
+
+### NEW: DECEMBER 8 2016
+
+All code is now compatible with Red 061 and master branch.
+
+Access to OpenCV libraries is easier with just one include file (see /libs/include.reds).
+
+Supports camera full access under Windows.
+
+
 ### NEW: MAY 9 2016
 
 New sample for using basic image operators with Red Gui
-
 
 ### NEW: MAY 2016
 New samples to test with Red GUI are added and are fully functional

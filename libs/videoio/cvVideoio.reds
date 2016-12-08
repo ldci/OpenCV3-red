@@ -5,21 +5,12 @@ Red/System [
 	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-#include %../../libs/plateforms.reds            ; lib path according to os
+#include %../../libs/platforms.reds            ; lib path according to os
 #include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
 #include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
 #include %../../libs/imgproc/types_c.reds       ; image processing types and structuresñ
 
 
-; OpenCV videoio C Functions
-
-;#define videoio "/usr/local/lib32/opencv3/libopencv_videoio.dylib"
-#switch OS [
-    MacOSX  [#define videoio "/usr/local/lib32/opencv3/libopencv_world.dylib" #define importMode cdecl]
-    ;Windows [#define videoio "c:\opencv3\build\x86\vc12\bin\opencv_world300.dll" #define importMode cdecl] ;stdcall in case of
-    Windows [#define videoio "c:\opencv310\build\x86\mingw\libopencv_world310.dll" #define importMode cdecl]
-    Linux   [#define videoio "/usr/local/lib/libopencv_world.so.3.0.0" #define importMode cdecl]
-]
 
 ;The  opencv structure CvCapture! does not have public interface
 ;and is used only as a parameter for video capturing functions.
@@ -381,58 +372,6 @@ CV_FOURCC_DEFAULT:       -1  ;CV_FOURCC('I' 'Y' 'U' 'V') ; Use default codec for
         writer**          [double-byte-ptr!]
 	]
     ] ;end videoio
-    
-    ; specific C++ access for windows Users (see libs/cvcapture for details)
-    cvVideocapture importMode [
-    	openCamera: "openCamera"[
-    	"Open Camera"
-    	    index   [integer!]
-    	    return: [integer!]
-        ]
-        releaseCamera: "releaseCamera" [
-        "Release Camera"
-        ]
-        setCameraProperty: "setCameraProperty" [
-        "Set Camera property"
-            propId  [integer!]
-            value   [float!]
-            return: [integer!]
-        ]
-        
-        getCameraProperty: "getCameraProperty" [
-        "Get Camera property"
-            propId  [integer!]
-            return: [float!]
-        ]
-        
-        readCamera: "readCamera"[
-        "Read camera frame"
-            return: [integer!] ; return image address
-        ]
-        grabFrame: "grabFrame" [
-        "Grab frame"
-            return: [integer!]
-        ]
-        retrieveFrame: "retrieveFrame"[
-        "Retrieve grabbed image"
-            flag    [integer!]  ;int=0
-            return: [integer!]  ;return image address
-        ]
-        
-        openFile: "openFile" [
-        "Open video file"
-            filename    [c-string!]
-            return:     [integer!]
-        ]
-        
-        openFileApi: "openFileApi"[
-        "Open video file and force encoding"
-            filename        [c-string!]
-            apiPreference   [integer!]
-            return:         [integer!]
-        ]
-        
-    ]; end cvVideocapture
     
 ] ; end import
 

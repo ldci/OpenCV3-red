@@ -11,15 +11,11 @@ rep., Carnegie Mellon University, Pittsburg, PA (2000)}
 ; use C++ cam functions
 
 #system [
-	; OpenCV functions we need
-	#include %../../libs/red/types_r.reds           ; some specific structures for Red/S 
-	#include %../../libs/core/types_c.reds          ; basic OpenCV types and structures`
-	#include %../../libs/core/cvCore.reds             ; OpenCV core functions
-	#include %../../libs/highgui/cvHighgui.reds       ; highgui functions
-	#include %../../libs/videoio/cvVideoio.reds       ; to play with camera
-	#include %../../libs/imgcodecs/cvImgcodecs.reds   ; basic image functions
-	#include %../../libs/imgproc/cvImgproc.reds		; image processing functions
+	; import required OpenCV libraries
+	#include %../../libs/include.reds ; all OpenCV  functions
+	#include %../../libs/cvcapture/cvCapture.reds ; c++ camera exported functions
 	
+	; global variables that can be used by routines
 	iplimage: 0
 	prevImage: declare IplImage! ; to use with cvcloneImage requiring IplImage!
 	currImage: declare IplImage! ; to use with cvcloneImage requiring IplImage!

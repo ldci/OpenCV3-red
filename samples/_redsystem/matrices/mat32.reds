@@ -2,14 +2,10 @@ Red/System [
 	Title:		"OpenCV Tests: tests functions"
 	Author:		"F. Jouen"
 	Rights:		"Copyright (c) 2012-2016 F. Jouen. All rights reserved."
-	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
+	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-#include %../../../libs/red/types_r.reds          ; some specific structures for Red/S 
-#include %../../../libs/core/types_c.reds         ; basic OpenCV types and structures
-#include %../../../libs/imgproc/types_c.reds      ; image processing types and structures
-#include %../../../libs/core/core.reds      	  ; core functions
-#include %../../../libs/highgui/highgui.reds      ; highgui functions
+#include %../../../libs/include.reds ; all OpenCV  functions
 
 
 print ["32-bit 1 channel image" lf]
