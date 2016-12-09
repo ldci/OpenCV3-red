@@ -5,7 +5,8 @@
 ### This binding has been tested with Mac OSX 10.12.1 and Windows 10.
 
 ### This binding allows access about 600 basic OpenCV functions.
-### This binding can used with 3.0 and higher version of opencv library.
+### This binding can be used with OpenCV 1.0 and higher version of opencv library.
+### This binding is adapted for OpenCV 3.0.
 
 ###You must use 32-bit version of dynamically linked libraries.
 
