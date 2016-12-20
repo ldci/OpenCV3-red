@@ -10,6 +10,13 @@
 
 ###You must use 32-bit version of dynamically linked libraries.
 
+### NEW DECEMBER 20 2016
+
+Including face processing sample (see Sample directory)
+
+Including a very basic  manual to use Red and OpenCV
+
+
 ### NEW: DECEMBER 8 2016
 
 All code is now compatible with Red 061 and master branch.

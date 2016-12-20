@@ -22,7 +22,7 @@ Red/System [
 
 ; to get an image and a movie. Adapt according to your paths
 #switch OS [
-	MacOSX  [picture: "/Users/fjouen/Pictures/lena.tiff" movie: "/Users/fjouen/Movies/skate.mp4"]
+	MacOSX  [picture: "/Users/francoisjouen/Pictures/lena.tiff" movie: "/Users/fjouen/Movies/skate.mp4"]
 	Windows [picture: "c:\Users\palm\Pictures\lena.tif" movie: "c:\Users\palm\Videos\skate.mp4"]
 	Linux  	[picture: "/home/fjouen/Images/lena.tiff" movie: "/home/fjouen/Vidéos/skate.mp4"]
 ]

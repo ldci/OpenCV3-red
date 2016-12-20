@@ -21,13 +21,13 @@ Red/System [
 
 CV_HAAR_MAGIC_VAL:    42500000h
 CV_TYPE_NAME_HAAR:    "opencv-haar-classifier"
-CV_HAAR_FEATURE_MAX:  3
-CV_HAAR_DO_CANNY_PRUNING:    1
-CV_HAAR_SCALE_IMAGE:         2
-CV_HAAR_FIND_BIGGEST_OBJECT: 4
-CV_HAAR_DO_ROUGH_SEARCH:     8
+CV_HAAR_FEATURE_MAX:  			3
+CV_HAAR_DO_CANNY_PRUNING:    	1
+CV_HAAR_SCALE_IMAGE:         	2
+CV_HAAR_FIND_BIGGEST_OBJECT: 	4
+CV_HAAR_DO_ROUGH_SEARCH:     	8
 
-#define CvHidHaarClassifierCascade! byte-ptr!
+#define CvHidHaarClassifierCascade! int-ptr!
 
 
 CvHaarFeature!: alias struct! [
@@ -81,16 +81,26 @@ CvAvgComp!: alias struct! [
 
 #import [
     cvObjdetect importMode [
-        cvHaarDetectObjects: "cvHaarDetectObjects" [
+    	 cvLoadHaarClassifierCascade: "cvLoadHaarClassifierCascade" [
+    	"Loads haar classifier cascade from a directory"
+    		directory           [c-string!]
+            orig_window_size_x  [integer!]  ;CvSize
+            orig_window_size_y  [integer!]  ;CvSize
+            return: 			[CvHaarClassifierCascade!]
+    	]
+    
+    	cvHaarDetectObjects: "cvHaarDetectObjects" [
         "Loads haar classifier cascade from a directory"
-            image               [CvArr!]		;!
-            cascade             [CvHaarClassifierCascade!]		;!
-            storage             [CvMemStorage!]		;!
-            scale_factor        [float!]  ;CV_DEFAULT(1.1)
-            min_neighbors       [integer!] ; CV_DEFAULT(3)
+            image               [CvArr!]	; image or mat
+            cascade             [CvHaarClassifierCascade!]	;!CvHaarClassifierCascade!
+            storage             [CvMemStorage!]	;!CvMemStorage!
+            scale_factor        [float!]  	;CV_DEFAULT(1.1)
+            min_neighbors       [integer!] 	;CV_DEFAULT(3)
             flags               [integer!]  ;CV_DEFAULT(0)
             min_size_w          [integer!]  ; CvSize CV_DEFAULT(cvSize(0,0))
             min_size_h          [integer!]  ; CvSize CV_DEFAULT(cvSize(0,0))
+            max_size_w          [integer!]  ; CvSize CV_DEFAULT(cvSize(0,0))
+            max_size_h          [integer!]  ; CvSize CV_DEFAULT(cvSize(0,0))
             return:             [CvSeq!]		;! !  
         ]
         
@@ -115,6 +125,7 @@ CvAvgComp!: alias struct! [
             pt_y                [integer!] ; CvPoint
             start_stage         [integer!] ; CV_DEFAULT(0)
             return:             [integer!]       
-        ]
+        ] 
+        
     ];  end objdetect
 ]; end import 

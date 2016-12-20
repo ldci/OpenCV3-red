@@ -17,13 +17,13 @@ Red [
 	
 	; global variables that can be used by routines
 	; you can play with these variables to modifiy image processing
-	rho: 1.0
-	theta: PI / 180.0
-	param1: 50.0
-	param2: 10.0
+	distance: 1.0
+	angle: PI / 180.0
+	param1: 50.0  ; param1 ~ line length - for probabilistic
+	param2: 10.0  ; param2 ~ line gap - for probabilistic
 	thresh: 50
-	min_theta: 0.0
-	max_theta: PI
+	min_angle: 0.0
+	max_angle: PI
 	; end of variables you can play with
 
 	line: declare byte-ptr!
@@ -39,9 +39,10 @@ Red [
 	storage: declare CvMemStorage!
 	lines: declare CvSeq!
 	line: declare byte-ptr!
+	hParam: CV_HOUGH_PROBABILISTIC; CV_HOUGH_STANDARD ;  
 ]
 
-process: routine [/local tmp c][
+process: routine [/local tmp c &storage][
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_GRAYSCALE
 	src: as int-ptr! tmp
 	tmp: cvLoadImage picture CV_LOAD_IMAGE_ANYCOLOR
@@ -55,9 +56,13 @@ process: routine [/local tmp c][
 	cvShowImage srcWnd colorSrc
 	; Hough transform
 	storage: cvCreateMemStorage 0
+	&storage: as byte-ptr! storage
 	cvCanny src dst 50.0 100.0 3
 	cvCvtColor dst colorDst CV_GRAY2BGR
-	lines: cvHoughLines2 dst as byte-ptr! storage CV_HOUGH_PROBABILISTIC rho theta thresh param1 param2 min_theta max_theta
+	lines: cvHoughLines2 dst &storage hParam distance angle thresh param1 param2 min_angle max_angle
+	; TBT OpenCV bug?
+	;lines: cvHoughLines2 dst &storage CV_HOUGH_STANDARD distance angle thresh 0.0 0.0 0.0 0.1
+	
 	c: 0
 	until [
 		line: cvGetSeqElem lines c ; line is a byte-ptr!

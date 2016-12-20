@@ -160,6 +160,15 @@ CvTreeNodeIterator!: alias struct! [
 
 #import [
     cvCore importMode [
+    	cvLoad: "cvLoad" [
+    	"The function loads an object from a file"
+    		filename	[c-string!]
+    		;memstorage	[CvMemStorage!] ; default null
+    		memstorage	[byte-ptr!]
+    		name		[c-string!]		; default null
+    		real_name   [c-string!]		; default null
+    	]
+    	
         cvCreateImageHeader: "cvCreateImageHeader"[
         "Allocates and initializes IplImage header"
             width 		[integer!] ;CvSize/width

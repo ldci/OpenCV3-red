@@ -897,7 +897,7 @@ CvMemStoragePos: alias struct! [
 ;/*********************************** Sequence *******************************************/
 CvSeqBlock!: alias struct! [
     prev                    [int-ptr!]   ;*CvSeqBlock pointer previous sequence block */
-    next                    [int-ptr!]   ;*CvSeqBlock pointernext sequence block */
+    _next                    [int-ptr!]   ;*CvSeqBlock pointernext sequence block */
     start_index             [integer!]    ; index of the first element in the block + sequence->first->start_index */
     count                   [integer!]    ; number of elements in the block */
     data                    [int-ptr!] ; pointer to the first element of the block */
@@ -924,7 +924,7 @@ CvSeqBlock!: alias struct! [
         delta_elems             [byte-ptr!]   ;how many elements allocated when the seq grows
         storage                 [int-ptr!]   ;where the seq is stored
         free_blocks             [int-ptr!]   ;free blocks list 
-        first                   [int-ptr!]   ;pointer to the first sequence block 
+        _first                   [int-ptr!]   ;pointer to the first sequence block 
 ]
 
 
@@ -944,7 +944,7 @@ CvSeq!: alias struct! [
         delta_elems             [integer!]    ;how many elements allocated when the seq grows
         storage                 [int-ptr!]    ;where the seq is stored
         free_blocks             [int-ptr!]    ;free blocks list 
-        first                   [int-ptr!]    ;pointer to the first sequence block 
+        _first                   [int-ptr!]    ;pointer to the first sequence block 
 ]
 
 CV_TYPE_NAME_SEQ:             "opencv-sequence"
