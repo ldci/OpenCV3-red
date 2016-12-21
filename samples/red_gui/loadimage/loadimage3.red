@@ -8,10 +8,10 @@ Red [
 
 ; import required OpenCV libraries
 #system [
-	#include %../../libs/include.reds ; all OpenCV  functions
+	#include %../../../libs/include.reds ; all OpenCV  functions
 	; global variables that can be used by routines
 	; variables that can be used inside routines
-	cvimage: declare CvArr! 				; pointer to OpenCV Image
+	cvimage: declare CvArr! 		; pointer to OpenCV Image
 	&cvimage: 0						; address of pointer as integer!
 	wName: "OpenCV Source"
 ]

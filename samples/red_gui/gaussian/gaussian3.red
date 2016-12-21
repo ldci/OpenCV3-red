@@ -1,18 +1,16 @@
 Red [
-	Title:   "OpenCV Canny Red VID "
+	Title:   "OpenCV gaussian Red VID "
 	Author:  "Francois Jouen"
-	File: 	 %canny.red
+	File: 	 %gaussian.red
 	Needs:	 'View
 ]
 
 ; import required OpenCV libraries
 #system [
-	#include %../../libs/include.reds ; all OpenCV  functions
+	#include %../../../libs/include.reds ; all OpenCV  functions
 	; global variables that can be used by routines
 	src: declare CvArr!	; pointer to Source image
 	dst: declare CvArr!	; pointer to Destination image
-	gray: declare CvArr!	; for grayscale image
-	edges: declare CvArr!	; for edges detection
 	&src: 0			; address of image as integer
 	&dst: 0			; address of image as integer
 ]
@@ -21,7 +19,7 @@ Red [
 
 
 
-; global red variables to be passed as parameters to routines or red functions
+; global red variables to be passed as parameters to routines
 fileName: ""
 thresh: 0
 rimg: make image! reduce [512x512 black]
@@ -37,16 +35,11 @@ isFile: false
 
 ; red/S routines we need
 
-makeCanny: routine [ t [integer!] /local tt][
-	either t > 0 [tt: int-to-float t] [tt: 0.0]
-	cvSmooth src dst CV_BLUR 3 3 0.0 0.0
-	cvNot gray edges
-	cvCanny gray edges tt tt * 3.0 3
-	cvZero dst
-	cvCopy src dst edges
+makeGaussianBlur: routine [ t [integer!]][
+	cvSmooth src dst CV_GAUSSIAN t 3 0.0 0.0
 ]
 
-; img1 source
+;img1
 loadSrc: routine [ name [string!] return: [integer!] /local fName isLoaded] [
 	isLoaded: 0
 	fName: as c-string! string/rs-head name;
@@ -59,14 +52,10 @@ loadSrc: routine [ name [string!] return: [integer!] /local fName isLoaded] [
 	isLoaded
 ]
 
-
-
-; img2 destination color (cedges)
+;img2
 createDst: routine [return: [integer!]] [
-	gray: as int-ptr! cvCreateImage getIWidth &src getIHeight &src IPL_DEPTH_8U 1
-	cvCvtColor src gray CV_RGB2GRAY
-	edges: as int-ptr! cvCreateImage getIWidth &src getIHeight &src IPL_DEPTH_8U 1
 	dst: as int-ptr! cvCreateImage getIWidth &src getIHeight &src IPL_DEPTH_8U 3
+	;cvFlip dst dst -1
 	&dst: as integer! dst   
 	&dst
 ]
@@ -92,13 +81,13 @@ getImageData: routine [img [integer!] return: [binary!] /local tmp] [
 	getBinaryValue getIImageData img getIImageSize img
 ]
 
+
 ; release all image pointers
 freeOpenCV: routine [] [
 	releaseImage src
-	releaseImage gray
-	releaseImage edges
 	releaseImage dst
 ]
+
 
 ; Red Functions calling routines
 
@@ -150,9 +139,7 @@ loadImage: does [
 	
 ]
 
-
-
-; for Red GUI 
+; for Red Gui Interface
 
 btnLoad: make face! [
 	type: 'button text: "Load" offset: 10x10 size: 60x20
@@ -188,9 +175,10 @@ sl1: make face! [
 	actors: object [
 		on-change: func [face [object!] event [event! none!]][
 			thresh: to integer! round face/data * 255
+			if odd? thresh [param1: to integer! round face/data * 255]
 			text2/text: form to integer! round face/data * 255
 			if isFile [
-				makeCanny thresh
+				makeGaussianBlur param1
 				either lineRequired [canvas/image: makeImagebyLine img2 wsz hsz] 
 				[canvas/image: makeImage img2 wsz hsz]
 				if thresh = 0 [

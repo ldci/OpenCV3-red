@@ -8,7 +8,7 @@ Red [
 
 ; import required OpenCV libraries
 #system [
-	#include %../../libs/include.reds ; all OpenCV  functions
+	#include %../../../libs/include.reds ; all OpenCV  functions
 	; global variables that can be used by routines
 	
 	; variables that can be used inside routines
