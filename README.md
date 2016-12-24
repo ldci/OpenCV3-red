@@ -8,7 +8,12 @@
 ### This binding can be used with OpenCV 1.0 and higher version of opencv library.
 ### This binding is adapted for OpenCV 3.0.
 
-###You must use 32-bit version of dynamically linked libraries.
+###You must use 32-bit version of dynamically linked libraries (see /DDLs directory).
+
+### NEW DECEMBER 24 2016
+
+New Red-GUI samples added (for Windows users only, soon for Mac OS users...)
+
 
 ### NEW DECEMBER 20 2016
 
