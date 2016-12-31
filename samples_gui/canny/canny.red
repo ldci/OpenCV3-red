@@ -104,9 +104,7 @@ loadImage: does [
 			sl1/size/x: wsz - 100
 			text2/offset/x: win/size/x - 40
 			lineRequired: getImageOffset img1
-			either lineRequired [canvas/image: makeImagebyLine img1 wsz hsz] 
-				[canvas/image: makeImage img1 wsz hsz]
-			
+			canvas/image: makeRedImage img1 wsz hsz	
 		]
 	]
 	thresh: 0 sl1/data: 0.0
@@ -120,16 +118,13 @@ view win: layout [
 	return
 	text 55 "Threshold"
 	sl1: slider 410x20	[thresh: to integer! round face/data * 255
-						text2/text: form to integer! round face/data * 255
-						if isFile [
-							makeCanny thresh
-							either lineRequired [canvas/image: makeImagebyLine img2 wsz hsz] 
-							[canvas/image: makeImage img2 wsz hsz]
-							if thresh = 0 [
-								either lineRequired [canvas/image: makeImagebyLine img1 wsz hsz] 
-							[canvas/image: makeImage img1 wsz hsz]
-							]
-						]]
+							text2/text: form to integer! round face/data * 255
+							if isFile [
+								makeCanny thresh
+								either thresh = 0 [canvas/image: makeRedImage img1 wsz hsz]
+												  [canvas/image: makeRedImage img2 wsz hsz]
+							]	
+						]
 					
  	text2: field 30 "0"	
  	return

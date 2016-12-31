@@ -55,15 +55,16 @@ getBinaryValue: routine [dataAddress [integer!] dataSize [integer!] return: [bin
 
 
 
-;
+
+;  some routines to get information about OpenCV image
+
 
 ; for image calculation when a line offset is required
-getStep: routine [img [integer!] return: [integer!] /local tmp] [
+getIStep: routine [img [integer!] return: [integer!] /local tmp] [
 	tmp: as int-ptr! img
 	tmp/3 * tmp/11
 ]
 
-; now some routines to get information about OpenCV image
 getISize: routine [img [integer!] return: [integer!] /local tmp] [
 	tmp: as int-ptr! img
 	tmp/1
@@ -90,10 +91,6 @@ getIDepth: routine [img [integer!] return: [integer!] /local tmp] [
 	tmp/5
 ]
 
-getIAlpha: routine [img [integer!] return: [integer!] /local tmp] [
-	tmp: as int-ptr! img
-	tmp/4
-]
 
 getIColorModel: routine [img [integer!] return: [string!] /local b str tmp] [
 	tmp: as int-ptr! img
@@ -178,7 +175,7 @@ getIWStep: routine [img [integer!] return: [integer!] /local tmp] [
 	tmp/19
 ]
 
-GetIBorderModel: routine [img [integer!] idx [integer!] return: [integer!] /local v tmp] [
+getIBorderModel: routine [img [integer!] idx [integer!] return: [integer!] /local v tmp] [
 	tmp: as int-ptr! img
 	if (idx = 1) [v: tmp/20]
 	if (idx = 2) [v: tmp/21]
@@ -188,7 +185,7 @@ GetIBorderModel: routine [img [integer!] idx [integer!] return: [integer!] /loca
 ]
 
 
-GetIBorderColor: routine [img [integer!] idx [integer!] return: [integer!] /local v tmp] [
+getIBorderColor: routine [img [integer!] idx [integer!] return: [integer!] /local v tmp] [
 	tmp: as int-ptr! img
 	if (idx = 1) [v: tmp/24]
 	if (idx = 2) [v: tmp/25]
@@ -201,4 +198,55 @@ GetIBorderColor: routine [img [integer!] idx [integer!] return: [integer!] /loca
 getIDataOrigin: routine [img [integer!] return: [integer!] /local tmp] [
 	tmp: as int-ptr! img
 	tmp/28
+]
+
+
+; useful to know memory aligment of OpenCV image
+; if false -> getLine line/line
+; if true -> getImageData
+
+getImageOffset: routine [&src [integer!] return: [logic!]/local sz][
+	sz: (getIChannels &src) * (getIWidth &src) * (getIHeight &src)
+	either (sz = getIImageSize &src) [false] [true]
+]
+
+
+; From OpenCV to Red Image
+
+; get image memory content line by line
+getLine: routine [ img [integer!] ln [integer!] return: [binary!] /local step idx laddr] [
+	step: getIStep img				; line size
+	idx: (getIWStep img) * ln			; line index
+	laddr: (getIImageData img) + idx				; line address
+	getBinaryValue laddr step			; binary values	
+]
+
+; get all image memory content by pointer
+getImageData: routine [img [integer!] return: [binary!] /local tmp] [
+ 	getBinaryValue getIImageData img getIImageSize img
+]
+
+
+; Red Functions calling routines to create Red Image from OpenCV Image
+
+makeImage: function [ im [integer!] w [integer!] h [integer!] return: [image!]] [		 
+	rgb: getImageData im
+	make image! reduce [as-pair w h reverse rgb] ;reverse BGRA to RGBA for red
+]
+
+
+makeImagebyLine: function [im [integer!] w [integer!] h [integer!] return: [image!]] [
+	y: 0
+	rgb: copy #{}
+	until [
+		append rgb getLine im y
+		y: y + 1
+		y = h
+	]
+	make image! reduce [as-pair w h reverse rgb]	
+]
+
+makeRedImage: function [im [integer!] w [integer!] h [integer!] return: [image!]] [
+	lineRequired: getImageOffset im
+	either lineRequired [makeImagebyLine im w h] [makeImage im w h]
 ]

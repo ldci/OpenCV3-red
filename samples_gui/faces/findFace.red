@@ -120,8 +120,7 @@ loadImage: does [
 			; update faces
 			wsz: getIWidth src wsz 
 			hsz: getIHeight src hsz
-			either getImageOffset src [canvas/image: makeImagebyLine src wsz hsz] 
-				[canvas/image: makeImage src wsz hsz]
+			canvas/image: makeRedImage src wsz hsz
 		]
 	]
 ]
@@ -144,8 +143,7 @@ faces: does [
 	append s third t2 - t1 
 	append s " sec"
 	sb/data: s
-	either getImageOffset src [canvas/image: makeImagebyLine src wsz hsz] 
-						[canvas/image: makeImage src wsz hsz]
+	canvas/image: makeRedImage src wsz hsz
 ]
 
 ;Red GUI Interface

@@ -150,8 +150,7 @@ loadImage: does [
 			list/size/y: canvas/size/y
 			lineRequired: getImageOffset img1
 			checker/data: lineRequired 
-			either lineRequired [canvas/image: makeImagebyLine img1 wsz hsz] 
-				[canvas/image: makeImage img1 wsz hsz]
+			canvas/image: makeRedImage img1 wsz hsz
 			isFile: true
 		]
 	]

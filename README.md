@@ -10,6 +10,9 @@
 
 ###You must use 32-bit version of dynamically linked libraries (see /DDLs directory).
 
+### NEW DECEMBER 31 2016
+Red-GUI samples udpdated  
+
 ### NEW DECEMBER 24 2016
 
 New Red-GUI samples added (for Windows users only, soon for Mac OS users...)
