@@ -10,9 +10,6 @@ Red/System [
 #include %../../libs/core/types_c.reds          ; basic OpenCV types and structures
 #include %../../libs/imgproc/types_c.reds       ; image processing types and structures
 
-
-; OpenCV Highgui C Functions
-
 #define CvPOSITObject! byte-ptr!
 ;Calculates fundamental matrix given a set of corresponding points
  CV_FM_7POINT: 1
@@ -322,6 +319,29 @@ CvStereoBMState!: alias struct! [
             focal_length            [float-ptr!]
             principal_point         [CvPoint2D64f!]
             pixel_aspect_ratio      [float-ptr!]
+        ]
+        
+        cvStereoCalibrate: "cvStereoCalibrate" [
+        {Computes the transformation from one camera coordinate system to another one
+   		from a few correspondent views of the same calibration target. Optionally, calibrates
+   		both cameras}
+   			object_points		[CvMat!]
+   			image_points1		[CvMat!]
+   			image_points2		[CvMat!]
+   			npoints				[CvMat!]
+   			camera_matrix1  	[CvMat!]
+   			dist_coeffs1    	[CvMat!]
+   			camera_matrix2  	[CvMat!]
+   			dist_coeffs2    	[CvMat!]
+   			image_size_w        [integer!]
+            image_size_h        [integer!]
+            R                   [CvMat!]
+            T                   [CvMat!]
+            E                   [CvMat!]
+            F                   [CvMat!]
+            flags               [integer!]
+            term_cri			[CvTermCriteria!]
+   			return: 			[float!]
         ]
         
         cvStereoRectify: "cvStereoRectify" [

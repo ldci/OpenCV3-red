@@ -10,6 +10,10 @@
 
 ###You must use 32-bit version of dynamically linked libraries (see /DDLs directory).
 
+### NEW JANUARY 3 2017
+Documentation updated
+DLLs added for Windows users
+
 ### NEW DECEMBER 31 2016
 Red-GUI samples udpdated  
 

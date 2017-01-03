@@ -13,6 +13,10 @@ Red/System [
 
 ; OpenCV core C Functions
 
+CV_ErrModeLeaf:     0   ;/* Print error and exit program */
+CV_ErrModeParent:   1   ;/* Print error and continue */
+CV_ErrModeSilent:   2   ;/* Don't print and continue */
+
 
 
 CV_AUTOSTEP:             7FFFFFFFh
@@ -160,15 +164,6 @@ CvTreeNodeIterator!: alias struct! [
 
 #import [
     cvCore importMode [
-    	cvLoad: "cvLoad" [
-    	"The function loads an object from a file"
-    		filename	[c-string!]
-    		;memstorage	[CvMemStorage!] ; default null
-    		memstorage	[byte-ptr!]
-    		name		[c-string!]		; default null
-    		real_name   [c-string!]		; default null
-    	]
-    	
         cvCreateImageHeader: "cvCreateImageHeader"[
         "Allocates and initializes IplImage header"
             width 		[integer!] ;CvSize/width
@@ -798,6 +793,7 @@ CvTreeNodeIterator!: alias struct! [
             mask			[CvArr!];CV_DEFAULT(NULL)
         ]
         
+        
         cvSubRS: "cvSubRS" [
         "dst(mask) = value - src(mask)"
             src 			[CvArr!]
@@ -1181,14 +1177,14 @@ CvTreeNodeIterator!: alias struct! [
         "cvFlip(src) flips images vertically and sequences horizontally (inplace)"
             src			[CvArr!]
             dst			[CvArr!] ;CV_DEFAULT(NULL)
-            flip_mode	        [integer!]
+            flip_mode	[integer!]
         ]
         
         cvMirror: "cvFlip" [
         "cvFlip(src) flips images vertically and sequences horizontally (inplace)"
             src			[CvArr!]
             dst			[CvArr!] ;CV_DEFAULT(NULL)
-            flip_mode	        [integer!]
+            flip_mode	[integer!]
         ]
        
         cvSVD: "cvSVD" [
@@ -1703,7 +1699,18 @@ CvTreeNodeIterator!: alias struct! [
             set_header		        [CvSet!]
         ]
         
-         cvGraphAddVtx: "cvGraphAddVtx" [
+    	cvCreateGraph: "cvCreateGraph" [
+    	"Creates new graph"
+    		graph_flags		[integer!]
+    		header_size		[integer!]
+    		vtx_size		[integer!]
+    		edge_size		[integer!]
+    		storage			[CvMemStorage!]
+    		return: 		[CvGraph!]
+    	]
+    	                      
+                                
+        cvGraphAddVtx: "cvGraphAddVtx" [
         "Adds new vertex to the graph"
             graph			[CvGraph!]
             vtx				[CvGraphVtx!];CV_DEFAULT(NULL)
@@ -1874,10 +1881,343 @@ CvTreeNodeIterator!: alias struct! [
         cluster_count                   [integer!]
         labels                          [CvArr!]
         termcrit                        [CvTermCriteria!]  
-    ]  
+    ] 
+     
+    cvUseOptimized: "cvUseOptimized" [
+    "Loads optimized functions from IPP, MKL etc. or switches back to pure C code"
+    	on_off	[integer!]
+    ]
+    
+	cvOpenFileStorage: "cvOpenFileStorage" [
+	"The function opens file storage for reading or writing data"
+		filename		[c-string!]
+		memstorage		[CvMemStorage!]
+		flags			[integer!]
+		encoding		[c-string!]	; CV_DEFAULT(NULL)
+		return:			[CvFileStorage!] ;CvFileStorage
+	]
+	
+	cvReleaseFileStorage: "cvReleaseFileStorage" [
+	"The function closes the file associated with the storage and releases all the temporary structures"
+		CvFileStorage		        [double-byte-ptr!]
+	]
+	
+    cvAttrValue: "cvAttrValue" [
+    "returns attribute value or 0 (NULL) if there is no such attribute"
+    	attr		[CvAttrList!]
+    	attr_name	[c-string!]
+    	return:		[c-string!]
+    ]
+    
+    cvStartWriteStruct: "cvStartWriteStruct" [
+    "The function starts writing a compound structure (collection) that can be a sequence or a map"
+    	fs				[CvFileStorage!]
+    	name			[c-string!]
+    	struct_flags	[integer!]
+    	type_name		[c-string!]		;CV_DEFAULT(NULL)
+    	attr			[c-string!] 	; char** NULL-terminated array of (attribute_name,attribute_value) pairs
+    	anext			[int-ptr!]	; CvAttrList* pointer to next chunk of the attributes list
+    ]
+    
+    cvEndWriteStruct: "cvEndWriteStruct" [
+    "finishes writing to a file node collection."
+    	fs		[CvFileStorage!]
+    ]
+    
+    cvWriteInt: "cvWriteInt" [
+    	fs				[CvFileStorage!]
+    	name			[c-string!]
+    	value			[integer!]
+    ]
+    
+    cvWriteReal: "cvWriteReal" [
+    	fs				[CvFileStorage!]
+    	name			[c-string!]
+    	value			[float!]
+    ]
+    
+    cvWriteString: "cvWriteString" [
+    	fs				[CvFileStorage!]
+    	name			[c-string!]
+    	str				[c-string!]
+    	quote			[integer!]	;CV_DEFAULT(0)
+    ]
+    
+    cvWriteComment: "cvWriteComment" [
+    	fs				[CvFileStorage!]
+    	acomment		[c-string!]
+    	eol_comment		[integer!]
+    ]
+    
+    cvWrite: "cvWrite" [
+    "Writes an object to file storage"
+    	fs				[CvFileStorage!]
+    	name			[c-string!]
+    	ptr				[byte-ptr!]		; null
+    	attr			[c-string!] 	; char** NULL-terminated array of (attribute_name,attribute_value) pairs
+    	anext			[int-ptr!]	; CvAttrList* pointer to next chunk of the attributes list
+    ]
+    
+    cvStartNextStream: "cvStartNextStream" [
+    "Starts the next stream"
+    	fs				[CvFileStorage!]
+    ]
+    
+    cvWriteRawData: "cvWriteRawData" [
+    	fs				[CvFileStorage!]
+    	src				[int-ptr!]			;Pointer to the written array
+    	len				[integer!]			;Number of the array elements to write
+    	dt				[c-string!]			;Specification of each array element
+    ]
+    
+    cvGetHashedKey: "cvGetHashedKey" [
+    "The function returns a unique pointer for each particular file node name"
+    	fs				[CvFileStorage!]
+    	name			[c-string!]
+    	len				[integer!]		;CV_DEFAULT(-1)
+    	create_missing	[integer!]		;CV_DEFAULT(0)
+    	return:			[CvStringHashNode!]		;CvStringHashNode
+    ]
+    
+    cvGetRootFileNode: "cvGetRootFileNode" [
+    "Retrieves one of the top-level nodes of the file storage" 
+    	fs				[CvFileStorage!]
+    	stream_index	[integer!]		;CV_DEFAULT(0)
+    	return:			[CvFileNode!]
+    ]
+    
+    cvGetFileNode: "cvGetFileNode" [
+    "Finds a node in a map or file storage" 
+    	fs				[CvFileStorage!]
+    	stream_index	[integer!]		;CV_DEFAULT(0)
+    	return:			[CvFileNode!]
+    ]
+    
+    cvGetFileNodeByName: "cvGetFileNodeByName" [
+    "Finds a node in a map or file storage"
+    	fs				[CvFileStorage!]
+    	map				[CvFileNode!]
+    	name			[c-string!]
+    	return:			[CvFileNode!]
+    ]
+    
+    cvRead: "cvRead" [
+    "Decodes an object and returns a pointer to it"
+    	fs				[CvFileStorage!]
+    	node			[CvFileNode!]
+    	attributes		[CvAttrList!]
+    ]
+    
+    cvStartReadRawData: "cvStartReadRawData" [
+    "Initializes the file node sequence reader"
+    	fs				[CvFileStorage!]
+    	src				[CvFileNode!]
+    	reader			[CvSeqReader!]
+    ]
+    
+    cvReadRawDataSlice: "cvReadRawDataSlice" [
+    "Initializes file node sequence reader"
+    	fs				[CvFileStorage!]
+    	reader			[CvSeqReader!]
+    	count			[integer!]
+    	dst				[int-ptr!]
+    	dt				[c-string!]
+    ]
+    
+    cvReadRawData: "cvReadRawData" [
+    "Reads multiple numbers"
+    	fs				[CvFileStorage!]
+    	src				[CvFileNode!]
+    	dst				[int-ptr!]
+    	dt				[c-string!]
+    ]
+    
+    cvWriteFileNode: "cvWriteFileNode" [
+    "Writes a file node to another file storage"
+    	fs				[CvFileStorage!]
+    	new_node_name	[c-string!]
+    	node			[CvFileNode!]
+    	embed			[integer!]
+    ]
+    
+    cvGetFileNodeName: "cvGetFileNodeName" [
+    "Returns the name of a file node"
+    node			[CvFileNode!]
+    return:			[c-string!]
+    ]
+    
+    cvRegisterType: "cvRegisterType" [
+    "Registers a new type"
+    	info	[CvTypeInfo!]
+    ]
+    cvUnregisterType: "cvUnregisterType" [
+    "Unregisters the type"
+    	type_name		[c-string!]
+    ]
+    
+    cvFirstType: "cvFirstType" [
+    "Returns the beginning of a type list"
+    	cvFirstType	[int-ptr!]
+    	return:		[CvTypeInfo!]
+    ]
+    
+    cvFindType: "cvFindType" [
+    "Finds a type by its name"
+    	type_name		[c-string!]
+    ]
+    
+    cvTypeOf: "cvTypeOf" [
+    "Returns the type of an object"
+    	struct_ptr		[byte-ptr!]
+    	return:			[CvTypeInfo!]
+    ]
+    
+    cvRelease: "cvRelease" [
+    "Releases an object"
+    	struct_ptr		[byte-ptr!]
+    ]
+    
+    cvClone: "cvClone" [
+    "Makes a clone of an object"
+    	struct_ptr		[byte-ptr!]
+    ]
+    
+    cvLoad: "cvLoad" [
+    	"The function loads an object from a file"
+    		filename	[c-string!]
+    		memstorage	[CvMemStorage!] ; default null
+    		name		[c-string!]		; default null
+    		real_name   [c-string!]		; default null
+    ]
+    
+    cvSave: "cvSave" [
+    "Saves an object to a file"
+    	filename		[c-string!]
+    	struct_ptr		[byte-ptr!]
+    	name			[c-string!]		; default null
+    	acomment		[c-string!]		; default null
+    	attr			[c-string!] 	; char** NULL-terminated array of (attribute_name,attribute_value) pairs
+    	anext			[int-ptr!]	    ; CvAttrList* pointer to next chunk of the attributes list
+    ]
+    
+    ;uses internal clock counter on x86
+    cvGetTickCount: "cvGetTickCount" [
+    	return:		[float!]
+    ]
+    
+    cvGetTickFrequency: "cvGetTickFrequency" [
+    	return:		[float!]
+    ]
+    cvCheckHardwareSupport: "cvCheckHardwareSupport" [
+    "CPU capabilities"
+    	feature	[integer!]
+    	return:	[integer!]
+    ]
+    
+    ;retrieve/set the number of threads used in OpenMP implementations
+    cvGetNumThreads: "cvGetNumThreads" [
+    	return:	[integer!]
+    ]
+    
+    cvSetNumThreads: "cvSetNumThreads" [
+    	threads	[integer!]	;CV_DEFAULT(0)
+    	return:	[integer!]
+    ]
+    
+	;get index of the thread being executed
+	cvGetThreadNum: "cvGetThreadNum" [
+    	return:	[integer!]
+    ]
+	cvGetErrStatus: "cvGetErrStatus" [
+	"Get current OpenCV error status"
+		return:	[integer!]
+	]
+	cvSetErrStatus: "cvSetErrStatus" [
+	"Sets error status silently"
+		status	[integer!]
+	]
+	
+	cvGetErrMode: "cvGetErrMode" [
+	"Retrives current error processing mode"
+		return:	[integer!]
+	]
+	
+	cvSetErrMode: "cvSetErrMode" [
+	"Sets error processing mode, returns previously used mode"
+		mode	[integer!]	
+    	return:	[integer!]
+	]
+	
+	cvError: "cvError" [
+	"Sets error status and performs some additonal actions "
+		status		[integer!]
+		func_name	[c-string!]
+		err_msg		[c-string!]
+		file_name	[c-string!]
+		line		[integer!]
+	]
+	
+	cvErrorStr: "cvErrorStr" [
+	"Retrieves textual description of the error given its code "
+		status		[integer!]
+		return:		[c-string!]
+	]
+	
+	cvGetErrInfo: "cvGetErrInfo" [
+	"Retrieves detailed information about the last error occured"
+		errcode_desc	[p-buffer!]
+		description		[p-buffer!]
+		filename		[p-buffer!]
+		line			[int-ptr!]
+	]
+	
+	cvErrorFromIppStatus: "cvErrorFromIppStatus" [
+	"Maps IPP error codes to the counterparts from OpenCV"
+		ipp_status		[integer!]
+		return:			[integer!]
+	]
+	
+	cvRedirectError: "cvRedirectError" [
+	"Assigns a new error-handling function"
+		error_handler		[byte-ptr!]			;CvErrorCallback
+		userdata			[byte-ptr!]
+		prev_userdata		[double-byte-ptr!] 
+		return:				[byte-ptr!] 		;CvErrorCallback
+	]
+	
+	cvNulDevReport: "cvNulDevReport" [
+	"Output nothing"
+		status		[integer!]
+		func_name	[c-string!]
+		err_msg		[c-string!]
+		file_name	[c-string!]
+		line		[integer!]
+		userdata	[byte-ptr!]
+		return:		[integer!]
+	]
+	
+	cvStdErrReport: "cvStdErrReport" [
+	"Output to console(fprintf(stderr,...))"
+		status		[integer!]
+		func_name	[c-string!]
+		err_msg		[c-string!]
+		file_name	[c-string!]
+		line		[integer!]
+		userdata	[byte-ptr!]
+		return:		[integer!]
+	]
+	
+	cvGuiBoxReport: "cvGuiBoxReport" [
+	"Output to MessageBox(WIN32)"
+		status		[integer!]
+		func_name	[c-string!]
+		err_msg		[c-string!]
+		file_name	[c-string!]
+		line		[integer!]
+		userdata	[byte-ptr!]
+		return:		[integer!]
+	]
     ]; end core
-    
-    
 ] ;end import
 
 
@@ -1996,9 +2336,7 @@ cvMatMul: func [src1 [CvArr!] src2 [CvArr!] dst [CvArr!]] [
 
 ; end TEST
 
-;
-        
-;not in lib but interesting for us
+;not in OpenCV library but interesting for us
 
 ;ATTENTION in OpenCV BGRA values are bit: -128 .. 127 0..255 in OpenCV for 32-bit images
 ; we use a func to transform r fg b a 0..255 to use with red/system
@@ -2011,6 +2349,8 @@ tocvRGB: func [vr [float!] vg [float!] vb [float!] va  [float!] return: [CvScala
   if va <> 0.0 [val: va / 255.0 either val > 0.5 [a: val * 127.0] [a: -1.0 * (val * 128.0)]]
   cvScalar b g r a
 ]
+
+
 ; a shortcut for image release
 releaseImage: func [image [int-ptr!] /local &image] [
 	&image: declare double-int-ptr!;  C function needs a double pointer
@@ -2018,6 +2358,7 @@ releaseImage: func [image [int-ptr!] /local &image] [
 	cvReleaseImage &image
 ]
 
+; a shortcut for mat release
 releaseMat: func [mat [int-ptr!] /local &mat] [
 	&mat: declare double-int-ptr!;  C function needs a double pointer
 	&mat/ptr: mat
@@ -2026,7 +2367,7 @@ releaseMat: func [mat [int-ptr!] /local &mat] [
 
         
    
-; temporary functions waiting for struct improvments
+; temporary functions waiting for Red structures improvments
 ; e.g. cvGetSize
 ; WARNING ONLY FOR target = 'IA32
 getSizeW: func [arr [CvArr!] return: [integer!]][
@@ -2039,6 +2380,7 @@ getSizeH: func [arr [CvArr!] return: [integer!]][
 	system/cpu/edx
 ]
 
+; Can be used in place of cvGetSize
 getSize: func [arr [CvArr!] return: [CvSize!] /local sz][
 	sz: declare CvSize!
     cvGetSize arr
@@ -2050,7 +2392,10 @@ getSize: func [arr [CvArr!] return: [CvSize!] /local sz][
    
    
 
-;pbs  for scalar!
+;pbs  for scalar in OpenCV binding!
+; use these Red functions
+
+
 get1D: func [arr [CvArr!] idx0 [integer!] return: [CvScalar!] /local sc [CvScalar!] ptr address ][
 	address: cvPtr1D arr idx0 null
 	sc: declare CvScalar!
@@ -2103,7 +2448,7 @@ getSum: func [arr [CvArr!]
 	sum	
 ]
 
-; temporary to be moved in tools
+; access to IplImage
 
 getImageValues: function [
     cvImage [int-ptr!]
@@ -2146,4 +2491,6 @@ getImageValues: function [
     iplImage/*imageDataOrigin: as byte-ptr! cvImage/28
     iplImage
 ]
+
+        
 

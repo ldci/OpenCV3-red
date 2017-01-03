@@ -470,19 +470,30 @@ CvFont!: alias struct! [
         
         cvFindNextContour: "cvFindNextContour" [
         "Retrieves next contour"
-	    scanner                     [CvContourScanner!]; CvContourScanner
-	    return:                     [CvSeq!]	
+	    	scanner                     [CvContourScanner!]; CvContourScanner
+	    	return:                     [CvSeq!]	
         ]
-         cvSubstituteContour: "cvSubstituteContour" [
+        cvSubstituteContour: "cvSubstituteContour" [
         "Substitutes the last retrieved contour with the new one  (if the substitutor is null, the last retrieved contour is removed from the tree)"
-	    scanner                     [CvContourScanner!]; CvContourScanner
-	    new_contour                 [CvSeq!]	
+	    	scanner                     [CvContourScanner!]; CvContourScanner
+	    	new_contour                 [CvSeq!]	
         ]
         
         cvEndFindContours: "cvEndFindContours"  [
         "Releases contour scanner and returns pointer to the first outer contour"
-	    scanner                     [CvContourScanner!]; CvContourScanner
-	    return:                     [CvSeq!]	
+	    	scanner                     [CvContourScanner!]; CvContourScanner
+	    	return:                     [CvSeq!]	
+        ]
+        
+        cvApproxChains: "cvApproxChains" [
+        "Approximates Freeman chain(s) with a polygonal curve"
+        	src_seq				[CvSeq!]
+        	storage				[CvMemStorage!]	
+        	method				[integer!]		;CV_DEFAULT(CV_CHAIN_APPROX_SIMPLE
+        	parameter			[float!]		;CV_DEFAULT(0)
+        	minimal_perimeter	[integer!]		;CV_DEFAULT(0)
+        	recursive			[integer!]		;CV_DEFAULT(0)	
+        	return:             [CvSeq!]
         ]
         
         cvStartReadChainPoints: "cvStartReadChainPoints"  [
@@ -863,6 +874,8 @@ CvFont!: alias struct! [
             threshold           [integer!]
             param1              [float!] ; CV_DEFAULT(0)
             param2              [float!] ; CV_DEFAULT(0)
+            min_theta           [float!] ; CV_DEFAULT(0)
+            max_theta           [float!] ; CV_DEFAULT(0)
             return:             [CvSeq!]
         ]
         
@@ -985,7 +998,7 @@ CvFont!: alias struct! [
     	]
     
     	cvFillPoly: "cvFillPoly" [
-    	";Fills an area bounded by one or more arbitrary polygons"
+    	"Fills an area bounded by one or more arbitrary polygons"
 			img					[CvArr!]
 			pts					[double-int-ptr!];  ** CvPoints pointer to array of CvPoints
 			npts			    [int-ptr!] ;pointer nb of points by polygons
