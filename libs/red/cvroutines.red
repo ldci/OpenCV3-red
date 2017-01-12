@@ -228,11 +228,12 @@ getImageData: routine [img [integer!] return: [binary!] /local tmp] [
 
 
 ; Red Functions calling routines to create Red Image from OpenCV Image
-
 makeImage: function [ im [integer!] w [integer!] h [integer!] return: [image!]] [		 
 	rgb: getImageData im
 	make image! reduce [as-pair w h reverse rgb] ;reverse BGRA to RGBA for red
 ]
+
+
 
 
 makeImagebyLine: function [im [integer!] w [integer!] h [integer!] return: [image!]] [
@@ -246,7 +247,30 @@ makeImagebyLine: function [im [integer!] w [integer!] h [integer!] return: [imag
 	make image! reduce [as-pair w h reverse rgb]	
 ]
 
+
+
 makeRedImage: function [im [integer!] w [integer!] h [integer!] return: [image!]] [
 	lineRequired: getImageOffset im
 	either lineRequired [makeImagebyLine im w h] [makeImage im w h]
+]
+
+updateImage: function [ src [integer!] dst [image!]] [
+	dst/rgb: reverse getImageData src
+]
+
+updateImagebyLine: function [ src [integer!] dst [image!]] [
+	y: 0
+	h: dst/size/y
+	dst/rgb: copy #{}
+	until [
+		append dst/rgb getLine src y
+		y: y + 1
+		y = h
+	]
+	reverse dst/rgb
+]
+
+updateRedImage: function [ src [integer!] dst [image!]] [
+	lineRequired: getImageOffset SRC
+	either lineRequired [updateImagebyLine src dst] [updateImage src dst]
 ]

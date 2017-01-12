@@ -10,6 +10,11 @@
 
 ###You must use 32-bit version of dynamically linked libraries (see /DDLs directory).
 
+### NEW JANUARY 12 2017
+Documentation updated
+New samples for reading movies
+
+
 ### NEW JANUARY 3 2017
 Documentation updated
 DLLs added for Windows users

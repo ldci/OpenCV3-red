@@ -17,7 +17,6 @@ Red/System [
 #include %photo/cvPhoto.reds			; photo impainting
 #include %video/cvVideo.reds       		; motion analysis and motion tracking 
 #include %videoio/cvVideoio.reds       	; video and movies functions
-#include %cvcapture/cvCapture.reds		; C++ video functions
 
 
 ; to get an image and a movie. Adapt according to your paths
