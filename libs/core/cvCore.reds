@@ -2463,6 +2463,7 @@ getImageValues: function [
     iplImage/depth: cvImage/5
     b: as byte! cvImage/6
     if (b = #"R") [iplImage/colorModel: "RGBA"]
+    if (b = #"B") [iplImage/colorModel: "RGBA"]
     if (b = #"G") [iplImage/colorModel: "GRAY"]
     b: as byte! cvImage/7
     if (b = #"B") [iplImage/channelSeq: "BGRA"]
@@ -2473,12 +2474,12 @@ getImageValues: function [
     iplImage/align: cvImage/10
     iplImage/width: cvImage/11
     iplImage/height: cvImage/12
-    iplImage/*roi: as IplRoi! cvImage/13
+    iplImage/*roi: as byte-ptr! cvImage/13
     iplImage/*maskROI: as byte-ptr! cvImage/14
     iplImage/*imageId: as byte-ptr! cvImage/15
     iplImage/*tileInfo: as byte-ptr! cvImage/16
     iplImage/imageSize: cvImage/17
-    iplImage/*imageData: cvImage/18
+    iplImage/*imageData: as byte-ptr! cvImage/18
     iplImage/widthStep: cvImage/19
     iplImage/bm0: cvImage/20
     iplImage/bm1: cvImage/21

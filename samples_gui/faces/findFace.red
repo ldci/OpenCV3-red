@@ -19,8 +19,8 @@ Red [
 	ptr: declare int-ptr!
 	roi: declare cvRect!
 	nFaces: 0 
-	classifier: "c:\Users\palm\coding\red\OpenCV\cascades\haarcascades\haarcascade_frontalface_default.xml"
-	;classifier: "/Users/fjouen/Programmation/Programmation_en_cours/Red/OpenCV/cascades/haarcascades/haarcascade_frontalface_default.xml"
+	;classifier: "c:\Users\palm\coding\red\OpenCV\cascades\haarcascades\haarcascade_frontalface_default.xml"
+	classifier: "/Users/fjouen/Programmation/Programmation_en_cours/red/OpenCV/cascades/haarcascades/haarcascade_frontalface_default.xml"
 ]
 
 ; global red variables to be passed as parameters to routines or used by red functions
@@ -149,9 +149,9 @@ faces: does [
 ;Red GUI Interface
 view win: layout [
 	title "Find Faces"
-	button 50 "Load"			[loadImage faces]
-	button 60 "Classifier"		[loadClassifier if isFile [faces]]
-	info1: field  250 clname
+	button 60 "Load"			[loadImage faces]
+	button 80 "Classifier"		[loadClassifier if isFile [faces]]
+	info1: field  220 clname
 	text 30 "Flags"
 	flag: drop-down 210x24 
 		data ["CV_HAAR_DO_CANNY_PRUNING" "CV_HAAR_FIND_BIGGEST_OBJECT"
@@ -164,9 +164,9 @@ view win: layout [
 	    			2	[flagValue: 4]
 	    			3	[flagValue: 8]
 	    			4	[flagValue: 2]
-	    		]	
+	    		]
+	    		faces	
 	    	]
-	    	if isFile [faces]
 	    ]     
 	return
 	text "Scale Increase"
@@ -178,10 +178,10 @@ view win: layout [
 	text 70 "Size Min Max"
 	field 40 "0x0" [minSize: to-pair face/data if isFile [faces]]
 	field 40 "0x0" [maxSize: to-pair face/data if isFile [faces]]
-	button 80 "Quit" [if isFile [freeOpenCV] Quit]
+	button 50 "Quit" [if isFile [freeOpenCV] Quit]
 	return
 	canvas: base 640x480 black
 	return
-	text 100 "Found faces : " sb: field 100
+	text 100 "Found faces : " sb: field 130
 	do [sl1/data: 0.0]
 ]

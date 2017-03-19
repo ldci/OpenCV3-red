@@ -58,9 +58,9 @@ setMovieSize: routine [][
 
 getFrame: routine [pos [float!] return: [integer!] /local ret] [
 	cvSetCaptureProperty src CV_CAP_PROP_POS_FRAMES pos
-	ret: cvGrabFrame src
-	img: as int-ptr! cvRetrieveFrame src
-	;img: as int-ptr! cvQueryFrame src
+	;ret: cvGrabFrame src
+	;img: as int-ptr! cvRetrieveFrame src
+	img: as int-ptr! cvQueryFrame src
 	cvFlip img img -1
 	as integer! img
 ]
@@ -84,8 +84,8 @@ loadImage: does [
 		m3/text: form to integer! nFrames
 		m4/text: form to integer! getFPS
 		sb/text: ""
-		either hsz > 480 [win/size/y: hsz + 90 ] [win/size/y: 520]
-		either wsz > 640 [win/size/x: wsz + 20] [win/size/x: 660]
+		either hsz > 480 [win/size/y: hsz + 110 ] [win/size/y: 530]
+		either wsz > 640 [win/size/x: wsz + 30] [win/size/x: 670]
 			
 		canvas/size/x: wsz
 		canvas/size/y: hsz
@@ -98,15 +98,20 @@ loadImage: does [
 		b5/offset/y: win/size/y - 35
 		b6/offset/y: win/size/y - 35
 		sb/offset/y: win/size/y - 35
+		sb2/offset/y: win/size/y - 35
 		current: 1.0
 		canvas/image: makeRedImage getFrame 1.0 wsz hsz
 	]
 ]
 
 getImage: function [pos [float!]] [
-	;canvas/image: makeRedImage getFrame pos wsz hsz
-	updateImage  getFrame pos canvas/image
+	imgm: getFrame pos
+	;either pos = 1.0 [canvas/image: makeRedImage imgm wsz hsz]
+	;				 [updateRedImage imgm canvas/image]
+	
+	canvas/image: makeRedImage imgm wsz hsz
 	sb/text: form getTime / 1000; to integer! pos
+	sb2/text: form to integer! pos
 ]
 
 view win: layout [
@@ -119,9 +124,9 @@ view win: layout [
 	button 80 "Quit" 			[Quit]
 	return
 	canvas: base 640x480 rate 0:0:0.04 on-time [
-		current: current + 1.0
 		if current >= nFrames [face/rate: none]
 		getImage current
+		current: current + 1.0
 	]
 	return
 	b1: button "<<" 	[current: 1.0 getImage current]
@@ -131,5 +136,6 @@ view win: layout [
 	b5: button "> "		[if current < nFrames [current: current + 1.0 getImage current]]
 	b6: button ">>"		[current: nFrames - 1.0  getImage current]
 	sb: field 80
+	sb2: field 80
 	do [canvas/rate: none]
 ]

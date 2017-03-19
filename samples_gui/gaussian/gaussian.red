@@ -29,6 +29,7 @@ wsz: 0
 hsz: 0
 lineRequired: false
 isFile: false
+param1: 1
 
 ; some routines for image conversion from openCV to Red 
 #include %../../libs/red/cvroutines.red
@@ -88,7 +89,7 @@ loadImage: does [
 			wsz: getIWidth img1
 			hsz: getIHeight img1
 			win/size/x: wsz + 20
-			win/size/y: hsz + 95	
+			win/size/y: hsz + 125 ; base 95	
 			canvas/size/x: wsz
 			canvas/size/y: hsz
 			sl1/size/x: wsz - 100
@@ -110,11 +111,11 @@ view win: layout [
 	text 55 "Threshold"
 	sl1: slider 410x20	[thresh: to integer! round face/data * 255
 							if odd? thresh [param1: to integer! round face/data * 255]
-							text2/text: form to integer! round face/data * 255
+							text2/text: form param1
 							if isFile [
 								makeGaussianBlur param1
-								either thresh = 0 [canvas/image: makeRedImage img1 wsz hsz] 
-											   	  [canvas/image: makeRedImage img2 wsz hsz]
+								either thresh = 0 [updateRedImage img1 canvas/image] 
+											   	  [updateRedImage img2 canvas/image]
 							]
 						]
 	text2: field 30 "0"	

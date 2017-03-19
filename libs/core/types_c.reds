@@ -129,12 +129,12 @@ IplImage!: alias struct! [
     align                       [integer!];Alignment of image rows (4 or 8).OpenCV ignores it and uses widthStep instead.
     width                       [integer!];Image width in pixels
     height                      [integer!];Image height in pixels. `
-    *roi                        [IplROI!];IplROI! Image ROI. If NULL, the whole image is selected                          	
+    *roi                        [byte-ptr!] ; IplROI!pointer Image ROI. If NULL, the whole image is selected                          	
     *maskROI                    [byte-ptr!];Must be NULL.
     *imageId                    [byte-ptr!];"           " 
     *tileInfo                   [byte-ptr!];"           "
     imageSize                   [integer!];Image data size in bytes
-    *imageData                  [integer!];Pointer to aligned image data.         
+    *imageData                  [byte-ptr!];Pointer to aligned image data.         
     widthStep                   [integer!];Size of aligned image row in bytes.    
     bm0                         [integer!];Ignored by OpenCV.  array [4] int
     bm1                         [integer!]
@@ -254,15 +254,15 @@ CV_IS_MASK_ARR:  func [mat [cvMat!] return: [logic!]] [
 ]
 
 CV_ARE_TYPES_EQ: func [mat1 [cvMat!] mat2 [cvMat!] return: [logic!]][
-    (mat1/type xor mat2/type) and (CV_MAT_TYPE_MASK) = 0  
+    mat1/type xor mat2/type and CV_MAT_TYPE_MASK = 0  
 ]
 
 CV_ARE_CNS_EQ: func [mat1 [cvMat!] mat2 [cvMat!] return: [logic!]][
-    (mat1/type xor mat2/type) and (CV_MAT_CN_MASK) = 0  
+    mat1/type xor mat2/type and CV_MAT_CN_MASK = 0  
 ]
 
 CV_ARE_DEPTHS_EQ: func [mat1 [cvMat!] mat2 [cvMat!] return: [logic!]][
-    (mat1/type xor mat2/type) and (CV_MAT_DEPTH_MASK) = 0  
+    mat1/type xor mat2/type and CV_MAT_DEPTH_MASK = 0  
 ]
 
 CV_ARE_SIZES_EQ: func [mat1 [cvMat!] mat2 [cvMat!] return: [logic!]][
@@ -391,14 +391,15 @@ cvmSet: func [
 cvCvToIplDepth: func [
 	type [integer!]
 	return: [integer!]
-	/local depth tmp t1 t2 t3 val]
+	/local depth tmp t1 t2 t3 t4 val]
 	[
 	depth: CV_MAT_DEPTH(type)
 	tmp: CV_ELEM_SIZE1 (depth) * 8
 	t1: depth = CV_8S
 	t2: depth = CV_16S
 	t3: depth = CV_32S
-	either (t1 xor t2 xor t3) [val: IPL_DEPTH_SIGN] [val: 0]
+	t4: t1 xor t2 xor t3
+	either t4 [val: IPL_DEPTH_SIGN] [val: 0]
 	tmp or val
 ]
 
@@ -1288,7 +1289,7 @@ CvSeqReader!: alias struct! [CV_SEQ_READER_FIELDS]
 ;/* "black box" file storage */
 ;typedef struct CvFileStorage CvFileStorage;
 
-
+#define CvFileStorage! int-ptr!
 ;/* storage flags */
  CV_STORAGE_READ:          0
  CV_STORAGE_WRITE:         1
@@ -1300,13 +1301,13 @@ CvSeqReader!: alias struct! [CV_SEQ_READER_FIELDS]
 ;/* list of attributes */
 CvAttrList!: alias struct! [
     attr		[c-string!] 	; char** NULL-terminated array of (attribute_name,attribute_value) pairs
-    next		[CvAttrList!]	; CvAttrList* pointer to next chunk of the attributes list
+    anext		[CvAttrList!]	; CvAttrList* pointer to next chunk of the attributes list
 ]
 
-cvAttrList: func [attr [c-string!] next [CvAttrList!] return: [CvAttrList!] /local l] [
+cvAttrList: func [attr [c-string!] anext [CvAttrList!] return: [CvAttrList!] /local l] [
     l: declare CvAttrList! 
     l/attr: attr;
-    l/next: next;
+    l/anext: anext;
     l
 ]
 

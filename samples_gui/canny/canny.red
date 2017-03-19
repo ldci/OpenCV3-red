@@ -1,5 +1,5 @@
 Red [
-	Title:   "OpenCV Canny Red VID "
+	Title:   "OpenCV Canny Red VID"
 	Author:  "Francois Jouen"
 	File: 	 %canny.red
 	Needs:	 'View
@@ -98,10 +98,10 @@ loadImage: does [
 			wsz: getIWidth img1
 			hsz: getIHeight img1
 			win/size/x: wsz + 20
-			win/size/y: hsz + 95	
+			win/size/y: hsz + 115; 95	
 			canvas/size/x: wsz
 			canvas/size/y: hsz
-			sl1/size/x: wsz - 100
+			sl1/size/x: wsz - 120
 			text2/offset/x: win/size/x - 40
 			lineRequired: getImageOffset img1
 			canvas/image: makeRedImage img1 wsz hsz	
@@ -116,13 +116,13 @@ view win: layout [
 	button 60 "Load"	[loadImage]
 	button 60 "Quit"	[if isFile [freeOpenCV] quit]
 	return
-	text 55 "Threshold"
-	sl1: slider 410x20	[thresh: to integer! round face/data * 255
-							text2/text: form to integer! round face/data * 255
+	text 70 "Threshold"
+	sl1: slider 395x20	[thresh: to integer! round face/data * 255
+							text2/text: form thresh
 							if isFile [
 								makeCanny thresh
-								either thresh = 0 [canvas/image: makeRedImage img1 wsz hsz]
-												  [canvas/image: makeRedImage img2 wsz hsz]
+								either thresh = 0 [updateRedImage img1 canvas/image]
+												  [updateRedImage img2 canvas/image]
 							]	
 						]
 					

@@ -11,7 +11,6 @@ Red/System [
 
 ; adapt libraries paths for your own use :)
 ; this will be changed in future for relative paths
-
 #switch OS [
     MacOSX  [#define cvWorld "/usr/local/lib32/opencv3/libopencv_world.dylib"]
     Windows [#define cvWorld "c:\opencv310\build\x86\mingw\libopencv_world310.dll"]
@@ -28,3 +27,5 @@ Red/System [
 #define cvPhoto cvWorld
 #define cvVideo cvWorld
 #define cvVideoio cvWorld
+
+

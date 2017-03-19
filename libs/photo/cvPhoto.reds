@@ -2,7 +2,7 @@ Red/System [
 	Title:		"OpenCV 3.0.0 Binding: photo"
 	Author:		"F.Jouen"
 	Rights:		"Copyright (c) 2015 F.Jouen. All rights reserved."
-	License:        "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
+	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
 #include %../../libs/platforms.reds            ; lib path according to os
@@ -22,9 +22,9 @@ Red/System [
     cvPhoto importMode [
         cvInpaint: "cvInpaint" [
         "Inpaints the selected region in the image "
-            src             [byte-ptr!]
-            inpaint_mask    [byte-ptr!]
-            dst             [byte-ptr!]
+            src             [CvArr!]
+            inpaint_mask    [CvArr!]
+            dst             [CvArr!]
             inpaintRange    [float!]
             flags           [integer!]
         ]

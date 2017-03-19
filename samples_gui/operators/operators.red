@@ -209,12 +209,12 @@ loadImage: does [
 			wsz: getIWidth img1
 			hsz: getIHeight img1
 			win/size/x: wsz + 20
-			win/size/y: hsz + 90	
+			win/size/y: hsz + 120; 90	
 			canvas/size/x: wsz
 			canvas/size/y: hsz
-			original
 			lineRequired: getImageOffset img1
 			checker/data: lineRequired 
+			original
 			detail/text: "Original image"
 			op/selected: 1
 			canvas/image: makeRedImage img1 wsz hsz
@@ -226,7 +226,7 @@ loadImage: does [
 
 view win: layout [
 	title "Image Operators"
-	button 50 "Load"	[loadImage]
+	button 55 "Load"	[loadImage]
 	
 	op: drop-list 100 
 				data ["Original" "cvAdd" "cvSub" "cvAddS" "cvSubS"	"cvSubRS" "cvMul" "cvDiv" "cvScaleAdd" "AXPY" 
@@ -255,17 +255,17 @@ view win: layout [
 						17 [img2: xorSOperator  detail/text: "Destination= Source XOR CvScalar (0.255.0.0) Value"]
 						18 [img2: notOperator  detail/text: "Destination= Source NOT Sum"]
 					]
-					canvas/image: makeRedImage img2 wsz hsz
+					updateRedImage img2 canvas/image
 					sb2/data: third now/time/precise - t1
 					]
 				]
-	detail: field 210
-	checker: check 50x24 "Line?"
+	detail: field 200
+	checker: check 60x24 "Line?"
 	button 50 "Quit"	[if isFile [freeOpenCV] quit]
 	return
  	sb: field 100 "Rendered in "
- 	sb2: field 50 
+ 	sb2: field 70 
 	return
-	canvas: base 512x512 black
+	canvas: base 512x512 white
 	
 ]			

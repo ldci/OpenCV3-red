@@ -96,6 +96,7 @@ getIColorModel: routine [img [integer!] return: [string!] /local b str tmp] [
 	tmp: as int-ptr! img
 	b: as byte! tmp/6
 	if (b = #"R") [str: "RGBA"]
+	if (b = #"B") [str: "BGRA"]
 	if (b = #"G") [str: "GRAY"]
 	as red-string! stack/set-last as red-value! string/load str length? str UTF-8 
 ]
@@ -233,9 +234,6 @@ makeImage: function [ im [integer!] w [integer!] h [integer!] return: [image!]] 
 	make image! reduce [as-pair w h reverse rgb] ;reverse BGRA to RGBA for red
 ]
 
-
-
-
 makeImagebyLine: function [im [integer!] w [integer!] h [integer!] return: [image!]] [
 	y: 0
 	rgb: copy #{}
@@ -271,6 +269,6 @@ updateImagebyLine: function [ src [integer!] dst [image!]] [
 ]
 
 updateRedImage: function [ src [integer!] dst [image!]] [
-	lineRequired: getImageOffset SRC
+	lineRequired: getImageOffset src
 	either lineRequired [updateImagebyLine src dst] [updateImage src dst]
 ]

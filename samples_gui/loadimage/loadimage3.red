@@ -130,8 +130,8 @@ updateList: does [
 
 
 loadImage: does [
-	canvas/image: black
-	canvas/size: 0x0
+	canvas/image: white
+	;canvas/size: 0x0
 	isFile: false
 	tmp: request-file 
 	if not none? tmp [		
@@ -139,18 +139,18 @@ loadImage: does [
 		img1: LoadImg fileName
 		if img1 <> 0 [
 			win/text: fileName
-			updateList
 			; update faces
 			wsz: getIWidth img1
 			hsz: getIHeight img1
 			win/size/x: wsz + 240
-			win/size/y: hsz + 60	
+			win/size/y: hsz + 90 ;60	
 			canvas/size/x: wsz
 			canvas/size/y: hsz
-			list/size/y: canvas/size/y
+			list/size/y: hsz
 			lineRequired: getImageOffset img1
 			checker/data: lineRequired 
 			canvas/image: makeRedImage img1 wsz hsz
+			updateList
 			isFile: true
 		]
 	]
@@ -165,6 +165,6 @@ view win: layout [
 	checker: check 100x24 "Line Required?"
 	return
 	list: text-list 210x512 data []
-	canvas: base 512x512 black
+	canvas: base 512x512 white
 ]
 
