@@ -274,7 +274,7 @@ CV_IS_MAT_CONST: func [mat [cvMat!]  return: [logic!]][
 ]
 
 #define IPL2CV_DEPTH(depth) [((CV_8U)+(CV_16U<<4) +(CV_32F<<8)+(CV_64F<<16)
-    +(CV_8S<<20) + (CV_16S<<24)+(CV_32S<<28)) >> (((depth) & 0xF0) >> 2)
+    +(CV_8S<<20) + (CV_16S<<24)+(CV_32S<<28)) >> (((depth) & F0h) >> 2)
     + ((depth) & IPL_DEPTH_SIGN)
 ]
 
@@ -1253,12 +1253,7 @@ CvSeqReader!: alias struct! [CV_SEQ_READER_FIELDS]
     p    
 ]
 
-#define CV_PREV_POINT(reader) [
-    p: declare CvPoint!
-    p/x: as integer! reader/ptr/prev_elem/1
-    p/y: as integer! reader/ptr/prev_elem/2
-    p    
-]
+
 
 #define CV_READ_EDGE( pt1 pt2 reader)   [
     p: size? CvPoint!

@@ -10,7 +10,7 @@ Red/System [
 \****************************************************************************************/}
 
 ; due to some limitations, original macros for matrices are replaced by functions if necessary
-#define size_t 4
+;#define size_t 4
 
  CV_CN_MAX:     	    64
  CV_CN_SHIFT:			3
@@ -40,7 +40,6 @@ CV_MAKETYPE: func [depth [integer!] cn [integer!] return: [integer!] /local d][
 ; macros
 #define CV_MAKE_TYPE                    [CV_MAKETYPE]
 #define CV_8UC1	                        [CV_MAKETYPE CV_8U 1]
-#define CV_8UC1                         [CV_MAKETYPE CV_8U 1]
 #define CV_8UC2                         [CV_MAKETYPE CV_8U 2]
 #define CV_8UC3                         [CV_MAKETYPE CV_8U 3]
 #define CV_8UC4                         [CV_MAKETYPE CV_8U 4]
