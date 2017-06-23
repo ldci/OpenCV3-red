@@ -10,6 +10,10 @@
 
 ###You must use 32-bit version of dynamically linked libraries (see /DDLs directory).
 
+### NEW JUNE 23 2017
+
+Update in libs to be compatible with Red last master version.
+
 ### NEW MARCH 19 2017
 Updated version with some slight modifications in libs
 Samples_ are running under OSX and Windows 10
