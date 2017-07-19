@@ -2,13 +2,19 @@
 ## see http://www.red-lang.org and http://opencv.org
 
 
-### This binding has been tested with Mac OSX 10.12.3 and Windows 10.
+### This binding has been tested with macOS 10.12 and Windows 10.
 
 ### This binding allows access about 600 basic OpenCV functions.
 ### This binding can be used with OpenCV 1.0 and higher version of opencv library.
 ### This binding is adapted for OpenCV 3.0.
 
 ###You must use 32-bit version of dynamically linked libraries (see /DDLs directory).
+
+### NEW JULY 19 2017
+
+Red binding for OpenCV is red 0.6.3 compatible! You just need to compile the samples.
+
+***Important: from now, Red/OpenCV will be updated for only stable Red version.***
 
 ### NEW JUNE 23 2017
 

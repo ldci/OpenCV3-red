@@ -15,8 +15,8 @@ Red/System [
 ; * pointers
 ;byte-ptr is defined by red
 ;int-ptr! is defined by red
-;#define float32-ptr!        [pointer! [float32!]]
-#define float-ptr!          [pointer! [float!]]
+;float32-ptr! is now defined by red
+;float-ptr!   is now defined by red
 
 ;** pointers
 #define double-byte-ptr!    [struct! [ptr [byte-ptr!]]]    ; equivalent to C's byte **
