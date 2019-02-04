@@ -10,6 +10,16 @@
 
 ###You must use 32-bit version of dynamically linked libraries (see /DDLs directory).
 
+### NEW FEBRUARY 4 2019
+Red OpenCV is compatible with Red 0.6.4
+
+New samples added 
+
+###Important : Red binding is only for OpenCV < OpenCV 4.0, since most of C functions are now written in C++ in OpenCV 4.0
+
+### macOS Mojave is the last version to support 32-bit applications
+
+
 ### NEW JULY 19 2017
 
 Red binding for OpenCV is red 0.6.3 compatible! You just need to compile the samples.

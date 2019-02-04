@@ -15,8 +15,8 @@ Red/System [
 ; * pointers
 ;byte-ptr is defined by red
 ;int-ptr! is defined by red
-;float32-ptr! is now defined by red
-;float-ptr!   is now defined by red
+;#define float32-ptr!        [pointer! [float32!]]
+;#define float-ptr!          [pointer! [float!]]
 
 ;** pointers
 #define double-byte-ptr!    [struct! [ptr [byte-ptr!]]]    ; equivalent to C's byte **
@@ -28,7 +28,8 @@ Red/System [
 #define none?					[_none = ]
 
 { typedef void CvArr. This is the "metatype" used *only* as a function parameter.
-It denotes that the function accepts arrays of multiple types, such as IplImage*, CvMat* or even CvSeq* sometimes. The particular array type is determined at runtime by analyzing the first 4 bytes of the header.}
+It denotes that the function accepts arrays of multiple types, such as IplImage*, CvMat* or even CvSeq* sometimes. 
+The particular array type is determined at runtime by analyzing the first 4 bytes of the header.}
 
 #define CvArr! int-ptr!
 

@@ -1,0 +1,2 @@
+0.6.3: unsupported now
+0.6.4: All samples must be compiled with -r option
