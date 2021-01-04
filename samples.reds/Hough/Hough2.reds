@@ -9,7 +9,7 @@ Red/System [
 
 ; according to OS 
 #switch OS [
-    macOS   [hpicture: "/Users/francoisjouen/Pictures/hough.jpg"]
+    macOS   [hpicture: "/Users/fjouen/Pictures/hough.jpg"]
     Windows [hpicture: "c:\Users\palm\Pictures\hough.jpg"]
     Linux   [hpicture: "/home/fjouen/Images/hough.jpg"]
 ]

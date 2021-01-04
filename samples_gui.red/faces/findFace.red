@@ -136,10 +136,12 @@ faces: does [
 	t1: now/time/precise
 	src: findFaces scaleFactor minNeighbors flagValue minSize maxSize
 	t2:  now/time/precise
+	elapsed: round/to third (t2 - t1) 0.02 
+	elapsed: to-integer (1000 * elapsed)
 	s: form countFaces
 	append s " in "
-	append s third t2 - t1 
-	append s " sec"
+	append s elapsed
+	append s " ms"
 	sb/data: s
 	canvas/image: makeRedImage src wsz hsz
 ]

@@ -89,7 +89,7 @@ loadImage: does [
 	clear fileName
 	tmp: request-file 
 	if not none? tmp [		
-		fileName: copy to string! to-file tmp
+		fileName: to-file tmp
 		img1: LoadImg fileName
 		either img1 <> 0 [
 			canvas/image: none
@@ -99,11 +99,11 @@ loadImage: does [
 			; if image does not fit screen, scale it
 			scale: max 1 1 + max (3 * margins/x + wsz) / mSizeX (6 * margins/y + hsz) / mSizeY
 			; redim window with min size
-			win/size/x: 3 * margins/x + list/size/x + max 256 wsz / scale
-			win/size/y: 6 * margins/y + max 256 hsz / scale
+			win/size/x: 3 * margins/x + list/size/x + max 256 wsz / to-integer scale
+			win/size/y: 6 * margins/y + max 256 hsz / to-integer scale
 			win/text: append append append fileName " (1:" scale ")"
-			canvas/size/x: wsz / scale
-			canvas/size/y: hsz / scale
+			canvas/size/x: wsz / to-integer scale
+			canvas/size/y: hsz / to-integer scale
 			checker/visible?: getImageOffset img1
 			canvas/image: makeRedImage img1 wsz hsz
 			updateList

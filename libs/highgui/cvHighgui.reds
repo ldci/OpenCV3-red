@@ -64,7 +64,7 @@ Red/System [
     ; These flags are used by cvSet/GetWindowProperty
     CV_WND_PROP_FULLSCREEN:		0  ; to change/get window's fullscreen property
     CV_WND_PROP_AUTOSIZE:		1  ; to change/get window's autosize property
-    CV_WND_PROP_ASPECTRATIO:	        2  ; to change/get window's aspectratio property
+    CV_WND_PROP_ASPECTRATIO:	2  ; to change/get window's aspectratio property
     CV_WND_PROP_OPENGL:			3  ; to change/get window's opengl support
 
     ; These 2 flags are used by cvNamedWindow and cvSet/GetWindowProperty

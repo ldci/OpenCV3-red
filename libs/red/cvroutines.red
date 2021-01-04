@@ -289,7 +289,7 @@ getRBGValues: function [img [integer!] return: [binary!]] [
 ]
 
 
-{since red 0.6.4 GC must be off before calling makeRedImage and updateRedImage functions
+{red 0.6.4 GC must be off before calling makeRedImage and updateRedImage functions
 and reactivated after}
 
 makeRedImage: function [img [integer!] w [integer!] h [integer!] return: [image!]] [	

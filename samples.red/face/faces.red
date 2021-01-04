@@ -15,7 +15,7 @@ Red [
 		Linux	[picture: "/home/fjouen/Images/caravage.jpg"]
 	]
 	
-	classifier: "/Users/francoisjouen/Programmation/Red/OpenCV/cascades/haarcascades/haarcascade_frontalface_alt.xml"
+	classifier: "/Users/fjouen/Programmation/Red/OpenCV/cascades/haarcascades/haarcascade_frontalface_alt.xml"
 	
 	img: declare CvArr!
 	pyrImg: declare CvArr!

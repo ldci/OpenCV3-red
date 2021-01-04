@@ -55,8 +55,8 @@ Red/System [
 #import [
     cvImgcodecs importMode [
         ;iscolor can be a combination of above flags where CV_LOAD_IMAGE_UNCHANGED overrides the other flags
-  	;using CV_LOAD_IMAGE_ANYCOLOR alone is equivalent to CV_LOAD_IMAGE_UNCHANGED
-  	;unless CV_LOAD_IMAGE_ANYDEPTH is specified images are converted to 8bit
+  		;using CV_LOAD_IMAGE_ANYCOLOR alone is equivalent to CV_LOAD_IMAGE_UNCHANGED
+  		;unless CV_LOAD_IMAGE_ANYDEPTH is specified images are converted to 8bit
         cvLoadImage: "cvLoadImage" [
         "load image from file"
 	    filename        [c-string!]
@@ -75,7 +75,7 @@ Red/System [
         "save image to file"
 	    filename        [c-string!]
 	    image           [CvArr!];  OK
-            return:         [integer!]
+        return:         [integer!]
 	]
         
         cvDecodeImage: "cvDecodeImage" [

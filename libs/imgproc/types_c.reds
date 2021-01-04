@@ -353,10 +353,10 @@ CV_INIT_3X3_DELTAS: func [step [integer!] nch [integer!] return: [int-ptr!] /loc
         mem: allocate arraySize
 	deltas: as pointer! [integer!] mem
 	deltas/1: nch
-	deltas/2: 0 - step + nch	;negate step + nch
-	deltas/3: 0 - step			;negate step
-	deltas/4: 0 - step - nch	;negate step - nch
-	deltas/5: 0 - nch			;negate nch
+	deltas/2: 0 - step + nch
+	deltas/3: 0 - step
+	deltas/4: 0 - step - nch
+	deltas/5: 0 - nch
 	deltas/6: step - nch
 	deltas/7: step
 	deltas/8: step + nch

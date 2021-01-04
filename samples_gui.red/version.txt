@@ -1,4 +1,5 @@
 for OpenCV < 4.0.0 since lot of C functions are not supported by OpenCV 4.0
 0.6.3: unsupported now
 0.6.4: All samples can be compiled with -c, -r, or - t compiler option
-0.6.4: we need recycle for rendering red images from opencv images
+0.6.4: we need recycle/off for rendering red images from opencv images
+0.6.4: new compiler December 2020 supported

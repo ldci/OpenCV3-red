@@ -5,14 +5,14 @@ Red/System [
 	License:    "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
 ]
 
-; cette version fonctionne avec Red-061 et master
+; cette version fonctionne avec Red-064 stable
 
 #define importMode cdecl 
 
 ; adapt libraries paths for your own use :)
 ; this will be changed in future for relative paths
 #switch OS [
-    macOS   [#define cvWorld "/usr/local/lib32/opencv3/libopencv_world.dylib"]
+   	macOS   [#define cvWorld "/usr/local/lib32/opencv3/3.1.0/libopencv_world.3.1.0.dylib"]
     Windows [#define cvWorld "c:\opencv310\build\x86\mingw\libopencv_world310.dll"]
     Linux   [#define cvWorld "/usr/local/lib/libopencv_world.so.3.1.0"]
 ]
@@ -27,5 +27,3 @@ Red/System [
 #define cvPhoto cvWorld
 #define cvVideo cvWorld
 #define cvVideoio cvWorld
-
-

@@ -21,7 +21,10 @@ Red/System [
 
 ; to get an image and a movie. Adapt according to your paths and images
 #switch OS [
-	macOS   [picture: "/Users/fjouen/Pictures/lena.tiff" movie: "/Users/fjouen/Movies/skate.mp4"]
+	macOS   [picture: "/Users/fjouen/Pictures/lena.tiff" 
+			 movie: "/Users/fjouen/Movies/test.mov"
+			 classifier: "/Users/fjouen/Programmation/red/OpenCV/cascades/haarcascades/haarcascade_frontalface_default.xml"
+			 ]
 	Windows [picture: "c:\Users\palm\Pictures\lena.tif" movie: "c:\Users\palm\Videos\skate.mp4"]
 	Linux  	[picture: "/home/fjouen/Images/lena.tiff" movie: "/home/fjouen/Vidéos/skate.mp4"]
 ]

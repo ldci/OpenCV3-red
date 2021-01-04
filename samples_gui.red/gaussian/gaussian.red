@@ -89,14 +89,14 @@ loadImage: does [
 			wsz: getIWidth img1
 			hsz: getIHeight img1
 			; if image does not fit screen, scale it
-			scale: max 1 1 + max (2 * margins/x + wsz) / mSizeX (9 * margins/y + hsz) / mSizeY
-			; redim window with min size
-			win/size/x: 2 * margins/x + max 256 wsz / scale
-			win/size/y: 9 * margins/y + max 256 hsz / scale
+			scale: (max 1 1 + max (2 * margins/x + wsz) / mSizeX (9 * margins/y + hsz) / mSizeY)
+			win/size/x: to-integer (2 * margins/x + max 256 wsz / to-integer scale)	
+			win/size/y: to-integer (9 * margins/y + max 256 hsz / to-integer scale)	
 			win/text: append append append sfileName " (1:" scale ")"
-			canvas/size/x: wsz / scale
-			canvas/size/y: hsz / scale
-			sl1/size/x: wsz / scale - 50
+			canvas/size/x: wsz / to-integer scale
+			canvas/size/y: hsz / to-integer scale
+			sl1/size/x: wsz / to-integer scale 
+			sl1/size/x: sl1/size/x - 50
 			text2/offset/x: win/size/x - 55
 			canvas/offset/x: win/size/x - canvas/size/x / 2
 			sl1/offset/x: canvas/offset/x

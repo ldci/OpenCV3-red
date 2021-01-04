@@ -9,6 +9,8 @@
 ### This binding is adapted for OpenCV 3.0.
 
 ###You must use 32-bit version of dynamically linked libraries (see /DDLs directory).
+### NEW JANUARY 2021
+Red OpenCV is compatible with the new red compiler which is less tolerant by very efficient.
 
 ### NEW FEBRUARY 4 2019
 Red OpenCV is compatible with Red 0.6.4

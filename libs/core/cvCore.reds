@@ -916,7 +916,7 @@ CvTreeNodeIterator!: alias struct! [
         
         cvInRangeS: "cvInRangeS" [
         "dst(idx) = lower <= src(idx) < upper"
-            src		                [CvArr!]
+            src		                	[CvArr!]
             ;lower                      [_CvScalar]
             lower_v0                    [float!]    
             lower_v1                    [float!]
@@ -927,7 +927,7 @@ CvTreeNodeIterator!: alias struct! [
             upper_v1                    [float!]
             upper_v2                    [float!]
             upper_v3                    [float!]
-            dst				[CvArr!]    
+            dst							[CvArr!]    
         ]
         
          cvCmp: "cvCmp" [

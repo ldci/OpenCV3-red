@@ -1150,10 +1150,10 @@ cvEllipseBox: func [img [CvArr!] box [CvBox2D!] color [CvScalar!]thickness [inte
 /local axes x y]
 [ 
   axes: declare CvSize!
-  axes/width:  0 + (box/height * 0.5)
-  axes/height: 0 + (box/width * 0.5)
-  x: 0 + box/x
-  y: 0 + box/y
+  axes/width:  as integer! (box/height * 0.5)
+  axes/height: as integer! (box/width * 0.5)
+  x: 0 + as integer! box/x
+  y: 0 + as integer! box/y
   cvEllipse img x y axes/width  axes/height (0.0 + box/angle) 0.0 360.0 color/v2 color/v1 color/v0 color/v3 thickness line_type shift
 ]
 

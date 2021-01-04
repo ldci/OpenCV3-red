@@ -1,2 +1,3 @@
 0.6.3: unsupported now
 0.6.4: All samples must be compiled with -r option
+0.6.4: new compiler December 2020: samples must be compiled with -r option

@@ -191,7 +191,7 @@ CV_IMAGE_ELEM: func [image [IplImage!] elemtype [integer!] row [integer!] col [i
 /local pixeli pixelf] [
     pixeli: as int-ptr! image/*imageData + (image/widthStep * row * col)
     pixelf: as float-ptr! image/*imageData + (image/widthStep * row * col)
-    either elemtype = 0 [1.0 * pixeli/1] [1.0 * pixelf/1]   
+    either elemtype = 0 [as float! pixeli/1] [pixelf/1]   
 ]
 
 
@@ -621,8 +621,8 @@ cvPoint: func [
 	x               [integer!]
 	y               [integer!]
 	return:         [cvPoint!]
-                        /local p
-	][
+    /local p
+][
 	p: declare cvPoint!
 	p/x: x
 	p/y: y
@@ -639,7 +639,7 @@ cvPoint2D32f: func [
 	y               [float32!]
 	return:         [CvPoint2D32f!]
                         /local p
-	][
+][
 	p: declare CvPoint2D32f!
 	p/x: x
 	p/y: y
@@ -650,30 +650,30 @@ cvPointTo32f: func [
 	xy              [cvPoint!]
 	return:         [CvPoint2D32f!]
                         /local p
-	][
+][
 	p: declare CvPoint2D32f!
-        p/x: as float32! xy/x
-        p/y: as float32! xy/y
-       	p
+    p/x: as float32! xy/x
+    p/y: as float32! xy/y
+    p
 ]
 
 cvPointFrom32f: func [
 	xy              [CvPoint2D32f!]
 	return:         [cvPoint!]
-                        /local p x y
-	][
-        x: as float! xy/x
-        y: as float! xy/y
+    /local p x y
+][
+    x: as float! xy/x
+    y: as float! xy/y
 	p: declare cvPoint!
-	p/x: 1 * x ; cvRound can be used to
-	p/y: 1 * y ; cvRound
-        p
+	p/x: 1 * as integer! x ; cvRound can be used to
+	p/y: 1 * as integer! y ; cvRound
+    p
 ]
 
 CvPoint3D32f!: alias struct! [
-        x          [float32!]
-        y          [float32!]
-        z          [float32!]
+	x          [float32!]
+	y          [float32!]
+	z          [float32!]
 ]
 
 cvPoint3D32f: func [
@@ -681,8 +681,8 @@ cvPoint3D32f: func [
 	y           [float32!]
 	z           [float32!]
 	return:     [CvPoint3D32f!]
-	/local p]
-	[
+	/local p
+][
 	p: declare  CvPoint3D32f!
 	p/x: x
 	p/y: y
@@ -691,16 +691,16 @@ cvPoint3D32f: func [
 ]
 
 CvPoint2D64f!: alias struct! [
-        x          [float!]
-        y          [float!]
+	x          [float!]
+	y          [float!]
 ]
 
 cvPoint2D64f: func [
-        x           [float!]
-        y           [float!]
-                    return: [CvPoint2D64f!]
-                    /local p]
-	[
+	x           [float!]
+	y           [float!]
+				return: [CvPoint2D64f!]
+	/local p
+][
 	p: declare CvPoint2D64f!
 	p/x: x
 	p/y: y
@@ -940,12 +940,12 @@ CvSeq!: alias struct! [
         v_next                  [int-ptr!]    ;struct 2nd next sequence
         total                   [integer!]    ;total number of elements
         elem_size               [integer!]    ;size of sequence element in bytes 
-        block_max               [byte-ptr!]   ; maximal bound of the last block
+        block_max               [byte-ptr!]   ;maximal bound of the last block
         ptr                     [byte-ptr!]   ;current write pointer
         delta_elems             [integer!]    ;how many elements allocated when the seq grows
         storage                 [int-ptr!]    ;where the seq is stored
         free_blocks             [int-ptr!]    ;free blocks list 
-        _first                   [int-ptr!]    ;pointer to the first sequence block 
+        _first                  [int-ptr!]    ;pointer to the first sequence block 
 ]
 
 CV_TYPE_NAME_SEQ:             "opencv-sequence"
@@ -1246,14 +1246,13 @@ CvSeqReader!: alias struct! [CV_SEQ_READER_FIELDS]
     ]   
 ]
 
+
 #define CV_PREV_POINT(reader) [
     p: declare CvPoint!
     p/x: as integer! reader/ptr/prev_elem/1
     p/y: as integer! reader/ptr/prev_elem/2
     p    
 ]
-
-
 
 #define CV_READ_EDGE( pt1 pt2 reader)   [
     p: size? CvPoint!

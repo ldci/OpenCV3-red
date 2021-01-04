@@ -17,13 +17,13 @@ rep., Carnegie Mellon University, Pittsburg, PA (2000)}
 	; global variables that can be used by routines
 	capture: declare CvArr!
 	iplimage: declare IplImage!
-        prevImage: declare IplImage! ; to use with cvcloneImage requiring IplImage!
-        currImage: declare IplImage! ; to use with cvcloneImage requiring IplImage!
-        nextImage: declare IplImage! ; to use with cvcloneImage requiring IplImage!
-		d1: declare CvArr!
-        d2: declare CvArr!
-		r1: declare CvArr!
-        wName: "Webcam Movement Detection [Esc to Quit]"
+    prevImage: declare IplImage! ; to use with cvcloneImage requiring IplImage!
+	currImage: declare IplImage! ; to use with cvcloneImage requiring IplImage!
+	nextImage: declare IplImage! ; to use with cvcloneImage requiring IplImage!
+	d1: declare CvArr!
+	d2: declare CvArr!
+	d3: declare CvArr!
+	wName: "Webcam Movement Detection [Esc to Quit]"
 	pixelMotion: 0
 ]
 
@@ -37,7 +37,7 @@ createCam: routine [device [integer!] return: [integer!]] [
 		cvMoveWindow wName  300 300
 		d1: as int-ptr! cvCreateImage 640 480 8 1
 		d2: as int-ptr! cvCreateImage 640 480 8 1
-		r1: as int-ptr! cvCreateImage 640 480 8 1
+		d3: as int-ptr! cvCreateImage 640 480 8 1
 		prevImage: cvCreateImage 640 480 8 1
 		currImage: cvCreateImage 640 480 8 1
 		nextImage: cvCreateImage 640 480 8 1
@@ -45,17 +45,16 @@ createCam: routine [device [integer!] return: [integer!]] [
 		cvCvtColor as int-ptr! iplimage as int-ptr! prevImage CV_RGB2GRAY
 		cvCvtColor as int-ptr! iplimage as int-ptr! currImage CV_RGB2GRAY
 		cvCvtColor as int-ptr! iplimage as int-ptr! nextImage CV_RGB2GRAY
-	return 0]
-	[return 1]
+		return 0][return 1]
 ]
 
 motion: routine [return: [integer!]] [
 	cvAbsdiff as int-ptr! prevImage as int-ptr! currImage d1
 	cvAbsdiff as int-ptr! currImage as int-ptr! nextImage d2
-	cvAnd d1 d2 r1 null
-	cvThreshold r1 r1 35.0 255.0 CV_THRESH_BINARY
-	cvShowImage wName r1
-	pixelMotion: cvCountNonZero r1
+	cvAnd d1 d2 d3 null
+	cvThreshold d3 d3 35.0 255.0 CV_THRESH_BINARY
+	cvShowImage wName d3
+	pixelMotion: cvCountNonZero d3
 	print  ["mouvement " pixelMotion lf]
 	cvCopy as int-ptr! currImage as int-ptr! prevImage null
 	cvCopy as int-ptr! nextImage as int-ptr! currImage null
@@ -71,7 +70,7 @@ freeOpenCV: routine [] [
 	cvDestroyAllWindows
 	releaseImage d1
 	releaseImage d2
-	releaseImage r1
+	releaseImage d3
 	releaseImage as int-ptr! prevImage
 	releaseImage as int-ptr! currImage
 	releaseImage as int-ptr! nextImage

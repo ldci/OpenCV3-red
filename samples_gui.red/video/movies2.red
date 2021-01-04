@@ -135,8 +135,6 @@ view win: layout [
 			getImage current current: current + 1.0 updateSlider
 		] 
 		[face/rate: none current: 1.0]
-		
-		
 	]
 	return
 	sl: slider 640		[current: 1.0 + to-float to-integer sl/data * nframes 
