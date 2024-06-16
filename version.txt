@@ -1,0 +1,10 @@
+Red 0.6.3: 	unsupported now
+Red 0.6.4: 	since red 0.6.4 GC must be off before calling  makeRedImage and 
+			updateRedImage functions and reactivated after
+Red 0.6.5: 	May2024 we use the new red-toolchain
+			samples.reds :  Must be compiled with -c option. e.g. red-toolchain -c filename.reds
+			samples.red : Use -r option. e.g. red-toolchain -r filename.red
+			samples_gui.red: Use -c option or -r option. 
+			By default red-toolchain without option uses the development mode 
+
+

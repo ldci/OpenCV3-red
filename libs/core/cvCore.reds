@@ -1316,10 +1316,10 @@ CvTreeNodeIterator!: alias struct! [
         
         cvAvgSdv: "cvAvgSdv" [
         "Calculates mean and standard deviation of pixel values"
-            arr		[CvArr!]
-            mean	[CvScalar!]
+            arr			[CvArr!]
+            mean		[CvScalar!]
             std_dev     [CvScalar!]
-            mask	[CvArr!];CV_DEFAULT(NULL)
+            mask		[CvArr!];CV_DEFAULT(NULL)
         ]
         
          cvMinMaxLoc: "cvMinMaxLoc" [
@@ -2165,9 +2165,9 @@ CvTreeNodeIterator!: alias struct! [
 	
 	cvGetErrInfo: "cvGetErrInfo" [
 	"Retrieves detailed information about the last error occured"
-		errcode_desc	[p-buffer!]
-		description		[p-buffer!]
-		filename		[p-buffer!]
+		errcode_desc	[__p-buffer!] 	;--don't use red p_buffer!
+		description		[__p-buffer!]	;--don't use red p_buffer!
+		filename		[__p-buffer!]	;--don't use red p_buffer!
 		line			[int-ptr!]
 	]
 	

@@ -1,3 +1,6 @@
 0.6.3: unsupported now
 0.6.4: All samples must be compiled with -r option
 0.6.4: new compiler December 2020: samples must be compiled with -r option
+0.6.4: January 2021 compatible with the new red compiler which is less tolerant by very efficient.
+samples must be compiled with -r option
+0.6.5: May 2024 compatible with new red-toolchain. Use -r option. red-toolchain -r filename.red

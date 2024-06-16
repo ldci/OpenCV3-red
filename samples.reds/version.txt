@@ -1,3 +1,6 @@
 0.6.3: unsupported now
 0.6.4: All red/system samples must be compiled with -c option
 0.6.4: December 2020 compatible with new compiler
+0.6.4: January 2021 compatible with the new red compiler which is less tolerant by very efficient.
+0.6.5: May 2024 compatible with the new red-toolchain
+0.6.5: All red/system samples must be compiled with -c option: red-toolchain -c filename.reds

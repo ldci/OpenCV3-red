@@ -1,5 +1,7 @@
-for OpenCV < 4.0.0 since lot of C functions are not supported by OpenCV 4.0
-0.6.3: unsupported now
-0.6.4: All samples can be compiled with -c, -r, or - t compiler option
-0.6.4: we need recycle/off for rendering red images from opencv images
-0.6.4: new compiler December 2020 supported
+for OpenCV < 4.0.0 since lot of C functions are not supported by OpenCV 4.0 and later
+red 0.6.3: unsupported now
+red 0.6.4: All samples can be compiled with -c, -r, or - t compiler option
+red 0.6.4: we need recycle/off for rendering red images from opencv images
+red 0.6.4: December 2020: new compiler supported
+red 0.6.4: January 2021: compatible with the new red compiler which is less tolerant but very efficient
+red 0.6.5: May 2024: compatible with the new red-toolchain

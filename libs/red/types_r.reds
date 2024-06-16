@@ -12,17 +12,20 @@ Red/System [
 
 #define size_t 4; 32-bits library
 
-; * pointers
+; * pointers defined by Red
 ;byte-ptr is defined by red
 ;int-ptr! is defined by red
 ;#define float32-ptr!        [pointer! [float32!]]
 ;#define float-ptr!          [pointer! [float!]]
 
-;** pointers
+
+;** pointers we need 
 #define double-byte-ptr!    [struct! [ptr [byte-ptr!]]]    ; equivalent to C's byte **
 #define double-int-ptr!     [struct! [ptr [int-ptr!]]]     ; equivalent to C's int **
 #define double-float-ptr!   [struct! [ptr [float-ptr!]]]   ; equivalent to C's double **
-#define p-buffer!           [struct! [buffer [c-string!]]] ; equivalent to C's char **
+;#define p-buffer!         [struct! [buffer [c-string!]]] ; equivalent to C's char **
+;p-buffer! is now a structure included in call/reds so we use the next definition
+#define __p-buffer!         [struct! [buffer [c-string!]]] ; equivalent to C's char **
 
 #define _none					null
 #define none?					[_none = ]

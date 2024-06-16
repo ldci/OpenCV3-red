@@ -5,15 +5,13 @@ Red [
 	Needs:	 'View
 ]
 
-
 ; import required OpenCV libraries
-#system [
+#system-global [
 	#include %../../libs/include.reds ; all OpenCV  functions
-	; global variables that can be used by routines
-	cvimage: declare CvArr! 		; pointer to OpenCV Image
-	&cvimage: 0						; address of image as integer
 ]
 
+; some routines for image conversion from openCV to Red 
+#include %../../libs/red/cvroutines.red
 
 ; global red variables to be passed as parameters to routines or red functions
 fileName: make string! ""
@@ -26,24 +24,24 @@ mSizeX: system/view/screens/1/size/x
 mSizeY: system/view/screens/1/size/y - 70
 margins: 10x10
 
-; some routines for image conversion from openCV to Red 
-#include %../../libs/red/cvroutines.red
-
-
-LoadImg: routine [name [string!] return: [integer!] /local fName] [
-	&cvimage: 0
+loadImg: routine [
+	name 		[string!] 
+	return: 	[integer!] 
+	/local  
+	fName		[c-string!] 
+	&cvImage 	[integer!]	 
+	cvImage		[int-ptr!]
+][
+	&cvImage: 0
 	fName: as c-string! string/rs-head name
-	;fName: as c-string! string/rs-head as red-string! #get 'fileName ; better?
-	cvimage: as int-ptr! cvLoadImage fName CV_LOAD_IMAGE_COLOR; (force a 8-bit color conversion)
-	if cvimage <> null [
-		cvFlip cvimage cvimage -1
-		&cvimage: as integer! cvimage  
+	cvImage: as int-ptr! cvLoadImage fName CV_LOAD_IMAGE_COLOR; (force a 8-bit color conversion)
+	if cvImage <> null [
+		cvFlip cvImage cvImage -1
+		&cvImage: as integer! cvImage  
 	]
-	&cvimage
+	&cvImage
 ]
 
-; release all image pointers
-freeOpenCV: routine [] [releaseImage cvImage]
 
 ; red functions
 
@@ -88,9 +86,9 @@ loadImage: does [
 	isFile: false
 	clear fileName
 	tmp: request-file 
-	if not none? tmp [		
-		fileName: to-file tmp
-		img1: LoadImg fileName
+	unless none? tmp [		
+		fileName: to-string tmp
+		img1: LoadImg fileName	;--call Red routine with Red/S code
 		either img1 <> 0 [
 			canvas/image: none
 			wsz: getIWidth img1
@@ -101,7 +99,7 @@ loadImage: does [
 			; redim window with min size
 			win/size/x: 3 * margins/x + list/size/x + max 256 wsz / to-integer scale
 			win/size/y: 6 * margins/y + max 256 hsz / to-integer scale
-			win/text: append append append fileName " (1:" scale ")"
+			win/text: append append append fileName " (1:" to-integer scale ")"
 			canvas/size/x: wsz / to-integer scale
 			canvas/size/y: hsz / to-integer scale
 			checker/visible?: getImageOffset img1
@@ -118,7 +116,7 @@ view win: layout [
 	title "OpenCV Image Reading"
 	origin margins space margins
 	button 60 "Load"	[loadImage]
-	button 60 "Quit"	[recycle/on if isFile [freeOpenCV] quit]
+	button 60 "Quit"	[recycle/on quit]
 	pad 110x0
 	checker: text "Reading by Line Required"
 	return
