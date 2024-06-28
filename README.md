@@ -4,13 +4,14 @@
 
 ### This binding has been tested with macOS 10.14.6 (macOS Mojave, which is the last version to support 32-bit applications).
 ###You must use a 32-bit version of dynamically linked libraries (see /DDLs directory).
-###You need to modify *%libs/includes.reds and %libs/platforms.reds* to adapt to your OS and directories.
+
+### You need to modify *%libs/includes.reds and %libs/platforms.reds* to adapt to your OS and directories.
 
 
 ### This binding allows access about 600 basic OpenCV functions.
 ### This binding can be used with OpenCV 1.0 up to OpenCV 3.0 version.
 
-###For access to recent OpenCV versions have a look here:  [OpenCV-Rebol 3](https://github.com/Oldes/Rebol-OpenCV)
+### For access to recent OpenCV versions have a look here:  [OpenCV-Rebol 3](https://github.com/Oldes/Rebol-OpenCV)
 
 ### NEW JUNE 2024
 Red OpenCV is compatible with the red-toolchain 0.6.5. The code I wrote over 10 years ago to access OpenCV's C functions is still operational with Red 0.6.5. Thanks to Nenad for corrections. 
